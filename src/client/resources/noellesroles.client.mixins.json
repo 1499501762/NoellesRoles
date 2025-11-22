@@ -26,6 +26,7 @@
     "killerfix.CoinCounterMixin",
     "killerfix.KillerInstinctMixin",
     "killerfix.KillerMoodMixin",
-    "killerfix.KillerRevolverMixin"
+    "killerfix.KillerRevolverMixin",
+    "killerfix.KillerTimerMixin"
   ]
 }
