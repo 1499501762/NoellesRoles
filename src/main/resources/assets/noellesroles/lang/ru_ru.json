@@ -1,0 +1,68 @@
+{
+  "announcement.goals.jester": "Найдите убийц и объединитесь с ними.",
+  "announcement.role.jester": "Шут",
+  "announcement.win.jester": "Шуты победили!",
+
+  "announcement.goals.morphling": "Обмани всех.",
+  "announcement.role.morphling": "Имитатор",
+  "announcement.win.morphling": "Убийцы победили!",
+
+  "announcement.goals.awesome_binglus": "Превосходный Бунглус",
+  "announcement.role.awesome_binglus": "Превосходный Бунглус",
+  "announcement.win.awesome_binglus": "Пассажиры победили!",
+
+  "announcement.goals.conductor": "Используйте мастер-ключ, чтобы открыть любую дверь в поезде!",
+  "announcement.role.conductor": "Кондуктор",
+  "announcement.win.conductor": "Пассажиры победили!",
+
+  "announcement.goals.the_insane_damned_paranoid_killer": "Я слышу голоса мёртвых.",
+  "announcement.role.the_insane_damned_paranoid_killer": "Безумный Проклятый Параноидальный Убийца Смерти, Разрушения и Вафель",
+  "announcement.win.the_insane_damned_paranoid_killer": "Убийцы победили!",
+
+
+  "announcement.goals.bartender": "Смотрите на игроков, которые пьют сквозь стены!",
+  "announcement.role.bartender": "Пьяница",
+  "announcement.win.bartender": "Пассажиры победили!",
+
+  "announcement.goals.phantom": "Станьте невидимыми, но остерегайтесь столкновений с другими игракоми.",
+  "announcement.role.phantom": "Фантом",
+  "announcement.win.phantom": "Убийцы победили!",
+
+  "announcement.goals.noisemaker": "Оповещайте игроков о вашем местоположении в случае смерти.",
+  "announcement.role.noisemaker": "Знаменитость",
+  "announcement.win.noisemaker": "Пассажиры победили!",
+
+  "announcement.goals.voodoo": "Выберите другого игрока, который умрёт с вами.",
+  "announcement.role.voodoo": "Вуду",
+  "announcement.win.voodoo": "Пассажиры победили!",
+
+  "announcement.goals.swapper": "Меняйтесь местами с другими игроками.",
+  "announcement.role.swapper": "Обменник",
+  "announcement.win.swapper": "Убийцы победили!",
+
+  "announcement.goals.coroner": "Получите информацию о мертвых телах.",
+  "announcement.role.coroner": "Детектив",
+  "announcement.win.coroner": "Passengers Win!",
+
+  "announcement.goals.executioner": "Become a killer once your target dies (to a non-killer).",
+  "announcement.role.executioner": "Executioner",
+  "announcement.win.executioner": "Passengers Win!",
+
+  "announcement.goals.seer": "Check other player's roles.",
+  "announcement.role.seer": "Seer",
+  "announcement.win.seer": "Пассажиры победили!",
+
+
+  "item.noellesroles.fake_revolver": "Поддельный револьвер",
+  "item.noellesroles.master_key": "Мастер-ключ",
+  "item.noellesroles.fake_knife": "Поддельный нож",
+
+  "death_reason.trainmurdermystery.gun_shot": "a bullet.",
+  "death_reason.trainmurdermystery.knife_stab": "a knife!",
+  "death_reason.trainmurdermystery.generic": "unknown causes.",
+  "death_reason.trainmurdermystery.bat_hit": "blunt force!",
+  "death_reason.trainmurdermystery.grenade": "an explosion!",
+  "death_reason.trainmurdermystery.poison": "poison!",
+  "death_reason.trainmurdermystery.fell_out_of_train": "being ran over.",
+  "death_reason.noellesroles.voodoo": "voodoo magic."
+}
