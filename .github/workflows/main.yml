@@ -1,0 +1,75 @@
+name: Build and Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21 and enable Gradle cache
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Ensure libs folder
+        run: mkdir -p libs
+
+      - name: Install jq for JSON parsing
+        run: sudo apt-get update -y && sudo apt-get install -y jq
+
+      - name: Download wathe from Modrinth (try version 1.3-1.21.1) with GitHub fallback
+        run: |
+          set -e
+          SLUG="wathe"
+          WANT_VER="1.3-1.21.1"
+          API="https://api.modrinth.com/v2/project/${SLUG}/version"
+          echo "Querying Modrinth for ${SLUG}..."
+          urls=$(curl -s "$API" | jq -r --arg want "$WANT_VER" '[ .[] | select(.version_number==$want) | .files[0].url ] | .[]')
+          if [ -z "$urls" ]; then
+            echo "Exact version ${WANT_VER} not found on Modrinth for ${SLUG}."
+            # try first version returned by Modrinth
+            url=$(curl -s "$API" | jq -r '.[0].files[0].url // empty')
+            if [ -z "$url" ]; then
+              echo "No Modrinth file found for ${SLUG}, falling back to GitHub release URL."
+              url="https://github.com/doctor4t/Wathe/releases/download/1.3-1.21.1/wathe-1.3-1.21.1.jar"
+            fi
+          else
+            url=$(echo "$urls" | head -n1)
+          fi
+          echo "Downloading wathe from: $url"
+          curl -L -o libs/wathe-1.3-1.21.1.jar "$url"
+
+      - name: Download harpymodloader from Modrinth (try version 1.1-h1.3)
+        run: |
+          set -e
+          SLUG="harpymodloader"
+          WANT_VER="1.1-h1.3"
+          API="https://api.modrinth.com/v2/project/${SLUG}/version"
+          echo "Querying Modrinth for ${SLUG}..."
+          url=$(curl -s "$API" | jq -r --arg want "$WANT_VER" 'map(select(.version_number==$want)) | .[0].files[0].url // empty')
+          if [ -z "$url" ]; then
+            echo "Exact version ${WANT_VER} not found -> using first version returned by Modrinth"
+            url=$(curl -s "$API" | jq -r '.[0].files[0].url')
+          fi
+          echo "Downloading harpymodloader from: $url"
+          curl -L -o libs/harpymodloader-1.1-h1.3.jar "$url"
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build and test
+        run: ./gradlew build --no-daemon
+
+      - name: Upload build artifacts (optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-libs
+          path: build/libs
