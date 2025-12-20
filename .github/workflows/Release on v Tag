@@ -1,0 +1,223 @@
+name: Release on v Tag (custom naming: noellesroles-<version>-h<dep>)
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  JAVA_VERSION: '21'
+  BASE_NAME: 'noellesroles'               # 产物基名称
+  HARP_WANT_VER: ''                       # 可选：强制指定 harpymodloader 的 version_number（留空则使用 Modrinth 返回的第一个）
+  WATHE_WANT_VER: ''                      # 可选：强制指定 wathe 的 version_number（留空则使用 Modrinth 返回的第一个）
+  WATHE_GITHUB_FALLBACK: 'https://github.com/doctor4t/Wathe/releases/download/1.3-1.21.1/wathe-1.3-1.21.1.jar'
+  MODRINTH_GAME_VERSIONS: '["1.21.1"]'
+  MODRINTH_LOADERS: '["fabric"]'
+  MODRINTH_CHANNEL: 'stable'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Determine version (strip leading v/V)
+        id: set-version
+        shell: bash
+        run: |
+          TAG="${GITHUB_REF##*/}"
+          if [[ "$TAG" =~ ^[vV](.+)$ ]]; then
+            VERSION="${BASH_REMATCH[1]}"
+          else
+            VERSION="$TAG"
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Set up JDK 21 and enable Gradle cache
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '${{ env.JAVA_VERSION }}'
+          cache: gradle
+
+      - name: Prepare workspace and install jq
+        run: |
+          mkdir -p libs
+          sudo apt-get update -y
+          sudo apt-get install -y jq curl
+
+      - name: Download harpymodloader from Modrinth and determine dep suffix
+        id: get-harp
+        shell: bash
+        run: |
+          set -e
+          SLUG="harpymodloader"
+          API="https://api.modrinth.com/v2/project/${SLUG}/version"
+          WANT="${HARP_WANT_VER}"
+          raw=$(curl -s "$API")
+          if [ -z "$raw" ] || [ "$raw" = "null" ]; then
+            echo "harp_file=none" >> "$GITHUB_OUTPUT"
+            echo "harp_version=unknown" >> "$GITHUB_OUTPUT"
+            echo "dep=hunknown" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ -n "$WANT" ]; then
+            entry=$(echo "$raw" | jq -r --arg want "$WANT" 'map(select(.version_number==$want)) | .[0]')
+          fi
+          if [ -z "$entry" ] || [ "$entry" = "null" ]; then
+            entry=$(echo "$raw" | jq -r '.[0]')
+          fi
+          if [ -z "$entry" ] || [ "$entry" = "null" ]; then
+            echo "harp_file=none" >> "$GITHUB_OUTPUT"
+            echo "harp_version=unknown" >> "$GITHUB_OUTPUT"
+            echo "dep=hunknown" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          version_number=$(echo "$entry" | jq -r '.version_number // empty')
+          file_url=$(echo "$entry" | jq -r '.files[0].url // empty')
+          dep="h${version_number}"
+          if [[ "$version_number" =~ (h[0-9]+(\.[0-9]+)*) ]]; then
+            dep="${BASH_REMATCH[1]}"
+          else
+            if [[ "$version_number" =~ -?(h[0-9]+(\.[0-9]+)*) ]]; then
+              dep="${BASH_REMATCH[1]}"
+            fi
+          fi
+          dep="$(echo "$dep" | sed 's/[^h0-9\.]//g')"
+          if [ -n "$file_url" ]; then
+            outname="libs/harpymodloader-${version_number}.jar"
+            curl -L -s -o "$outname" "$file_url"
+            echo "harp_file=$outname" >> "$GITHUB_OUTPUT"
+          else
+            echo "harp_file=none" >> "$GITHUB_OUTPUT"
+          fi
+          echo "harp_version=$version_number" >> "$GITHUB_OUTPUT"
+          echo "dep=$dep" >> "$GITHUB_OUTPUT"
+
+      - name: Download wathe from Modrinth (try specified or fallback to GitHub release)
+        id: get-wathe
+        shell: bash
+        run: |
+          set -e
+          SLUG="wathe"
+          API="https://api.modrinth.com/v2/project/${SLUG}/version"
+          WANT="${WATHE_WANT_VER}"
+          raw=$(curl -s "$API")
+          chosen_url=""
+          chosen_ver=""
+          if [ -n "$raw" ] && [ "$raw" != "null" ]; then
+            if [ -n "$WANT" ]; then
+              entry=$(echo "$raw" | jq -r --arg want "$WANT" 'map(select(.version_number==$want)) | .[0]')
+            fi
+            if [ -z "$entry" ] || [ "$entry" = "null" ]; then
+              entry=$(echo "$raw" | jq -r '.[0]')
+            fi
+            if [ -n "$entry" ] && [ "$entry" != "null" ]; then
+              chosen_ver=$(echo "$entry" | jq -r '.version_number // empty')
+              chosen_url=$(echo "$entry" | jq -r '.files[0].url // empty')
+            fi
+          fi
+          if [ -z "$chosen_url" ]; then
+            echo "Modrinth did not provide wathe file; falling back to GitHub release URL"
+            chosen_url="${WATHE_GITHUB_FALLBACK}"
+            chosen_ver=""
+          fi
+          outname="libs/wathe"
+          if [ -n "$chosen_ver" ]; then
+            outname="libs/wathe-${chosen_ver}.jar"
+          else
+            outname="libs/wathe.jar"
+          fi
+          echo "Downloading wathe from: $chosen_url -> $outname"
+          curl -L -s -o "$outname" "$chosen_url"
+          echo "wathe_file=$outname" >> "$GITHUB_OUTPUT"
+          echo "wathe_version=$chosen_ver" >> "$GITHUB_OUTPUT"
+
+      - name: Show resolved version and dep
+        run: |
+          echo "GIT TAG: ${{ steps.set-version.outputs.tag }}"
+          echo "VERSION (no leading v): ${{ steps.set-version.outputs.version }}"
+          echo "HARP version_number: ${{ steps.get-harp.outputs.harp_version }}"
+          echo "DEP suffix: ${{ steps.get-harp.outputs.dep }}"
+          echo "WATHE file: ${{ steps.get-wathe.outputs.wathe_file }}"
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build (gradle)
+        run: ./gradlew build --no-daemon
+
+      - name: Rename / copy build artifacts to naming convention
+        id: rename-artifacts
+        shell: bash
+        run: |
+          set -e
+          BASE="${{ env.BASE_NAME }}"
+          VERSION="${{ steps.set-version.outputs.version }}"
+          DEP="${{ steps.get-harp.outputs.dep }}"
+          mkdir -p build/libs
+          cnt=0
+          out_list=""
+          for f in build/libs/*.jar; do
+            [ -f "$f" ] || continue
+            orig="$(basename "$f")"
+            if [[ "$orig" == "${BASE}"* ]]; then
+              if [ $cnt -eq 0 ]; then
+                new="${BASE}-${VERSION}-${DEP}.jar"
+              else
+                new="${BASE}-${VERSION}-${DEP}-${cnt}.jar"
+              fi
+            else
+              new="${BASE}-${VERSION}-${DEP}-${orig}"
+            fi
+            cp "$f" "build/libs/$new"
+            out_list="${out_list} build/libs/$new"
+            cnt=$((cnt+1))
+          done
+          if [ -z "$out_list" ]; then
+            echo "artifacts= " >> "$GITHUB_OUTPUT"
+          else
+            echo "artifacts=$out_list" >> "$GITHUB_OUTPUT"
+          fi
+          echo "artifact_count=$cnt" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release and upload named artifacts
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.set-version.outputs.tag }}
+          name: ${{ env.BASE_NAME }}-${{ steps.set-version.outputs.version }}-${{ steps.get-harp.outputs.dep }}
+          body: Release ${{ env.BASE_NAME }}-${{ steps.set-version.outputs.version }}-${{ steps.get-harp.outputs.dep }}
+          files: build/libs/${{ env.BASE_NAME }}-${{ steps.set-version.outputs.version }}-${{ steps.get-harp.outputs.dep }}*.jar
+
+      - name: Publish to Modrinth (optional) - use version_number = <VERSION>-<DEP>
+        if: ${{ secrets.MODRINTH_TOKEN && secrets.MODRINTH_PROJECT_ID }}
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          MODRINTH_PROJECT_ID: ${{ secrets.MODRINTH_PROJECT_ID }}
+          MODRINTH_GAME_VERSIONS: ${{ secrets.MODRINTH_GAME_VERSIONS || env.MODRINTH_GAME_VERSIONS }}
+          MODRINTH_LOADERS: ${{ secrets.MODRINTH_LOADERS || env.MODRINTH_LOADERS }}
+          MODRINTH_CHANNEL: ${{ secrets.MODRINTH_CHANNEL || env.MODRINTH_CHANNEL }}
+          VERSION: ${{ steps.set-version.outputs.version }}
+          DEP: ${{ steps.get-harp.outputs.dep }}
+        shell: bash
+        run: |
+          set -e
+          VERSION="${VERSION}"
+          DEP="${DEP}"
+          TARGET_VERSION="${VERSION}-${DEP}"
+          for f in build/libs/${{ env.BASE_NAME }}-${{ steps.set-version.outputs.version }}-${{ steps.get-harp.outputs.dep }}*.jar; do
+            [ -f "$f" ] || continue
+            metadata=$(jq -nc --arg vn "$TARGET_VERSION" --argjson gvs "$MODRINTH_GAME_VERSIONS" --argjson loaders "$MODRINTH_LOADERS" \
+              '{ "version_number": $vn, "changelog": "", "game_versions": $gvs, "loaders": $loaders, "featured": false }')
+            curl -s -X POST "https://api.modrinth.com/v2/project/$MODRINTH_PROJECT_ID/version" \
+              -H "Authorization: $MODRINTH_TOKEN" \
+              -F "file=@${f}" \
+              -F "metadata=${metadata}" \
+              -o /tmp/modrinth_response.json
+            cat /tmp/modrinth_response.json || true
+          done
+
+      - name: Done
+        run: echo "Release finished: ${{ env.BASE_NAME }}-${{ steps.set-version.outputs.version }}-${{ steps.get-harp.outputs.dep }}"
