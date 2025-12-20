@@ -1,8 +1,8 @@
 package org.agmas.noellesroles.item;
 
-import dev.doctor4t.trainmurdermystery.game.GameFunctions;
-import dev.doctor4t.trainmurdermystery.index.TMMSounds;
-import dev.doctor4t.trainmurdermystery.util.KnifeStabPayload;
+import dev.doctor4t.wathe.game.GameFunctions;
+import dev.doctor4t.wathe.index.WatheSounds;
+import dev.doctor4t.wathe.util.KnifeStabPayload;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,7 +25,7 @@ public class FakeKnifeItem extends Item {
     public TypedActionResult<ItemStack> use(World world, @NotNull PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
-        user.playSound(TMMSounds.ITEM_KNIFE_PREPARE, 1.0F, 1.0F);
+        user.playSound(WatheSounds.ITEM_KNIFE_PREPARE, 1.0F, 1.0F);
         return TypedActionResult.consume(itemStack);
     }
 

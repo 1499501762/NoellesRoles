@@ -1,9 +1,9 @@
 package org.agmas.noellesroles;
 
-import dev.doctor4t.trainmurdermystery.game.GameConstants;
-import dev.doctor4t.trainmurdermystery.index.TMMItems;
-import dev.doctor4t.trainmurdermystery.index.tag.TMMItemTags;
-import dev.doctor4t.trainmurdermystery.item.RevolverItem;
+import dev.doctor4t.wathe.game.GameConstants;
+import dev.doctor4t.wathe.index.WatheItems;
+import dev.doctor4t.wathe.index.tag.WatheItemTags;
+import dev.doctor4t.wathe.item.RevolverItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

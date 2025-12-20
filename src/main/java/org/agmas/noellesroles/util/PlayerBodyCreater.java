@@ -1,6 +1,6 @@
 package org.agmas.noellesroles.util;
 
-import dev.doctor4t.trainmurdermystery.entity.PlayerBodyEntity;
+import dev.doctor4t.wathe.entity.PlayerBodyEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

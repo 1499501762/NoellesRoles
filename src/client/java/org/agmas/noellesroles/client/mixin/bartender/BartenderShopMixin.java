@@ -1,9 +1,9 @@
 package org.agmas.noellesroles.client.mixin.bartender;
 
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.client.gui.screen.ingame.LimitedHandledScreen;
-import dev.doctor4t.trainmurdermystery.client.gui.screen.ingame.LimitedInventoryScreen;
-import dev.doctor4t.trainmurdermystery.util.ShopEntry;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedHandledScreen;
+import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedInventoryScreen;
+import dev.doctor4t.wathe.util.ShopEntry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.ClientPlayerEntity;

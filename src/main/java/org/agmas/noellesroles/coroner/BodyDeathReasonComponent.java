@@ -1,9 +1,9 @@
 package org.agmas.noellesroles.coroner;
 
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
-import dev.doctor4t.trainmurdermystery.entity.PlayerBodyEntity;
-import dev.doctor4t.trainmurdermystery.game.GameConstants;
-import dev.doctor4t.trainmurdermystery.game.GameFunctions;
+import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.entity.PlayerBodyEntity;
+import dev.doctor4t.wathe.game.GameConstants;
+import dev.doctor4t.wathe.game.GameFunctions;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
@@ -19,7 +19,7 @@ import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 public class BodyDeathReasonComponent implements AutoSyncedComponent, ServerTickingComponent {
     public static final ComponentKey<BodyDeathReasonComponent> KEY = ComponentRegistry.getOrCreate(Identifier.of(Noellesroles.MOD_ID, "body_death_reason"), BodyDeathReasonComponent.class);
     public Identifier deathReason = GameConstants.DeathReasons.GENERIC;
-    public Identifier playerRole = TMMRoles.CIVILIAN.identifier();
+    public Identifier playerRole = WatheRoles.CIVILIAN.identifier();
     public boolean vultured = false;
     public PlayerBodyEntity playerBodyEntity;
 

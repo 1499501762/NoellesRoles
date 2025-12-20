@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.agmas.noellesroles.Noellesroles;
 
-import dev.doctor4t.trainmurdermystery.api.Role;
+import dev.doctor4t.wathe.api.Role;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;

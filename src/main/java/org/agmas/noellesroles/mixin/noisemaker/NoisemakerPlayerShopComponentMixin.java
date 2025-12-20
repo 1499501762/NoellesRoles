@@ -1,9 +1,9 @@
 package org.agmas.noellesroles.mixin.noisemaker;
 
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
-import dev.doctor4t.trainmurdermystery.index.TMMItems;
-import dev.doctor4t.trainmurdermystery.index.TMMSounds;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerShopComponent;
+import dev.doctor4t.wathe.index.WatheItems;
+import dev.doctor4t.wathe.index.WatheSounds;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
 import net.minecraft.registry.Registries;
@@ -36,18 +36,18 @@ public abstract class NoisemakerPlayerShopComponentMixin {
                 if (balance >= 75) {
                     this.balance -= 75;
                     sync();
-                    player.giveItemStack(TMMItems.FIRECRACKER.getDefaultStack());
+                    player.giveItemStack(WatheItems.FIRECRACKER.getDefaultStack());
                     PlayerEntity var6 = this.player;
                     if (var6 instanceof ServerPlayerEntity) {
                         ServerPlayerEntity player = (ServerPlayerEntity) var6;
-                        player.networkHandler.sendPacket(new PlaySoundS2CPacket(Registries.SOUND_EVENT.getEntry(TMMSounds.UI_SHOP_BUY), SoundCategory.PLAYERS, player.getX(), player.getY(), player.getZ(), 1.0F, 0.9F + this.player.getRandom().nextFloat() * 0.2F, player.getRandom().nextLong()));
+                        player.networkHandler.sendPacket(new PlaySoundS2CPacket(Registries.SOUND_EVENT.getEntry(WatheSounds.UI_SHOP_BUY), SoundCategory.PLAYERS, player.getX(), player.getY(), player.getZ(), 1.0F, 0.9F + this.player.getRandom().nextFloat() * 0.2F, player.getRandom().nextLong()));
                     }
                 } else {
                     this.player.sendMessage(Text.literal("Purchase Failed").formatted(Formatting.DARK_RED), true);
                     PlayerEntity var4 = this.player;
                     if (var4 instanceof ServerPlayerEntity) {
                         ServerPlayerEntity player = (ServerPlayerEntity) var4;
-                        player.networkHandler.sendPacket(new PlaySoundS2CPacket(Registries.SOUND_EVENT.getEntry(TMMSounds.UI_SHOP_BUY_FAIL), SoundCategory.PLAYERS, player.getX(), player.getY(), player.getZ(), 1.0F, 0.9F + this.player.getRandom().nextFloat() * 0.2F, player.getRandom().nextLong()));
+                        player.networkHandler.sendPacket(new PlaySoundS2CPacket(Registries.SOUND_EVENT.getEntry(WatheSounds.UI_SHOP_BUY_FAIL), SoundCategory.PLAYERS, player.getX(), player.getY(), player.getZ(), 1.0F, 0.9F + this.player.getRandom().nextFloat() * 0.2F, player.getRandom().nextLong()));
                     }
                 }
             }

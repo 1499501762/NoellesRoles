@@ -1,8 +1,8 @@
 package org.agmas.noellesroles.client.mixin.sniper;
 
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.client.gui.screen.ingame.LimitedHandledScreen;
-import dev.doctor4t.trainmurdermystery.client.gui.screen.ingame.LimitedInventoryScreen;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedHandledScreen;
+import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedInventoryScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -77,15 +77,15 @@ public abstract class SniperScreenMixin extends LimitedHandledScreen<PlayerScree
         }
 
         // 2) 职业列表
-        Map<String, dev.doctor4t.trainmurdermystery.api.Role> roleMap = RoleUtils.getEnabledInnocentRoleMap();
+        Map<String, dev.doctor4t.wathe.api.Role> roleMap = RoleUtils.getEnabledInnocentRoleMap();
 
         int apartRoles = 36;
         int baseXRoles = width / 2 - (roleMap.size() * apartRoles) / 2 + 9;
         int yRoles = centerY + 120;
 
         int i = 0;
-        for (Map.Entry<String, dev.doctor4t.trainmurdermystery.api.Role> entry : roleMap.entrySet()) {
-            dev.doctor4t.trainmurdermystery.api.Role roleObj = entry.getValue();
+        for (Map.Entry<String, dev.doctor4t.wathe.api.Role> entry : roleMap.entrySet()) {
+            dev.doctor4t.wathe.api.Role roleObj = entry.getValue();
 
             // 新构造函数只需要 Role 对象
             SniperRoleWidget rWidget = new SniperRoleWidget(

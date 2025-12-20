@@ -1,7 +1,7 @@
 package org.agmas.noellesroles.util;
 
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.WatheRoles;
 import org.agmas.harpymodloader.config.HarpyModLoaderConfig;
 
 import java.util.*;
@@ -16,7 +16,7 @@ public class RoleUtils {
         List<Role> enabledRoles = new ArrayList<>();
         
         // 完全兼容ListRolesCommand的过滤逻辑
-        for (Role role : TMMRoles.ROLES) {
+        for (Role role : WatheRoles.ROLES) {
             String roleName = role.identifier().getPath();
             if (!config.disabled.contains(roleName)) {
                 enabledRoles.add(role);
@@ -76,7 +76,7 @@ public class RoleUtils {
         HarpyModLoaderConfig config = HarpyModLoaderConfig.HANDLER.instance();
         List<Role> innocentRoles = new ArrayList<>();
         
-        for (Role role : TMMRoles.ROLES) {
+        for (Role role : WatheRoles.ROLES) {
             String roleName = role.identifier().getPath();
             // 同时满足：未被禁用 + 是平民角色
             if (!config.disabled.contains(roleName)&& !roleName.equals("discovery_civilian") && role.isInnocent()) {

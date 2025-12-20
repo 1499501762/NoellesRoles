@@ -1,10 +1,10 @@
 package org.agmas.noellesroles.client.mixin.noisemaker;
 
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.client.gui.screen.ingame.LimitedHandledScreen;
-import dev.doctor4t.trainmurdermystery.client.gui.screen.ingame.LimitedInventoryScreen;
-import dev.doctor4t.trainmurdermystery.index.TMMItems;
-import dev.doctor4t.trainmurdermystery.util.ShopEntry;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedHandledScreen;
+import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedInventoryScreen;
+import dev.doctor4t.wathe.index.WatheItems;
+import dev.doctor4t.wathe.util.ShopEntry;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.PlayerScreenHandler;
@@ -36,7 +36,7 @@ public abstract class NoisemakerShopMixin extends LimitedHandledScreen<PlayerScr
         GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(player.getWorld());
         if (gameWorldComponent.isRole(player,Noellesroles.NOISEMAKER)) {
             List<ShopEntry> entries = new ArrayList<>();
-            entries.add(new ShopEntry(TMMItems.FIRECRACKER.getDefaultStack(), 75, ShopEntry.Type.TOOL));
+            entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), 75, ShopEntry.Type.TOOL));
             int apart = 36;
             int x = width / 2 - (entries.size()) * apart / 2 + 9;
             int shouldBeY = (((LimitedInventoryScreen)(Object)this).height - 32) / 2;

@@ -2,7 +2,7 @@ package org.agmas.noellesroles.client.mixin.conductor;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import dev.doctor4t.trainmurdermystery.index.TMMItems;
+import dev.doctor4t.wathe.index.WatheItems;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;
@@ -22,7 +22,7 @@ public class MasterKeyInvisibilityMixin {
 
         ItemStack ret = original.call(instance);
         if (ret.isOf(ModItems.MASTER_KEY) && !ConfigWorldComponent.KEY.get(instance.getEntityWorld()).masterKeyIsVisible) {
-            ret = TMMItems.LOCKPICK.getDefaultStack();
+            ret = WatheItems.LOCKPICK.getDefaultStack();
         }
 
         return ret;

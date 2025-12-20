@@ -1,6 +1,6 @@
 package org.agmas.noellesroles.util;
 
-import dev.doctor4t.trainmurdermystery.index.TMMSounds;
+import dev.doctor4t.wathe.index.WatheSounds;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -18,7 +18,7 @@ public final class Effects {
             /* x */ player.getX(),
             /* y */ player.getEyeY(),
             /* z */ player.getZ(),
-            /* sound */ TMMSounds.ITEM_KNIFE_STAB,
+            /* sound */ WatheSounds.ITEM_KNIFE_STAB,
             /* category */ SoundCategory.PLAYERS,
             /* volume */ soundVolume,
             /* pitch */ 1f + player.getRandom().nextFloat() * 0.1f - 0.05f
@@ -31,7 +31,7 @@ public final class Effects {
             /* x */ player.getX(),
             /* y */ player.getEyeY(),
             /* z */ player.getZ(),
-            /* sound */ TMMSounds.ITEM_KNIFE_PREPARE,
+            /* sound */ WatheSounds.ITEM_KNIFE_PREPARE,
             /* category */ SoundCategory.PLAYERS,
             /* volume */ soundVolume,
             /* pitch */ 1f + player.getRandom().nextFloat() * 0.1f - 0.05f
@@ -44,7 +44,7 @@ public final class Effects {
             /* x */ player.getX(),
             /* y */ player.getEyeY(),
             /* z */ player.getZ(),
-            /* sound */ TMMSounds.ITEM_GRENADE_THROW,
+            /* sound */ WatheSounds.ITEM_GRENADE_THROW,
             /* category */ SoundCategory.PLAYERS,
             /* volume */ soundVolume,
             /* pitch */ 1f + player.getRandom().nextFloat() * 0.1f - 0.05f
@@ -57,7 +57,7 @@ public final class Effects {
             /* x */ player.getX(),
             /* y */ player.getEyeY(),
             /* z */ player.getZ(),
-            /* sound */ TMMSounds.ITEM_GRENADE_EXPLODE,
+            /* sound */ WatheSounds.ITEM_GRENADE_EXPLODE,
             /* category */ SoundCategory.PLAYERS,
             /* volume */ soundVolume,
             /* pitch */ 1f + player.getRandom().nextFloat() * 0.1f - 0.05f
@@ -72,7 +72,7 @@ public final class Effects {
             /* x */ player.getX(),
             /* y */ player.getEyeY(),
             /* z */ player.getZ(),
-            /* sound */ TMMSounds.ITEM_REVOLVER_CLICK,
+            /* sound */ WatheSounds.ITEM_REVOLVER_CLICK,
             /* category */ SoundCategory.PLAYERS,
             /* volume */ soundVolume,
             /* pitch */ 1f + player.getRandom().nextFloat() * 0.1f - 0.05f
@@ -90,7 +90,7 @@ public final class Effects {
             player.getX(),
             player.getEyeY(),
             player.getZ(),
-            TMMSounds.ITEM_REVOLVER_SHOOT,
+            WatheSounds.ITEM_REVOLVER_SHOOT,
             SoundCategory.PLAYERS,
             /* volume */ soundVolume,
             /* pitch */ 1f + player.getRandom().nextFloat() * 0.1f - 0.05f
