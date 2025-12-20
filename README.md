@@ -26,6 +26,9 @@ Role List:
 - Swapper
   - Can swap two people around the map on a cooldown.
 
+- Sniper
+  - Players can be killed by guess peoples identity.
+
 ## Civillians
 
 - Host
@@ -46,6 +49,9 @@ Role List:
 
 - Voodoo
   - Choose one person to die alongside you.
+
+- Troll
+  - ???????.
 
 ## ???? (disabled by default, turn on a config option to get them back on!)
 

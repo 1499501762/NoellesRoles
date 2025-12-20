@@ -64,7 +64,13 @@ public abstract class SwapperScreenMixin extends LimitedHandledScreen<PlayerScre
             int y = shouldBeY + 80;
 
             for(int i = 0; i < entries.size(); ++i) {
-                SwapperPlayerWidget child = new SwapperPlayerWidget(((LimitedInventoryScreen)(Object)this), x + apart * i, y, entries.get(i), i);
+                SwapperPlayerWidget child = new SwapperPlayerWidget(
+                ((LimitedInventoryScreen)(Object)this),
+                x + apart * i,
+                y,
+                entries.get(i),
+                i
+            );
                 addDrawableChild(child);
             }
         }

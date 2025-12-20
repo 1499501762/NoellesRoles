@@ -1,5 +1,9 @@
 .gradle/*
 .idea/*
+.vscode/*
+libs/*
+lib/*
+run/*
 build/*
 run/*
 gradle/*
