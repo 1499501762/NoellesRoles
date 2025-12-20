@@ -1,7 +1,7 @@
 package org.agmas.noellesroles.mixin.framing;
 
-import dev.doctor4t.trainmurdermystery.block.FoodPlatterBlock;
-import dev.doctor4t.trainmurdermystery.block_entity.BeveragePlateBlockEntity;
+import dev.doctor4t.wathe.block.FoodPlatterBlock;
+import dev.doctor4t.wathe.block_entity.BeveragePlateBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;

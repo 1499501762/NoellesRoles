@@ -1,14 +1,14 @@
 package org.agmas.noellesroles.client.mixin.coroner;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
-import dev.doctor4t.trainmurdermystery.client.TMMClient;
-import dev.doctor4t.trainmurdermystery.client.gui.RoleNameRenderer;
-import dev.doctor4t.trainmurdermystery.entity.PlayerBodyEntity;
-import dev.doctor4t.trainmurdermystery.game.GameFunctions;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
+import dev.doctor4t.wathe.client.WatheClient;
+import dev.doctor4t.wathe.client.gui.RoleNameRenderer;
+import dev.doctor4t.wathe.entity.PlayerBodyEntity;
+import dev.doctor4t.wathe.game.GameFunctions;
 import net.fabricmc.loader.impl.util.log.Log;
 import net.fabricmc.loader.impl.util.log.LogCategory;
 import net.minecraft.client.MinecraftClient;
@@ -49,13 +49,13 @@ public abstract class CoronerHudMixin {
     private static void coronerRoleNameRenderer(TextRenderer renderer, ClientPlayerEntity player, DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
         GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(player.getWorld());
         if (NoellesrolesClient.targetBody != null) {
-            if (gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.CORONER) || gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.VULTURE) || TMMClient.isPlayerSpectatingOrCreative()) {
+            if (gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.CORONER) || gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.VULTURE) || WatheClient.isPlayerSpectatingOrCreative()) {
 
                 context.getMatrices().push();
                 context.getMatrices().translate((float)context.getScaledWindowWidth() / 2.0F, (float)context.getScaledWindowHeight() / 2.0F + 6.0F, 0.0F);
                 context.getMatrices().scale(0.6F, 0.6F, 1.0F);
                 PlayerMoodComponent moodComponent = (PlayerMoodComponent) PlayerMoodComponent.KEY.get(MinecraftClient.getInstance().player);
-                if (moodComponent.isLowerThanMid() && TMMClient.isPlayerAliveAndInSurvival()) {
+                if (moodComponent.isLowerThanMid() && WatheClient.isPlayerAliveAndInSurvival()) {
                     // Text name = Text.literal("50% sanity required to use ability");
                     Text name = Text.translatable("hud.coroner.sanity_requirements");
                     context.drawTextWithShadow(renderer, name, -renderer.getWidth(name) / 2, 32, Colors.YELLOW);
@@ -69,11 +69,11 @@ public abstract class CoronerHudMixin {
                     name = Text.literal("aa aaaaaa aaa aa a aaaaa aaa").formatted(Formatting.OBFUSCATED);
                 }
                 context.drawTextWithShadow(renderer, name, -renderer.getWidth(name) / 2, 32, Colors.RED);
-                Role foundRole = TMMRoles.CIVILIAN;
-                for (Role role : TMMRoles.ROLES) {
+                Role foundRole = WatheRoles.CIVILIAN;
+                for (Role role : WatheRoles.ROLES) {
                     if (role.identifier().equals(bodyDeathReasonComponent.playerRole)) foundRole =role;
                 }
-                if ((TMMClient.isPlayerSpectatingOrCreative() || gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.CORONER)) && !bodyDeathReasonComponent.vultured ) {
+                if ((WatheClient.isPlayerSpectatingOrCreative() || gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.CORONER)) && !bodyDeathReasonComponent.vultured ) {
                     Text roleInfo = Text.translatable("hud.coroner.role_info").withColor(Colors.RED).append(Text.translatable("announcement.role." + bodyDeathReasonComponent.playerRole.getPath()).withColor(foundRole.color()));
                     context.drawTextWithShadow(renderer, roleInfo, -renderer.getWidth(roleInfo) / 2, 48, Colors.WHITE);
                 }
@@ -83,7 +83,7 @@ public abstract class CoronerHudMixin {
                         context.drawTextWithShadow(renderer, roleInfo, -renderer.getWidth(roleInfo) / 2, 48, Colors.WHITE);
                     } else {
                         AbilityPlayerComponent abilityPlayerComponent = AbilityPlayerComponent.KEY.get(player);
-                        if (abilityPlayerComponent.cooldown <= 0 && TMMClient.isPlayerAliveAndInSurvival()) {
+                        if (abilityPlayerComponent.cooldown <= 0 && WatheClient.isPlayerAliveAndInSurvival()) {
                             Text roleInfo = Text.translatable("hud.vulture.eat", NoellesrolesClient.abilityBind.getBoundKeyLocalizedText()).withColor(Colors.RED);
                             context.drawTextWithShadow(renderer, roleInfo, -renderer.getWidth(roleInfo) / 2, 48, Colors.WHITE);
                         }

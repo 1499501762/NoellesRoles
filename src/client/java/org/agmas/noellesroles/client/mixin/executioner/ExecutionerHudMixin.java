@@ -1,11 +1,11 @@
 package org.agmas.noellesroles.client.mixin.executioner;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
-import dev.doctor4t.trainmurdermystery.client.TMMClient;
-import dev.doctor4t.trainmurdermystery.client.gui.RoleNameRenderer;
+import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
+import dev.doctor4t.wathe.client.WatheClient;
+import dev.doctor4t.wathe.client.gui.RoleNameRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -39,7 +39,7 @@ public abstract class ExecutionerHudMixin {
     @Inject(method = "renderHud", at = @At("HEAD"))
     private static void executionerHudRenderer(TextRenderer renderer, ClientPlayerEntity player, DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
         GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(player.getWorld());
-        if (HarpymodloaderClient.hudRole == Noellesroles.EXECUTIONER && TMMClient.isPlayerSpectatingOrCreative()) {
+        if (HarpymodloaderClient.hudRole == Noellesroles.EXECUTIONER && WatheClient.isPlayerSpectatingOrCreative()) {
             if (NoellesrolesClient.target == null) return;
             ExecutionerPlayerComponent executionerPlayerComponent = (ExecutionerPlayerComponent) ExecutionerPlayerComponent.KEY.get(NoellesrolesClient.target);
 
@@ -53,7 +53,7 @@ public abstract class ExecutionerHudMixin {
 
             context.getMatrices().pop();
         }
-        if (gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.EXECUTIONER) && TMMClient.isPlayerAliveAndInSurvival()) {
+        if (gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.EXECUTIONER) && WatheClient.isPlayerAliveAndInSurvival()) {
             if (!gameWorldComponent.getRole(MinecraftClient.getInstance().player).canUseKiller()) {
                 ExecutionerPlayerComponent executionerPlayerComponent = (ExecutionerPlayerComponent) ExecutionerPlayerComponent.KEY.get(player);
 

@@ -66,13 +66,13 @@
   "item.noellesroles.delusion_vial.tooltip": "Щелкните ПКМ по подносу с едой/напитками, чтобы использовать\nПоддельный яд, который работает как обычный,\nно не может причинить вреда жертве.",
 
 
-  "death_reason.trainmurdermystery.gun_shot": "от пулевого ранения.",
-  "death_reason.trainmurdermystery.knife_stab": "от ножевого ранения!",
-  "death_reason.trainmurdermystery.generic": "по неизвестной причине.",
-  "death_reason.trainmurdermystery.bat_hit": "от удара битой!",
-  "death_reason.trainmurdermystery.grenade": "от взрыва!",
-  "death_reason.trainmurdermystery.poison": "от отравления!",
-  "death_reason.trainmurdermystery.fell_out_of_train": "от падения с поезда.",
+  "death_reason.wathe.gun_shot": "от пулевого ранения.",
+  "death_reason.wathe.knife_stab": "от ножевого ранения!",
+  "death_reason.wathe.generic": "по неизвестной причине.",
+  "death_reason.wathe.bat_hit": "от удара битой!",
+  "death_reason.wathe.grenade": "от взрыва!",
+  "death_reason.wathe.poison": "от отравления!",
+  "death_reason.wathe.fell_out_of_train": "от падения с поезда.",
   "death_reason.noellesroles.voodoo": "от магии вуду.",
 
   "tip.phantom": "Нажмите %s чтобы стать невидимым!",

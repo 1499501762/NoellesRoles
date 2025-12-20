@@ -1,7 +1,7 @@
 package org.agmas.noellesroles.client.mixin.phantom;
 
 import dev.doctor4t.ratatouille.client.render.feature.PlushOnHeadFeatureRenderer;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;

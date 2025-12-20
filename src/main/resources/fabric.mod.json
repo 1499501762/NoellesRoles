@@ -37,7 +37,9 @@
       "noellesroles:body_death_reason",
       "noellesroles:executioner",
       "noellesroles:recaller",
-      "noellesroles:vulture"
+      "noellesroles:vulture",
+      "noellesroles:sniper",
+      "noellesroles:troll"
     ]
   },
   "mixins": [

@@ -2,7 +2,7 @@ package org.agmas.noellesroles.client.mixin.bartender;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import dev.doctor4t.trainmurdermystery.index.TMMItems;
+import dev.doctor4t.wathe.index.WatheItems;
 import net.fabricmc.loader.impl.util.log.Log;
 import net.fabricmc.loader.impl.util.log.LogCategory;
 import net.minecraft.client.network.AbstractClientPlayerEntity;

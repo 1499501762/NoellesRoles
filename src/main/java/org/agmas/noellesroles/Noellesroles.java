@@ -1,23 +1,28 @@
 package org.agmas.noellesroles;
 
-import dev.doctor4t.trainmurdermystery.TMM;
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerPsychoComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
-import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
-import dev.doctor4t.trainmurdermystery.client.util.TMMItemTooltips;
-import dev.doctor4t.trainmurdermystery.entity.PlayerBodyEntity;
-import dev.doctor4t.trainmurdermystery.event.AllowPlayerDeath;
-import dev.doctor4t.trainmurdermystery.event.CanSeePoison;
-import dev.doctor4t.trainmurdermystery.game.GameConstants;
-import dev.doctor4t.trainmurdermystery.game.GameFunctions;
-import dev.doctor4t.trainmurdermystery.index.TMMItems;
-import dev.doctor4t.trainmurdermystery.index.TMMSounds;
-import dev.doctor4t.trainmurdermystery.util.AnnounceWelcomePayload;
-import dev.doctor4t.trainmurdermystery.util.ShopEntry;
+import java.util.concurrent.ThreadLocalRandom;
+
+import dev.doctor4t.wathe.Wathe;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
+import dev.doctor4t.wathe.cca.PlayerPsychoComponent;
+import dev.doctor4t.wathe.cca.PlayerShopComponent;
+import dev.doctor4t.wathe.client.gui.RoleAnnouncementTexts;
+import dev.doctor4t.wathe.client.util.WatheItemTooltips;
+import dev.doctor4t.wathe.entity.PlayerBodyEntity;
+import dev.doctor4t.wathe.api.event.AllowPlayerDeath;
+import dev.doctor4t.wathe.api.event.CanSeePoison;
+import dev.doctor4t.wathe.game.GameConstants;
+import dev.doctor4t.wathe.game.GameFunctions;
+import dev.doctor4t.wathe.index.WatheItems;
+import dev.doctor4t.wathe.index.WatheSounds;
+import dev.doctor4t.wathe.util.AnnounceWelcomePayload;
+import dev.doctor4t.wathe.util.GunShootPayload;
+import dev.doctor4t.wathe.util.Scheduler;
+import dev.doctor4t.wathe.util.ShopEntry;
+import org.agmas.noellesroles.packet.SniperC2SPacket;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -30,7 +35,9 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.CustomPayload;
+
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
@@ -50,19 +57,36 @@ import org.agmas.noellesroles.packet.MorphC2SPacket;
 import org.agmas.noellesroles.packet.SwapperC2SPacket;
 import org.agmas.noellesroles.packet.VultureEatC2SPacket;
 import org.agmas.noellesroles.recaller.RecallerPlayerComponent;
+import org.agmas.noellesroles.sniper.SniperPlayerComponent;
+import org.agmas.noellesroles.util.RoleUtils;
+import org.agmas.noellesroles.util.Effects;
+import org.agmas.noellesroles.util.PlayerBodyCreater;
 import org.agmas.noellesroles.voodoo.VoodooPlayerComponent;
 import org.agmas.noellesroles.vulture.VulturePlayerComponent;
 
 import java.awt.*;
 import java.lang.reflect.Constructor;
+import java.rmi.registry.Registry;
 import java.util.*;
 import java.util.List;
 
 public class Noellesroles implements ModInitializer {
 
     public static String MOD_ID = "noellesroles";
+    // // 集合：方便查找和罗列
+    // public static final Map<Identifier, Role> ROLE_MAP = new HashMap<>();
+    // // 专门存附属模组角色
+    // public static final List<Role> MOD_ROLES = new ArrayList<>();
+    // public static final List<Identifier> MOD_ROLE_IDS = new ArrayList<>();
+    // // 注册函数
+    // public static Role registerModRole(Identifier id, Role role) {
+    //     ROLE_MAP.put(id, role);
+    //     MOD_ROLES.add(role);
+    //     MOD_ROLE_IDS.add(id);
+    //     return role;
+    // }
 
-
+    
     public static Identifier JESTER_ID = Identifier.of(MOD_ID, "jester");
     public static Identifier MORPHLING_ID = Identifier.of(MOD_ID, "morphling");
     public static Identifier CONDUCTOR_ID = Identifier.of(MOD_ID, "conductor");
@@ -79,33 +103,39 @@ public class Noellesroles implements ModInitializer {
     public static Identifier EXECUTIONER_ID = Identifier.of(MOD_ID, "executioner");
     public static Identifier VULTURE_ID = Identifier.of(MOD_ID, "vulture");
     public static Identifier BETTER_VIGILANTE_ID = Identifier.of(MOD_ID, "better_vigilante");
+    public static Identifier SNIPER_ID = Identifier.of(MOD_ID, "sniper");
+    public static Identifier TROLL_ID = Identifier.of(MOD_ID, "troll");
     public static Identifier THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES_ID = Identifier.of(MOD_ID, "the_insane_damned_paranoid_killer");
 
     public static HashMap<Role, RoleAnnouncementTexts.RoleAnnouncementText> roleRoleAnnouncementTextHashMap = new HashMap<>();
-    public static Role JESTER = TMMRoles.registerRole(new Role(JESTER_ID,new Color(255,86,243).getRGB() ,false,false, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
-    public static Role MORPHLING =TMMRoles.registerRole(new Role(MORPHLING_ID, new Color(170, 2, 61).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
-    public static Role CONDUCTOR =TMMRoles.registerRole(new Role(CONDUCTOR_ID, new Color(255, 205, 84).getRGB(),true,false, Role.MoodType.REAL,TMMRoles.CIVILIAN.getMaxSprintTime(),false));
-    public static Role AWESOME_BINGLUS = TMMRoles.registerRole(new Role(AWESOME_BINGLUS_ID, new Color(155, 255, 168).getRGB(),true,false, Role.MoodType.REAL,TMMRoles.CIVILIAN.getMaxSprintTime(),false));
+    // 把角色注册最好修改一下：
+    public static Role JESTER = WatheRoles.registerRole(new Role(JESTER_ID,new Color(255,86,243).getRGB() ,false,false, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
+    public static Role MORPHLING =WatheRoles.registerRole(new Role(MORPHLING_ID, new Color(170, 2, 61).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
+    public static Role CONDUCTOR =WatheRoles.registerRole(new Role(CONDUCTOR_ID, new Color(255, 205, 84).getRGB(),true,false, Role.MoodType.REAL,WatheRoles.CIVILIAN.getMaxSprintTime(),false));
+    public static Role AWESOME_BINGLUS = WatheRoles.registerRole(new Role(AWESOME_BINGLUS_ID, new Color(155, 255, 168).getRGB(),true,false, Role.MoodType.REAL,WatheRoles.CIVILIAN.getMaxSprintTime(),false));
 
-    public static Role BARTENDER =TMMRoles.registerRole(new Role(BARTENDER_ID, new Color(217,241,240).getRGB(),true,false, Role.MoodType.REAL,TMMRoles.CIVILIAN.getMaxSprintTime(),false));
-    public static Role NOISEMAKER =TMMRoles.registerRole(new Role(NOISEMAKER_ID, new Color(200, 255, 0).getRGB(),true,false, Role.MoodType.REAL,TMMRoles.CIVILIAN.getMaxSprintTime(),false));
-    public static Role SWAPPER = TMMRoles.registerRole(new Role(SWAPPER_ID, new Color(57, 4, 170).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
-    public static Role PHANTOM =TMMRoles.registerRole(new Role(PHANTOM_ID, new Color(80, 5, 5, 192).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
+    public static Role BARTENDER =WatheRoles.registerRole(new Role(BARTENDER_ID, new Color(217,241,240).getRGB(),true,false, Role.MoodType.REAL,WatheRoles.CIVILIAN.getMaxSprintTime(),false));
+    public static Role NOISEMAKER =WatheRoles.registerRole(new Role(NOISEMAKER_ID, new Color(200, 255, 0).getRGB(),true,false, Role.MoodType.REAL,WatheRoles.CIVILIAN.getMaxSprintTime(),false));
+    public static Role SWAPPER = WatheRoles.registerRole(new Role(SWAPPER_ID, new Color(57, 4, 170).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
+    public static Role PHANTOM =WatheRoles.registerRole(new Role(PHANTOM_ID, new Color(80, 5, 5, 192).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
 
-    public static Role VOODOO =TMMRoles.registerRole(new Role(VOODOO_ID, new Color(128, 114, 253).getRGB(),true,false,Role.MoodType.REAL, TMMRoles.CIVILIAN.getMaxSprintTime(),false));
-    public static Role THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES =TMMRoles.registerRole(new Role(THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES_ID, new Color(255, 0, 0, 192).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
-    //public static Role TRAPPER =TMMRoles.registerRole(new Role(TRAPPER_ID, new Color(132, 186, 167).getRGB(),true,false,Role.MoodType.REAL, TMMRoles.CIVILIAN.getMaxSprintTime(),false));
-    public static Role CORONER =TMMRoles.registerRole(new Role(CORONER_ID, new Color(122, 122, 122).getRGB(),true,false,Role.MoodType.REAL, TMMRoles.CIVILIAN.getMaxSprintTime(),false));
+    public static Role VOODOO =WatheRoles.registerRole(new Role(VOODOO_ID, new Color(128, 114, 253).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
+    public static Role THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES =WatheRoles.registerRole(new Role(THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES_ID, new Color(255, 0, 0, 192).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
+    //public static Role TRAPPER =WatheRoles.registerRole(new Role(TRAPPER_ID, new Color(132, 186, 167).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
+    public static Role CORONER =WatheRoles.registerRole(new Role(CORONER_ID, new Color(122, 122, 122).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
 
-    public static Role EXECUTIONER =TMMRoles.registerRole(new Role(EXECUTIONER_ID, new Color(74, 27, 5).getRGB(),false,false,Role.MoodType.FAKE, TMMRoles.CIVILIAN.getMaxSprintTime(),true));
-    public static Role RECALLER = TMMRoles.registerRole(new Role(RECALLER_ID, new Color(158, 255, 255).getRGB(),true,false,Role.MoodType.REAL, TMMRoles.CIVILIAN.getMaxSprintTime(),false));
+    public static Role EXECUTIONER =WatheRoles.registerRole(new Role(EXECUTIONER_ID, new Color(74, 27, 5).getRGB(),false,false,Role.MoodType.FAKE, WatheRoles.CIVILIAN.getMaxSprintTime(),true));
+    public static Role RECALLER = WatheRoles.registerRole(new Role(RECALLER_ID, new Color(158, 255, 255).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
 
-    public static Role VULTURE =TMMRoles.registerRole(new Role(VULTURE_ID, new Color(181, 103, 0).getRGB(),false,false,Role.MoodType.FAKE, TMMRoles.CIVILIAN.getMaxSprintTime(),true));
-    public static Role BETTER_VIGILANTE =TMMRoles.registerRole(new Role(BETTER_VIGILANTE_ID, new Color(0, 255, 255).getRGB(),true,false,Role.MoodType.REAL, TMMRoles.CIVILIAN.getMaxSprintTime(),false));
-    public static Role GUESSER =TMMRoles.registerRole(new Role(GUESSER_ID, new Color(158, 43, 25, 191).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
+    public static Role VULTURE =WatheRoles.registerRole(new Role(VULTURE_ID, new Color(181, 103, 0).getRGB(),false,false,Role.MoodType.FAKE, WatheRoles.CIVILIAN.getMaxSprintTime(),true));
+    public static Role BETTER_VIGILANTE =WatheRoles.registerRole(new Role(BETTER_VIGILANTE_ID, new Color(0, 255, 255).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
+    public static Role GUESSER =WatheRoles.registerRole(new Role(GUESSER_ID, new Color(158, 43, 25, 191).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
+    public static Role SNIPER = WatheRoles.registerRole(new Role(SNIPER_ID, new Color(255, 70, 70).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
+    public static Role TROLL = WatheRoles.registerRole(new Role(TROLL_ID, new Color(255, 255, 158).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
 
     public static final CustomPayload.Id<MorphC2SPacket> MORPH_PACKET = MorphC2SPacket.ID;
     public static final CustomPayload.Id<SwapperC2SPacket> SWAP_PACKET = SwapperC2SPacket.ID;
+    public static final CustomPayload.Id<SniperC2SPacket> SNIPER_PACKET = SniperC2SPacket.ID;
     public static final CustomPayload.Id<AbilityC2SPacket> ABILITY_PACKET = AbilityC2SPacket.ID;
     public static final CustomPayload.Id<VultureEatC2SPacket> VULTURE_PACKET = VultureEatC2SPacket.ID;
     public static final ArrayList<Role> VANNILA_ROLES = new ArrayList<>();
@@ -115,20 +145,20 @@ public class Noellesroles implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        VANNILA_ROLES.add(TMMRoles.KILLER);
-        VANNILA_ROLES.add(TMMRoles.VIGILANTE);
-        VANNILA_ROLES.add(TMMRoles.CIVILIAN);
-        VANNILA_ROLES.add(TMMRoles.LOOSE_END);
+        VANNILA_ROLES.add(WatheRoles.KILLER);
+        VANNILA_ROLES.add(WatheRoles.VIGILANTE);
+        VANNILA_ROLES.add(WatheRoles.CIVILIAN);
+        VANNILA_ROLES.add(WatheRoles.LOOSE_END);
 
-        VANNILA_ROLE_IDS.add(TMMRoles.LOOSE_END.identifier());
-        VANNILA_ROLE_IDS.add(TMMRoles.VIGILANTE.identifier());
-        VANNILA_ROLE_IDS.add(TMMRoles.CIVILIAN.identifier());
-        VANNILA_ROLE_IDS.add(TMMRoles.KILLER.identifier());
+        VANNILA_ROLE_IDS.add(WatheRoles.LOOSE_END.identifier());
+        VANNILA_ROLE_IDS.add(WatheRoles.VIGILANTE.identifier());
+        VANNILA_ROLE_IDS.add(WatheRoles.CIVILIAN.identifier());
+        VANNILA_ROLE_IDS.add(WatheRoles.KILLER.identifier());
 
-        FRAMING_ROLES_SHOP.add(new FramingShopEntry(TMMItems.LOCKPICK.getDefaultStack(), 50, ShopEntry.Type.TOOL));
+        FRAMING_ROLES_SHOP.add(new FramingShopEntry(WatheItems.LOCKPICK.getDefaultStack(), 50, ShopEntry.Type.TOOL));
         FRAMING_ROLES_SHOP.add(new FramingShopEntry(ModItems.DELUSION_VIAL.getDefaultStack(), 30, ShopEntry.Type.POISON));
-        FRAMING_ROLES_SHOP.add(new FramingShopEntry(TMMItems.FIRECRACKER.getDefaultStack(), 5, ShopEntry.Type.TOOL));
-        FRAMING_ROLES_SHOP.add(new FramingShopEntry(TMMItems.NOTE.getDefaultStack(), 5, ShopEntry.Type.TOOL));
+        FRAMING_ROLES_SHOP.add(new FramingShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), 5, ShopEntry.Type.TOOL));
+        FRAMING_ROLES_SHOP.add(new FramingShopEntry(WatheItems.NOTE.getDefaultStack(), 5, ShopEntry.Type.TOOL));
 
         NoellesRolesConfig.HANDLER.load();
         ModItems.init();
@@ -138,11 +168,14 @@ public class Noellesroles implements ModInitializer {
         Harpymodloader.setRoleMaximum(VULTURE_ID,1);
         Harpymodloader.setRoleMaximum(JESTER_ID,1);
         Harpymodloader.setRoleMaximum(BETTER_VIGILANTE_ID,1);
+        Harpymodloader.setRoleMaximum(SNIPER_ID,1);
+        Harpymodloader.setRoleMaximum(TROLL_ID,1);
 
         PayloadTypeRegistry.playC2S().register(MorphC2SPacket.ID, MorphC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(AbilityC2SPacket.ID, AbilityC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(SwapperC2SPacket.ID, SwapperC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(VultureEatC2SPacket.ID, VultureEatC2SPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(SniperC2SPacket.ID, SniperC2SPacket.CODEC);
 
         registerEvents();
 
@@ -154,18 +187,18 @@ public class Noellesroles implements ModInitializer {
 
 
     public void registerEvents() {
-        AllowPlayerDeath.EVENT.register(((playerEntity, identifier) -> {
+        AllowPlayerDeath.EVENT.register(((PlayerEntity playerEntityVictim, PlayerEntity playerEntityKiller, Identifier identifier) -> {
             if (identifier == GameConstants.DeathReasons.FELL_OUT_OF_TRAIN) return true;
-            GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(playerEntity.getWorld());
-            if (gameWorldComponent.isRole(playerEntity,Noellesroles.JESTER)) {
-                PlayerPsychoComponent component =  PlayerPsychoComponent.KEY.get(playerEntity);
+            GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(playerEntityVictim.getWorld());
+            if (gameWorldComponent.isRole(playerEntityVictim,Noellesroles.JESTER)) {
+                PlayerPsychoComponent component =  PlayerPsychoComponent.KEY.get(playerEntityVictim);
                 if (component.getPsychoTicks() > GameConstants.getInTicks(0,44)) {
                     return false;
                 }
             }
-            BartenderPlayerComponent bartenderPlayerComponent = BartenderPlayerComponent.KEY.get(playerEntity);
+            BartenderPlayerComponent bartenderPlayerComponent = BartenderPlayerComponent.KEY.get(playerEntityVictim);
             if (bartenderPlayerComponent.armor > 0) {
-                playerEntity.getWorld().playSound(playerEntity, playerEntity.getBlockPos(), TMMSounds.ITEM_PSYCHO_ARMOUR, SoundCategory.MASTER, 5.0F, 1.0F);
+                playerEntityVictim.getWorld().playSound(playerEntityVictim, playerEntityVictim.getBlockPos(), WatheSounds.ITEM_PSYCHO_ARMOUR, SoundCategory.MASTER, 5.0F, 1.0F);
                 bartenderPlayerComponent.armor--;
                 return false;
             }
@@ -195,7 +228,7 @@ public class Noellesroles implements ModInitializer {
                 vulturePlayerComponent.sync();
             }
             if (role.equals(BETTER_VIGILANTE)) {
-                player.giveItemStack(TMMItems.GRENADE.getDefaultStack());
+                player.giveItemStack(WatheItems.GRENADE.getDefaultStack());
             }
             if (role.equals(JESTER)) {
                 player.giveItemStack(ModItems.FAKE_KNIFE.getDefaultStack());
@@ -204,23 +237,34 @@ public class Noellesroles implements ModInitializer {
             if (role.equals(CONDUCTOR)) {
                 player.giveItemStack(ModItems.MASTER_KEY.getDefaultStack());
             }
+            if (role.equals(SNIPER)) {
+                SniperPlayerComponent sniperPlayerComponent = SniperPlayerComponent.KEY.get(player);
+                abilityPlayerComponent.cooldown = NoellesRolesConfig.HANDLER.instance().sniperCooldownTicks;
+                sniperPlayerComponent.reset(player.getWorld().getPlayers().size());
+                sniperPlayerComponent.sync();
+                // player.giveItemStack(ModItems.SNIPER_TRACKER.getDefaultStack());
+            }
+            // if (role.equals(TROLL)) {
+            //     player.giveItemStack(ModItems.FAKE_KNIFE.getDefaultStack());
+            //     player.giveItemStack(ModItems.FAKE_REVOLVER.getDefaultStack());
+            // }
             if (role.equals(AWESOME_BINGLUS)) {
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
-                player.giveItemStack(TMMItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
             }
         });
         ServerTickEvents.END_SERVER_TICK.register(((server) -> {
@@ -288,9 +332,9 @@ public class Noellesroles implements ModInitializer {
                         context.player().playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, 0.5F);
                         context.player().addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 2));
                         if (vulturePlayerComponent.bodiesEaten >= vulturePlayerComponent.bodiesRequired) {
-                            ArrayList<Role> shuffledKillerRoles = new ArrayList<>(TMMRoles.ROLES);
+                            ArrayList<Role> shuffledKillerRoles = new ArrayList<>(WatheRoles.ROLES);
                             shuffledKillerRoles.removeIf(role -> Harpymodloader.VANNILA_ROLES.contains(role) || !role.canUseKiller() || HarpyModLoaderConfig.HANDLER.instance().disabled.contains(role.identifier().getPath()));
-                            if (shuffledKillerRoles.isEmpty()) shuffledKillerRoles.add(TMMRoles.KILLER);
+                            if (shuffledKillerRoles.isEmpty()) shuffledKillerRoles.add(WatheRoles.KILLER);
                             Collections.shuffle(shuffledKillerRoles);
 
                             PlayerShopComponent playerShopComponent = (PlayerShopComponent) PlayerShopComponent.KEY.get(context.player());
@@ -298,7 +342,7 @@ public class Noellesroles implements ModInitializer {
                             ModdedRoleAssigned.EVENT.invoker().assignModdedRole(context.player(),shuffledKillerRoles.getFirst());
                             playerShopComponent.setBalance(100);
                             if (Harpymodloader.VANNILA_ROLES.contains(gameWorldComponent.getRole(context.player()))) {
-                                ServerPlayNetworking.send((ServerPlayerEntity) context.player(), new AnnounceWelcomePayload(RoleAnnouncementTexts.ROLE_ANNOUNCEMENT_TEXTS.indexOf(TMMRoles.KILLER), gameWorldComponent.getAllKillerTeamPlayers().size(), 0));
+                                ServerPlayNetworking.send((ServerPlayerEntity) context.player(), new AnnounceWelcomePayload(RoleAnnouncementTexts.ROLE_ANNOUNCEMENT_TEXTS.indexOf(WatheRoles.KILLER), gameWorldComponent.getAllKillerTeamPlayers().size(), 0));
                             } else {
                                 ServerPlayNetworking.send((ServerPlayerEntity) context.player(), new AnnounceWelcomePayload(RoleAnnouncementTexts.ROLE_ANNOUNCEMENT_TEXTS.indexOf(Harpymodloader.autogeneratedAnnouncements.get(gameWorldComponent.getRole(context.player()))), gameWorldComponent.getAllKillerTeamPlayers().size(), 0));
                             }
@@ -336,6 +380,55 @@ public class Noellesroles implements ModInitializer {
             }
         });
 
+        ServerPlayNetworking.registerGlobalReceiver(SniperC2SPacket.ID, (payload, context) -> {
+            PlayerEntity shooter = context.player();
+            SniperPlayerComponent sniperComp = SniperPlayerComponent.KEY.get(shooter);
+            AbilityPlayerComponent abilityComp = AbilityPlayerComponent.KEY.get(shooter);
+            GameWorldComponent gameWorld = GameWorldComponent.KEY.get(shooter.getWorld());
+        
+            // 验证包完整性
+            if (!payload.target().equals(shooter.getUuid())) {
+                sniperComp.targetUUID = payload.target();
+            }
+            if (!payload.guessedIdentifier().equals(gameWorld.getRole(shooter.getUuid()).identifier())) {
+                sniperComp.guessedIdentity = payload.guessedIdentifier();
+            }
+            // 防止自我射击
+            if (sniperComp.targetUUID.equals(shooter.getUuid()) || sniperComp.guessedIdentity.equals(gameWorld.getRole(shooter.getUuid()).identifier())) return;
+            // 验证狙击手身份 + 子弹数量 + 冷却状态
+            if (!gameWorld.isRole(shooter, Noellesroles.SNIPER)) return;
+            if (!sniperComp.hasShotsRemaining()) return;
+            if (abilityComp.cooldown > 0) return; // 复用通用冷却字段
+            // 输出调试信息到控制台
+            // System.out.println("[Sniper Debug] Actual role: " + gameWorld.getRole(sniperComp.boundTarget).identifier().toString());
+            // System.out.println("[Sniper Debug] Guessed role: " + sniperComp.guessedIdentity.toString());
+            // System.out.println("[Sniper Debug] Guessed result: " + gameWorld.getRole(sniperComp.boundTarget).identifier().toString().equals(sniperComp.guessedIdentity.toString()));
+
+            // 目标验证
+            
+            sniperComp.shotsRemaining--;
+            sniperComp.sync();
+            Scheduler.schedule(() -> {
+            Effects.playCockingSound(shooter,.8f);
+            shooter.addStatusEffect(new StatusEffectInstance(
+                StatusEffects.GLOWING, // 使用原版发光效果
+                60, // 3秒持续时间（20ticks/秒）
+                0 // 效果等级
+            ));
+            if (!gameWorld.getRole(sniperComp.targetUUID).identifier().equals(sniperComp.guessedIdentity)) return;
+            
+            // 执行匿名击杀（借鉴巫毒师逻辑）
+            Effects.playShootingEffects(shooter,.6f);
+            PlayerEntity target = shooter.getWorld().getPlayerByUuid(sniperComp.targetUUID);
+            GameFunctions.killPlayer(target, true, shooter, Identifier.of(Noellesroles.MOD_ID, "sniper"));
+            // 更新状态：消耗子弹 + 设置冷却
+            // ability.cooldown = GameConstants.getInTicks(1, 30); 90秒冷却
+            sniperComp.targetUUID = shooter.getUuid();
+            sniperComp.guessedIdentity = gameWorld.getRole(shooter.getUuid()).identifier();
+            abilityComp.cooldown = NoellesRolesConfig.HANDLER.instance().sniperCooldownTicks;
+            abilityComp.sync();}, 40); // 延迟40tick执行，先上膛后开枪
+        });
+
         ServerPlayNetworking.registerGlobalReceiver(Noellesroles.ABILITY_PACKET, (payload, context) -> {
             AbilityPlayerComponent abilityPlayerComponent = (AbilityPlayerComponent) AbilityPlayerComponent.KEY.get(context.player());
             GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(context.player().getWorld());
@@ -357,6 +450,53 @@ public class Noellesroles implements ModInitializer {
             if (gameWorldComponent.isRole(context.player(), PHANTOM) && abilityPlayerComponent.cooldown <= 0) {
                 context.player().addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30 * 20,0,true,false,true));
                 abilityPlayerComponent.cooldown = GameConstants.getInTicks(1, 30);
+            }
+            if (gameWorldComponent.isRole(context.player(), TROLL) && abilityPlayerComponent.cooldown <= 0) {
+                PlayerEntity player = context.player();
+                PlayerShopComponent playerShopComponent = PlayerShopComponent.KEY.get(context.player());
+                    if (playerShopComponent.balance >= 25) {
+                    playerShopComponent.balance -= 25;
+                    playerShopComponent.sync();
+                    abilityPlayerComponent.cooldown = NoellesRolesConfig.HANDLER.instance().tollCooldownTicks;
+                    abilityPlayerComponent.sync();
+                    switch (ThreadLocalRandom.current().nextInt(11)) {
+                        case 0 -> {
+                            Effects.playKnifePrepareSound(player,1f);
+                        }
+                        case 1 -> {
+                            Effects.playKnifePrepareSound(player,1f);
+                        }
+                        case 2 -> {
+                            player.giveItemStack(ModItems.FAKE_KNIFE.getDefaultStack());
+                        }
+                        case 3 -> {
+                            Effects.playShootingEffects(player,1f);
+                        }
+                        case 4 -> {
+                            Effects.playCockingSound(player,1f);
+                        }
+                        case 5 -> {
+                            Effects.playGrenadeExplodeSound(player,1f);
+                        }
+                        case 6 -> {
+                            player.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 100, 0));
+                        }
+                        case 7 -> {
+                            player.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 100, 0));
+                        }
+                        case 8 -> {
+                            PlayerBodyCreater.spawnFromPlayerTemplateSafe(player,true,true,false);
+                        }
+                        case 9 -> {
+                            player.giveItemStack(ModItems.FAKE_KNIFE.getDefaultStack());
+
+                        }
+                        case 10 -> {
+                            player.giveItemStack(ModItems.FAKE_REVOLVER.getDefaultStack());
+                        }
+                    }
+                }
+
             }
         });
     }

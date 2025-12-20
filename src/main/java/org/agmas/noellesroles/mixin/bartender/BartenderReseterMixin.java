@@ -1,6 +1,6 @@
 package org.agmas.noellesroles.mixin.bartender;
 
-import dev.doctor4t.trainmurdermystery.game.GameFunctions;
+import dev.doctor4t.wathe.game.GameFunctions;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.agmas.noellesroles.bartender.BartenderPlayerComponent;
 import org.agmas.noellesroles.morphling.MorphlingPlayerComponent;

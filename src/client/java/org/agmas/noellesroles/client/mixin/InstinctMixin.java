@@ -1,14 +1,14 @@
 package org.agmas.noellesroles.client.mixin;
 
-import dev.doctor4t.trainmurdermystery.TMM;
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerPoisonComponent;
-import dev.doctor4t.trainmurdermystery.client.TMMClient;
-import dev.doctor4t.trainmurdermystery.client.gui.RoundTextRenderer;
-import dev.doctor4t.trainmurdermystery.game.GameFunctions;
-import dev.doctor4t.trainmurdermystery.util.AnnounceWelcomePayload;
+import dev.doctor4t.wathe.Wathe;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerPoisonComponent;
+import dev.doctor4t.wathe.client.WatheClient;
+import dev.doctor4t.wathe.client.gui.RoundTextRenderer;
+import dev.doctor4t.wathe.game.GameFunctions;
+import dev.doctor4t.wathe.util.AnnounceWelcomePayload;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.loader.impl.util.log.Log;
 import net.fabricmc.loader.impl.util.log.LogCategory;
@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.awt.*;
 
-@Mixin(TMMClient.class)
+@Mixin(WatheClient.class)
 public abstract class InstinctMixin {
 
 
@@ -73,32 +73,32 @@ public abstract class InstinctMixin {
                     cir.cancel();
                 }
             }
-            if (!((PlayerEntity)target).isSpectator() && TMMClient.isInstinctEnabled()) {
-                if (gameWorldComponent.isRole((PlayerEntity) target, Noellesroles.VULTURE) && TMMClient.isKiller() && TMMClient.isPlayerAliveAndInSurvival()) {
+            if (!((PlayerEntity)target).isSpectator() && WatheClient.isInstinctEnabled()) {
+                if (gameWorldComponent.isRole((PlayerEntity) target, Noellesroles.VULTURE) && WatheClient.isKiller() && WatheClient.isPlayerAliveAndInSurvival()) {
                     cir.setReturnValue(Noellesroles.VULTURE.color());
                     cir.cancel();
                 }
             }
-            if (!((PlayerEntity)target).isSpectator() && TMMClient.isInstinctEnabled()) {
-                if (gameWorldComponent.isRole((PlayerEntity) target, Noellesroles.EXECUTIONER) && TMMClient.isKiller() && TMMClient.isPlayerAliveAndInSurvival()) {
+            if (!((PlayerEntity)target).isSpectator() && WatheClient.isInstinctEnabled()) {
+                if (gameWorldComponent.isRole((PlayerEntity) target, Noellesroles.EXECUTIONER) && WatheClient.isKiller() && WatheClient.isPlayerAliveAndInSurvival()) {
                     cir.setReturnValue(Noellesroles.EXECUTIONER.color());
                     cir.cancel();
                 }
             }
-            if (!((PlayerEntity)target).isSpectator() && TMMClient.isInstinctEnabled()) {
-                if (gameWorldComponent.isRole((PlayerEntity) target, Noellesroles.JESTER) && TMMClient.isKiller() && TMMClient.isPlayerAliveAndInSurvival()) {
+            if (!((PlayerEntity)target).isSpectator() && WatheClient.isInstinctEnabled()) {
+                if (gameWorldComponent.isRole((PlayerEntity) target, Noellesroles.JESTER) && WatheClient.isKiller() && WatheClient.isPlayerAliveAndInSurvival()) {
                     cir.setReturnValue(Color.PINK.getRGB());
                     cir.cancel();
                 }
             }
-            if (!((PlayerEntity)target).isSpectator() && TMMClient.isInstinctEnabled()) {
-                if (gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.JESTER) && TMMClient.isPlayerAliveAndInSurvival()) {
+            if (!((PlayerEntity)target).isSpectator() && WatheClient.isInstinctEnabled()) {
+                if (gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.JESTER) && WatheClient.isPlayerAliveAndInSurvival()) {
                     cir.setReturnValue(Color.PINK.getRGB());
                     cir.cancel();
                 }
             }
-            if (!((PlayerEntity)target).isSpectator() && TMMClient.isInstinctEnabled()) {
-                if (gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.EXECUTIONER) && TMMClient.isPlayerAliveAndInSurvival()) {
+            if (!((PlayerEntity)target).isSpectator() && WatheClient.isInstinctEnabled()) {
+                if (gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.EXECUTIONER) && WatheClient.isPlayerAliveAndInSurvival()) {
                     cir.setReturnValue(Noellesroles.EXECUTIONER.color());
                     cir.cancel();
                 }

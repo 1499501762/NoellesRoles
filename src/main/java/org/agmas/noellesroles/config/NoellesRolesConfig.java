@@ -1,6 +1,6 @@
 package org.agmas.noellesroles.config;
 
-import dev.doctor4t.trainmurdermystery.game.GameConstants;
+import dev.doctor4t.wathe.game.GameConstants;
 import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
@@ -35,4 +35,14 @@ public class NoellesRolesConfig {
 
     @SerialEntry(comment = "How many players must be online for the Master Key to look like a master key and not a lockpick. (0 = key always looks like a lockpick, 1-6 = key always looks normal)")
     public int playerCountToMakeConducterKeyVisible = 10;
+
+    @SerialEntry(comment = "Sniper role cooldown in ticks (default 90 seconds)")
+    public int sniperCooldownTicks = GameConstants.getInTicks(1,30); // 90s
+
+    @SerialEntry(comment = "Sniper role shot ratio (20% of players)")
+    public double sniperShotRatio = 0.2;
+
+    @SerialEntry(comment = "Sniper role cooldown in ticks (default 30 seconds)")
+    public int tollCooldownTicks = GameConstants.getInTicks(0,30); // 30s
+
 }

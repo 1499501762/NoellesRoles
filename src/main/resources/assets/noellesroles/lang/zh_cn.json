@@ -59,6 +59,14 @@
   "hud.vulture.eat": "按下 %s 键来吃掉尸体",
   "hud.vulture.already_consumed": "这具尸体已经被吃掉了",
 
+  "announcement.role.sniper": "狙击手",
+  "announcement.goals.sniper": "通过猜测玩家身份击杀玩家",
+  "hud.sniper.choose_player": "选择玩家和身份",
+  "hud.sniper.selected": "已选择",
+
+  "announcement.role.troll": "串子",
+  "announcement.goals.troll": "用你的能力戏弄杀手并帮助平民阵营获得胜利",
+
 
   "item.noellesroles.fake_revolver": "假左轮手枪",
   "item.noellesroles.master_key": "万能钥匙",
@@ -68,13 +76,13 @@
   "item.noellesroles.delusion_vial": "幻觉试剂",
   "item.noellesroles.delusion_vial.tooltip": "在食物或饮料托盘上右键使用\n食用者获得假中毒效果\n实际不会造成任何效果",
 
-  "death_reason.trainmurdermystery.gun_shot": "被子弹击中。",
-  "death_reason.trainmurdermystery.knife_stab": "被刀刺死",
-  "death_reason.trainmurdermystery.generic": "未知",
-  "death_reason.trainmurdermystery.bat_hit": "遭受钝器重击",
-  "death_reason.trainmurdermystery.grenade": "爆炸",
-  "death_reason.trainmurdermystery.poison": "中毒",
-  "death_reason.trainmurdermystery.fell_out_of_train": "被列车碾死",
+  "death_reason.wathe.gun_shot": "被子弹击中。",
+  "death_reason.wathe.knife_stab": "被刀刺死",
+  "death_reason.wathe.generic": "未知",
+  "death_reason.wathe.bat_hit": "遭受钝器重击",
+  "death_reason.wathe.grenade": "爆炸",
+  "death_reason.wathe.poison": "中毒",
+  "death_reason.wathe.fell_out_of_train": "被列车碾死",
   "death_reason.noellesroles.voodoo": "巫毒魔法",
 
   "tip.phantom": "按下 %s 键来隐身",
@@ -82,5 +90,7 @@
   "tip.recaller.teleport": "按下 %s 键来传送至保存的位置",
   "tip.vulture": "%s/%s 尸体数",
   "tip.recaller.not_enough_money": "需要 100\uE781 来进行传送",
-  "tip.noellesroles.cooldown": "能力在 %s 秒后可用"
+  "tip.noellesroles.cooldown": "能力在 %s 秒后可用",
+  "tip.troll.not_enough_money": "连 25\uE781都没有还想在这串",
+  "tip.troll.trollaction": "按下 %s 键来开串"
 }

@@ -1,8 +1,8 @@
 package org.agmas.noellesroles.client.mixin.vulture;
 
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.client.render.entity.PlayerBodyEntityRenderer;
-import dev.doctor4t.trainmurdermystery.entity.PlayerBodyEntity;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.client.render.entity.PlayerBodyEntityRenderer;
+import dev.doctor4t.wathe.entity.PlayerBodyEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;

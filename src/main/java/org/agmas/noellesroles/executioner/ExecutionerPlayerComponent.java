@@ -1,9 +1,9 @@
 package org.agmas.noellesroles.executioner;
 
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.game.GameConstants;
-import dev.doctor4t.trainmurdermystery.game.GameFunctions;
+import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.game.GameConstants;
+import dev.doctor4t.wathe.game.GameFunctions;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
@@ -55,7 +55,7 @@ public class ExecutionerPlayerComponent implements AutoSyncedComponent, ServerTi
             gameWorldComponent.getRoles().forEach((uuid2,role1)->{
                 PlayerEntity player2 = player.getWorld().getPlayerByUuid(uuid2);
                 if (uuid2 == null) return;
-                if (role1.isInnocent() && GameFunctions.isPlayerAliveAndSurvival(player2) && !role1.equals(TMMRoles.VIGILANTE)) {
+                if (role1.isInnocent() && GameFunctions.isPlayerAliveAndSurvival(player2) && !role1.equals(WatheRoles.VIGILANTE)) {
                     innocentPlayers.add(uuid2);
                 }
             });
