@@ -1,4 +1,4 @@
-name: Release on v* Tag (custom naming: noellesroles-<version>-h<dep>)
+name: Release on v Tag (custom naming: noellesroles-<version>-h<dep>)
 
 on:
   push:
