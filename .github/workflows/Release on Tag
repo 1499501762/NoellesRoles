@@ -1,9 +1,11 @@
-name: Release on Tag (custom naming: noellesroles-<version>-h<dep>)
+name: Release on Tag
 
 on:
   push:
-    tags:
-      - '[ '*' ]'
+    tags: [ '*' ]
+
+permissions:
+  contents: write
 
 env:
   JAVA_VERSION: '21'
