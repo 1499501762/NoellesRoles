@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.agmas.noellesroles.ModItems;
 import org.agmas.noellesroles.Noellesroles;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MasterKeyDropMixin {
 
     @Inject(method = "shouldDropOnDeath", at = @At("HEAD"), cancellable = true)
-    private static void dropMasterKeyOnDeath(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+    private static void dropMasterKeyOnDeath(ItemStack stack, PlayerEntity victim, CallbackInfoReturnable<Boolean> cir) {
         if (stack.isOf(ModItems.MASTER_KEY)) {
             cir.setReturnValue(true);
             cir.cancel();
