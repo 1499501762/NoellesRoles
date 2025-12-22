@@ -104,11 +104,20 @@ jobs:
           fi
 
           # If src and dest refer to the same file, skip copying
-          if [ -e "$dest" ] && [ "$src" -ef "$dest" ] || [ "$src" = "$dest" ]; then
+          if { [ -e "$dest" ] && [ "$src" -ef "$dest" ]; } || [ "$src" = "$dest" ]; then
             echo "✓ harpymodloader already has correct name: $(du -h "$src" | cut -f1)"
           else
-            cp -fv "$src" "$dest"
-            echo "✓ harpymodloader normalized: $(du -h "$dest" | cut -f1)"
+            if [ -f "$dest" ] && cmp -s "$src" "$dest"; then
+              echo "✓ harpymodloader already up-to-date: $(du -h \"$dest\" | cut -f1)"
+            else
+              cp -fv "$src" "$dest" || echo "⚠ cp returned non-zero, continuing if target exists"
+              if [ -f "$dest" ]; then
+                echo "✓ harpymodloader normalized: $(du -h \"$dest\" | cut -f1)"
+              else
+                echo "❌ Failed to place $dest" >&2
+                exit 1
+              fi
+            fi
           fi
 
       - name: Download wathe from Modrinth (try specified or fallback to GitHub release)
@@ -165,11 +174,20 @@ jobs:
           fi
 
           # If src and dest refer to the same file, skip copying
-          if [ -e "$dest" ] && [ "$src" -ef "$dest" ] || [ "$src" = "$dest" ]; then
+          if { [ -e "$dest" ] && [ "$src" -ef "$dest" ]; } || [ "$src" = "$dest" ]; then
             echo "✓ wathe already has correct name: $(du -h "$src" | cut -f1)"
           else
-            cp -fv "$src" "$dest"
-            echo "✓ wathe normalized: $(du -h "$dest" | cut -f1)"
+            if [ -f "$dest" ] && cmp -s "$src" "$dest"; then
+              echo "✓ wathe already up-to-date: $(du -h \"$dest\" | cut -f1)"
+            else
+              cp -fv "$src" "$dest" || echo "⚠ cp returned non-zero, continuing if target exists"
+              if [ -f "$dest" ]; then
+                echo "✓ wathe normalized: $(du -h \"$dest\" | cut -f1)"
+              else
+                echo "❌ Failed to place $dest" >&2
+                exit 1
+              fi
+            fi
           fi
 
       - name: Verify libs files before build
