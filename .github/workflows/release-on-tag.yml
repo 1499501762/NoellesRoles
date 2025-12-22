@@ -101,8 +101,12 @@ jobs:
             echo "❌ Source file missing: $src" >&2
             exit 1
           fi
-          cp -fv "$src" "$dest"
-          echo "✓ harpymodloader normalized: $(du -h $dest | cut -f1)"
+          if [ "$src" != "$dest" ]; then
+            cp -fv "$src" "$dest"
+            echo "✓ harpymodloader normalized: $(du -h $dest | cut -f1)"
+          else
+            echo "✓ harpymodloader already has correct name: $(du -h $dest | cut -f1)"
+          fi
 
       - name: Download wathe from Modrinth (try specified or fallback to GitHub release)
         id: get-wathe
@@ -155,8 +159,12 @@ jobs:
             echo "❌ Source file missing: $src" >&2
             exit 1
           fi
-          cp -fv "$src" "$dest"
-          echo "✓ wathe normalized: $(du -h $dest | cut -f1)"
+          if [ "$src" != "$dest" ]; then
+            cp -fv "$src" "$dest"
+            echo "✓ wathe normalized: $(du -h $dest | cut -f1)"
+          else
+            echo "✓ wathe already has correct name: $(du -h $dest | cut -f1)"
+          fi
 
       - name: Verify libs files before build
         run: |
