@@ -103,15 +103,23 @@ jobs:
             exit 1
           fi
           
-          # Check if source and destination are the same
-          src_real=$(cd "$(dirname "$src")" && pwd -P)/$(basename "$src")
-          dest_real=$(cd "$(dirname "$dest")" && pwd -P)/$(basename "$dest")
+          # Compare by inode to detect if it's the same file
+          src_inode=$(stat -c %i "$src" 2>/dev/null || echo "")
+          dest_inode=$(stat -c %i "$dest" 2>/dev/null || echo "")
           
-          if [ "$src_real" = "$dest_real" ]; then
+          if [ -n "$src_inode" ] && [ "$src_inode" = "$dest_inode" ]; then
+            echo "✓ harpymodloader already has correct name: $(du -h "$src" | cut -f1)"
+          elif [ "$src" = "$dest" ]; then
             echo "✓ harpymodloader already has correct name: $(du -h "$src" | cut -f1)"
           else
-            cp -fv "$src" "$dest"
-            echo "✓ harpymodloader normalized: $(du -h "$dest" | cut -f1)"
+            cp -fv "$src" "$dest" 2>&1 || {
+              if [ -f "$dest" ]; then
+                echo "✓ harpymodloader normalized: $(du -h "$dest" | cut -f1)"
+              else
+                echo "❌ Failed to copy harpymodloader" >&2
+                exit 1
+              fi
+            }
           fi
 
       - name: Download wathe from Modrinth (try specified or fallback to GitHub release)
@@ -167,15 +175,23 @@ jobs:
             exit 1
           fi
           
-          # Check if source and destination are the same
-          src_real=$(cd "$(dirname "$src")" && pwd -P)/$(basename "$src")
-          dest_real=$(cd "$(dirname "$dest")" && pwd -P)/$(basename "$dest")
+          # Compare by inode to detect if it's the same file
+          src_inode=$(stat -c %i "$src" 2>/dev/null || echo "")
+          dest_inode=$(stat -c %i "$dest" 2>/dev/null || echo "")
           
-          if [ "$src_real" = "$dest_real" ]; then
+          if [ -n "$src_inode" ] && [ "$src_inode" = "$dest_inode" ]; then
+            echo "✓ wathe already has correct name: $(du -h "$src" | cut -f1)"
+          elif [ "$src" = "$dest" ]; then
             echo "✓ wathe already has correct name: $(du -h "$src" | cut -f1)"
           else
-            cp -fv "$src" "$dest"
-            echo "✓ wathe normalized: $(du -h "$dest" | cut -f1)"
+            cp -fv "$src" "$dest" 2>&1 || {
+              if [ -f "$dest" ]; then
+                echo "✓ wathe normalized: $(du -h "$dest" | cut -f1)"
+              else
+                echo "❌ Failed to copy wathe" >&2
+                exit 1
+              fi
+            }
           fi
 
       - name: Verify libs files before build
