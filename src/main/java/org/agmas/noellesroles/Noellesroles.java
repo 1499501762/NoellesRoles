@@ -23,6 +23,7 @@ import dev.doctor4t.wathe.util.GunShootPayload;
 import dev.doctor4t.wathe.util.Scheduler;
 import dev.doctor4t.wathe.util.ShopEntry;
 import org.agmas.noellesroles.packet.SniperC2SPacket;
+import org.agmas.noellesroles.packet.DetectiveC2SPacket;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -40,6 +41,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.Vec3d;
@@ -49,6 +51,7 @@ import org.agmas.harpymodloader.events.ModdedRoleAssigned;
 import org.agmas.noellesroles.bartender.BartenderPlayerComponent;
 import org.agmas.noellesroles.config.NoellesRolesConfig;
 import org.agmas.noellesroles.coroner.BodyDeathReasonComponent;
+import org.agmas.noellesroles.detective.DetectivePlayerComponent;
 import org.agmas.noellesroles.executioner.ExecutionerPlayerComponent;
 import org.agmas.noellesroles.framing.FramingShopEntry;
 import org.agmas.noellesroles.morphling.MorphlingPlayerComponent;
@@ -95,7 +98,7 @@ public class Noellesroles implements ModInitializer {
     public static Identifier PHANTOM_ID = Identifier.of(MOD_ID, "phantom");
     public static Identifier AWESOME_BINGLUS_ID = Identifier.of(MOD_ID, "awesome_binglus");
     public static Identifier SWAPPER_ID = Identifier.of(MOD_ID, "swapper");
-    public static Identifier GUESSER_ID = Identifier.of(MOD_ID, "guesser");
+    // public static Identifier GUESSER_ID = Identifier.of(MOD_ID, "guesser");
     public static Identifier VOODOO_ID = Identifier.of(MOD_ID, "voodoo");
     public static Identifier TRAPPER_ID = Identifier.of(MOD_ID, "trapper");
     public static Identifier CORONER_ID = Identifier.of(MOD_ID, "coroner");
@@ -105,6 +108,8 @@ public class Noellesroles implements ModInitializer {
     public static Identifier BETTER_VIGILANTE_ID = Identifier.of(MOD_ID, "better_vigilante");
     public static Identifier SNIPER_ID = Identifier.of(MOD_ID, "sniper");
     public static Identifier TROLL_ID = Identifier.of(MOD_ID, "troll");
+    public static Identifier DETECTIVE_ID = Identifier.of(MOD_ID, "detective");
+
     public static Identifier THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES_ID = Identifier.of(MOD_ID, "the_insane_damned_paranoid_killer");
 
     public static HashMap<Role, RoleAnnouncementTexts.RoleAnnouncementText> roleRoleAnnouncementTextHashMap = new HashMap<>();
@@ -129,13 +134,15 @@ public class Noellesroles implements ModInitializer {
 
     public static Role VULTURE =WatheRoles.registerRole(new Role(VULTURE_ID, new Color(181, 103, 0).getRGB(),false,false,Role.MoodType.FAKE, WatheRoles.CIVILIAN.getMaxSprintTime(),true));
     public static Role BETTER_VIGILANTE =WatheRoles.registerRole(new Role(BETTER_VIGILANTE_ID, new Color(0, 255, 255).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
-    public static Role GUESSER =WatheRoles.registerRole(new Role(GUESSER_ID, new Color(158, 43, 25, 191).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
+    // public static Role GUESSER =WatheRoles.registerRole(new Role(GUESSER_ID, new Color(158, 43, 25, 191).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
     public static Role SNIPER = WatheRoles.registerRole(new Role(SNIPER_ID, new Color(255, 70, 70).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
     public static Role TROLL = WatheRoles.registerRole(new Role(TROLL_ID, new Color(255, 255, 158).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
+    public static Role DETECTIVE = WatheRoles.registerRole(new Role(DETECTIVE_ID, new Color(155, 155, 58).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
 
     public static final CustomPayload.Id<MorphC2SPacket> MORPH_PACKET = MorphC2SPacket.ID;
     public static final CustomPayload.Id<SwapperC2SPacket> SWAP_PACKET = SwapperC2SPacket.ID;
     public static final CustomPayload.Id<SniperC2SPacket> SNIPER_PACKET = SniperC2SPacket.ID;
+    public static final CustomPayload.Id<DetectiveC2SPacket> DETECTIVE_PACKET = DetectiveC2SPacket.ID;
     public static final CustomPayload.Id<AbilityC2SPacket> ABILITY_PACKET = AbilityC2SPacket.ID;
     public static final CustomPayload.Id<VultureEatC2SPacket> VULTURE_PACKET = VultureEatC2SPacket.ID;
     public static final ArrayList<Role> VANNILA_ROLES = new ArrayList<>();
@@ -170,12 +177,14 @@ public class Noellesroles implements ModInitializer {
         Harpymodloader.setRoleMaximum(BETTER_VIGILANTE_ID,1);
         Harpymodloader.setRoleMaximum(SNIPER_ID,1);
         Harpymodloader.setRoleMaximum(TROLL_ID,1);
+        Harpymodloader.setRoleMaximum(DETECTIVE_ID,1);
 
         PayloadTypeRegistry.playC2S().register(MorphC2SPacket.ID, MorphC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(AbilityC2SPacket.ID, AbilityC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(SwapperC2SPacket.ID, SwapperC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(VultureEatC2SPacket.ID, VultureEatC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(SniperC2SPacket.ID, SniperC2SPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(DetectiveC2SPacket.ID, DetectiveC2SPacket.CODEC);
 
         registerEvents();
 
@@ -243,6 +252,11 @@ public class Noellesroles implements ModInitializer {
                 sniperPlayerComponent.reset(player.getWorld().getPlayers().size());
                 sniperPlayerComponent.sync();
                 // player.giveItemStack(ModItems.SNIPER_TRACKER.getDefaultStack());
+            }
+            if (role.equals(DETECTIVE)) {
+                DetectivePlayerComponent detectiveComp = DetectivePlayerComponent.KEY.get(player);
+                detectiveComp.reset(player.getWorld().getPlayers().size());
+                detectiveComp.sync();
             }
             // if (role.equals(TROLL)) {
             //     player.giveItemStack(ModItems.FAKE_KNIFE.getDefaultStack());
@@ -409,7 +423,7 @@ public class Noellesroles implements ModInitializer {
             sniperComp.shotsRemaining--;
             sniperComp.sync();
             Scheduler.schedule(() -> {
-            Effects.playCockingSound(shooter,.8f);
+            Effects.playCockingSound(shooter,2f);
             shooter.addStatusEffect(new StatusEffectInstance(
                 StatusEffects.GLOWING, // 使用原版发光效果
                 60, // 3秒持续时间（20ticks/秒）
@@ -427,6 +441,40 @@ public class Noellesroles implements ModInitializer {
             sniperComp.guessedIdentity = gameWorld.getRole(shooter.getUuid()).identifier();
             abilityComp.cooldown = NoellesRolesConfig.HANDLER.instance().sniperCooldownTicks;
             abilityComp.sync();}, 40); // 延迟40tick执行，先上膛后开枪
+        });
+
+        // 侦探查询：仅注册接收器占位，后续在服务端写入 DetectivePlayerComponent
+        ServerPlayNetworking.registerGlobalReceiver(DetectiveC2SPacket.ID, (payload, context) -> {
+            PlayerEntity detective = context.player();
+            GameWorldComponent gameWorld = GameWorldComponent.KEY.get(detective.getWorld());
+            AbilityPlayerComponent abilityComp = AbilityPlayerComponent.KEY.get(detective);
+            DetectivePlayerComponent detectiveComp = DetectivePlayerComponent.KEY.get(detective);
+
+            // 身份校验 + 冷却/次数校验
+            if (!gameWorld.isRole(detective, Noellesroles.DETECTIVE)) return;
+            if (abilityComp.cooldown > 0) return;
+            if (!detectiveComp.hasDetectRemaining()) return;
+
+            // 目标校验
+            if (payload.target() == null) return;
+            if (payload.target().equals(detective.getUuid())) return;
+            PlayerEntity target = detective.getWorld().getPlayerByUuid(payload.target());
+            if (target == null) return;
+            // 可选：禁止自查
+            // if (target.getUuid().equals(detective.getUuid())) return;
+
+            // 写入身份并标记已猜测
+            String nameString = Text.translatable("announcement.role." + gameWorld.getRole(target.getUuid()).identifier().getPath()).getString();
+            String identity = gameWorld.getRole(target.getUuid()).identifier() != null
+                    ? nameString
+                    : "???";
+            detectiveComp.addOrUpdateGuess(target.getUuid(), identity, true);
+            detectiveComp.detectRemaining--;
+            detectiveComp.sync();
+
+            // 设置冷却（复用通用冷却字段）
+            abilityComp.cooldown = NoellesRolesConfig.HANDLER.instance().generalCooldownTicks;
+            abilityComp.sync();
         });
 
         ServerPlayNetworking.registerGlobalReceiver(Noellesroles.ABILITY_PACKET, (payload, context) -> {
@@ -454,47 +502,43 @@ public class Noellesroles implements ModInitializer {
             if (gameWorldComponent.isRole(context.player(), TROLL) && abilityPlayerComponent.cooldown <= 0) {
                 PlayerEntity player = context.player();
                 PlayerShopComponent playerShopComponent = PlayerShopComponent.KEY.get(context.player());
-                    if (playerShopComponent.balance >= 25) {
-                    playerShopComponent.balance -= 25;
+                    if (playerShopComponent.balance >= 50) {
+                    playerShopComponent.balance -= 50;
                     playerShopComponent.sync();
                     abilityPlayerComponent.cooldown = NoellesRolesConfig.HANDLER.instance().tollCooldownTicks;
-                    abilityPlayerComponent.sync();
-                    switch (ThreadLocalRandom.current().nextInt(11)) {
+                    // switch (ThreadLocalRandom.current().nextInt(11)) {
+                    switch (abilityPlayerComponent.abilityStates) {
                         case 0 -> {
-                            Effects.playKnifePrepareSound(player,1f);
-                        }
-                        case 1 -> {
-                            Effects.playKnifePrepareSound(player,1f);
-                        }
-                        case 2 -> {
-                            player.giveItemStack(ModItems.FAKE_KNIFE.getDefaultStack());
-                        }
-                        case 3 -> {
-                            Effects.playShootingEffects(player,1f);
-                        }
-                        case 4 -> {
-                            Effects.playCockingSound(player,1f);
-                        }
-                        case 5 -> {
-                            Effects.playGrenadeExplodeSound(player,1f);
-                        }
-                        case 6 -> {
-                            player.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 100, 0));
-                        }
-                        case 7 -> {
-                            player.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 100, 0));
-                        }
-                        case 8 -> {
-                            PlayerBodyCreater.spawnFromPlayerTemplateSafe(player,true,true,false);
-                        }
-                        case 9 -> {
-                            player.giveItemStack(ModItems.FAKE_KNIFE.getDefaultStack());
-
-                        }
-                        case 10 -> {
                             player.giveItemStack(ModItems.FAKE_REVOLVER.getDefaultStack());
                         }
+                        case 1 -> {
+                            player.giveItemStack(ModItems.FAKE_KNIFE.getDefaultStack());
+                        }
+                        case 2 -> {
+                            switch (ThreadLocalRandom.current().nextInt(5)) {
+                                case 0 -> {
+                                    Effects.playKnifePrepareSound(player,1f);
+                                }
+                                case 1 -> {
+                                    Effects.playShootingEffects(player,1f);
+                                }
+                                case 2 -> {
+                                    Effects.playCockingSound(player,1f);
+                                }
+                                case 3 -> {
+                                    Effects.playGrenadeExplodeSound(player,1f);
+                                }
+                                case 4 -> {
+                                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 100, 0));
+                                }
+                            }
+                        }
                     }
+                    if(abilityPlayerComponent.abilityStates < 3) {
+                        abilityPlayerComponent.abilityStates++;
+                        abilityPlayerComponent.sync();
+                    }
+                    
                 }
 
             }

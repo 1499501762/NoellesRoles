@@ -67,6 +67,9 @@
   "announcement.role.troll": "串子",
   "announcement.goals.troll": "用你的能力戏弄杀手并帮助平民阵营获得胜利",
 
+  "announcement.role.detective": "侦探",
+  "announcement.goals.detective": "你可以调查其他玩家的身份",
+
 
   "item.noellesroles.fake_revolver": "假左轮手枪",
   "item.noellesroles.master_key": "万能钥匙",
@@ -91,6 +94,9 @@
   "tip.vulture": "%s/%s 尸体数",
   "tip.recaller.not_enough_money": "需要 100\uE781 来进行传送",
   "tip.noellesroles.cooldown": "能力在 %s 秒后可用",
+  "hud.noellesroles.detective": "侦探：%s/%s",
   "tip.troll.not_enough_money": "连 25\uE781都没有还想在这串",
-  "tip.troll.trollaction": "按下 %s 键来开串"
+  "tip.troll.trollaction": "按下 %s 键来开串",
+  "tip.master_key_invisible_count": "当周围人数少于 %s 时，万能钥匙会伪装成撬锁器",
+  "tip.master_key_invisible": "万能钥匙会伪装成撬锁器"
 }

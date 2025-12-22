@@ -27,6 +27,7 @@
 
   "announcement.goals.voodoo": "Elige a otro jugador para que caiga contigo.",
   "announcement.role.voodoo": "Vudú!",
+  "hud.voodoo.deaths_must_be_triggered_by_another_player": "Voodoo deaths must be triggered by another player!",
 
   "announcement.goals.swapper": "Intercambia posiciones con otros jugadores.",
   "announcement.role.swapper": "Intercambiador!",
@@ -56,6 +57,17 @@
   "announcement.role.vulture": "Buitre!",
   "hud.vulture.eat": "¡Pulsa %s para comer!",
   "hud.vulture.already_consumed": "Este cuerpo ya ha sido consumido.",
+ 
+  "announcement.role.sniper": "Sniper",
+  "announcement.goals.sniper": "Kill players by guessing their roles.",
+  "hud.sniper.choose_player": "Select player and role",
+  "hud.sniper.selected": "Selected",
+ 
+  "announcement.role.troll": "Troll",
+  "announcement.goals.troll": "Use your abilities to troll the killers and help the passengers win.",
+ 
+  "announcement.role.detective": "Detective",
+  "announcement.goals.detective": "You can investigate other players' roles.",
 
 
   "item.noellesroles.fake_revolver": "Revólver falso",
@@ -80,5 +92,10 @@
   "tip.recaller.teleport": "¡Usa %s para teletransportarte!",
   "tip.vulture": "%s/%s cuerpos devorados.",
   "tip.recaller.not_enough_money": "Se requieren 100\uE781 para teletransportarse.",
-  "tip.noellesroles.cooldown": "Habilidad utilizable en %ss"
+  "tip.noellesroles.cooldown": "Habilidad utilizable en %ss",
+  "hud.noellesroles.detective": "Detective: %s/%s",
+  "tip.troll.not_enough_money": "25\uE781 required to troll.",
+  "tip.troll.trollaction": "Press %s to troll!",
+  "tip.master_key_invisible_count": "Master Keys look like lockpicks with less than %s people.",
+  "tip.master_key_invisible": "Master Keys look like lockpicks."
 }

@@ -59,6 +59,17 @@
   "hud.vulture.eat": "Press %s to eat!",
   "hud.vulture.already_consumed": "This body has been consumed.",
 
+  "announcement.role.sniper": "Sniper",
+  "announcement.goals.sniper": "Kill players by guessing their roles.",
+  "hud.sniper.choose_player": "Select player and role",
+  "hud.sniper.selected": "Selected",
+
+  "announcement.role.troll": "Troll",
+  "announcement.goals.troll": "Use your abilities to troll the killers and help the passengers win.",
+ 
+  "announcement.role.detective": "Detective",
+  "announcement.goals.detective": "You can investigate other players' roles.",
+
 
   "item.noellesroles.fake_revolver": "Fake Revolver",
   "item.noellesroles.master_key": "Master Key",
@@ -83,6 +94,10 @@
   "tip.vulture": "%s/%s bodies eaten.",
   "tip.recaller.not_enough_money": "100\uE781 required to teleport.",
   "tip.noellesroles.cooldown": "Ability usable in %ss",
+  "hud.voodoo.deaths_must_be_triggered_by_another_player": "Voodoo deaths must be triggered by another player!",
+  "hud.noellesroles.detective": "Detective: %s/%s",
+  "tip.troll.not_enough_money": "25\uE781 required to troll.",
+  "tip.troll.trollaction": "Press %s to troll!",
   "tip.master_key_invisible_count": "Master Keys look like lockpicks with less than %s people.",
   "tip.master_key_invisible": "Master Keys look like lockpicks."
 }

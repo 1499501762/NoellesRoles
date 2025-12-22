@@ -42,7 +42,10 @@ public class NoellesRolesConfig {
     @SerialEntry(comment = "Sniper role shot ratio (20% of players)")
     public double sniperShotRatio = 0.2;
 
-    @SerialEntry(comment = "Sniper role cooldown in ticks (default 30 seconds)")
-    public int tollCooldownTicks = GameConstants.getInTicks(0,30); // 30s
+    @SerialEntry(comment = "Toll role cooldown in ticks (default 30 seconds)")
+    public int tollCooldownTicks = GameConstants.getInTicks(0,25); // 25s
+
+    @SerialEntry(comment = "Detective role ability ratio (20% of players)")
+    public double detectiveAbilityRatio = 0.2;
 
 }

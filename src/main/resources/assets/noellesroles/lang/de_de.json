@@ -25,6 +25,7 @@
 
   "announcement.goals.voodoo": "Wähle einer anderen Spieler der am gleichen seidenen faden hängt.",
   "announcement.role.voodoo": "Puppenspieler",
+  "hud.voodoo.deaths_must_be_triggered_by_another_player": "Voodoo deaths must be triggered by another player!",
 
   "announcement.goals.swapper": "Tausche plätze mit anderen Spielern.",
   "announcement.role.swapper": "Wechsler",
@@ -33,6 +34,7 @@
 
   "announcement.goals.coroner": "Untersuche Tote und sammle deren Informationen.",
   "announcement.role.coroner": "Forensiker",
+  "announcement.win.coroner": "Passengers Win!",
   "hud.coroner.sanity_requirements": "50% sanity required to use ability",
   "hud.coroner.death_info": "Died %ss ago to ",
   "hud.coroner.role_info": "Their role was ",
@@ -50,6 +52,17 @@
   "announcement.role.vulture": "Geier",
   "hud.vulture.eat": "Drücke %s um zu fressen",
   "hud.vulture.already_consumed": "Dieser Tote wurde gefressen.",
+ 
+  "announcement.role.sniper": "Sniper",
+  "announcement.goals.sniper": "Kill players by guessing their roles.",
+  "hud.sniper.choose_player": "Select player and role",
+  "hud.sniper.selected": "Selected",
+ 
+  "announcement.role.troll": "Troll",
+  "announcement.goals.troll": "Use your abilities to troll the killers and help the passengers win.",
+ 
+  "announcement.role.detective": "Detective",
+  "announcement.goals.detective": "You can investigate other players' roles.",
 
 
   "item.noellesroles.fake_revolver": "Spielzeugrevolver",
@@ -74,5 +87,11 @@
   "tip.recaller.teleport": "Drücke %s um dich zu teleportieren!",
   "tip.vulture": "%s/%s tote gefressen.",
   "tip.recaller.not_enough_money": "Du brauchst 100\uE781 um diese Fähigkeit zu benutzen.",
-  "tip.noellesroles.cooldown": "Fähigkeit benutzbar in %ss"
+  "tip.noellesroles.cooldown": "Fähigkeit benutzbar in %ss",
+  "hud.noellesroles.detective": "Detektiv: %s/%s",
+  "tip.troll.not_enough_money": "25\uE781 required to troll.",
+  "tip.troll.trollaction": "Press %s to troll!",
+  "tip.master_key_invisible_count": "Master Keys look like lockpicks with less than %s people.",
+  "tip.master_key_invisible": "Master Keys look like lockpicks.",
+  "announcement.win.the_insane_damned_paranoid_killer": "Killers Win!"
 }
