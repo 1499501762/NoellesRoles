@@ -18,9 +18,11 @@ public class AbilityPlayerComponent implements AutoSyncedComponent, ServerTickin
     public static final ComponentKey<AbilityPlayerComponent> KEY = ComponentRegistry.getOrCreate(Identifier.of(Noellesroles.MOD_ID, "ability"), AbilityPlayerComponent.class);
     private final PlayerEntity player;
     public int cooldown = 0;
+    public int abilityStates = 0;
 
     public void reset() {
         this.cooldown = 0;
+        abilityStates = 0;
         this.sync();
     }
 
@@ -50,9 +52,11 @@ public class AbilityPlayerComponent implements AutoSyncedComponent, ServerTickin
 
     public void writeToNbt(@NotNull NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
         tag.putInt("cooldown", this.cooldown);
+        tag.putInt("abilityStates", this.abilityStates);
     }
 
     public void readFromNbt(@NotNull NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
         this.cooldown = tag.contains("cooldown") ? tag.getInt("cooldown") : 0;
+        this.abilityStates = tag.contains("abilityStates") ? tag.getInt("abilityStates") : 0;
     }
 }

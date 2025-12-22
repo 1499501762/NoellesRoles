@@ -1,5 +1,7 @@
 package org.agmas.noellesroles.util;
 
+import org.jetbrains.annotations.Nullable;
+
 import dev.doctor4t.wathe.index.WatheSounds;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
@@ -83,8 +85,9 @@ public final class Effects {
      * 播放开枪音效并在玩家视线前方生成枪口粒子（烟/火焰）作为 muzzle flash。
      * - 在非服务器世界上仍会播放音效，但不会产生粒子（粒子需 ServerWorld）。
      */
-    public static void playShootingEffects(PlayerEntity player, float soundVolume) {
+    public static void playShootingEffects(PlayerEntity player, @Nullable Float soundVolume) {
         // 播放开枪声音（广播）
+        soundVolume = (soundVolume == null) ? 1.0f : soundVolume;
         player.getWorld().playSound(
             /* player */ null,
             player.getX(),

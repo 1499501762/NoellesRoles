@@ -17,6 +17,8 @@
     "phantom.PhantomHudMixin",
     "phantom.PhantomRattatoulieMixin",
     "recaller.RecallerHudMixin",
+    "detective.DetectiveScreenMixin",
+    "detective.DetectiveHudMixin",
     "swapper.SwapperScreenMixin",
     "voodoo.VoodoScreenMixin",
     "vulture.VultureEatenBodyMixin",
