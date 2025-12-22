@@ -27,7 +27,9 @@ Role List:
   - Can swap two people around the map on a cooldown.
 
 - Sniper
-  - Players can be killed by guess peoples identity.
+  - Kill players by correctly guessing their roles.
+  - Open the sniper screen, select a target and a role.
+  - The action has a cooldown; your current selection is highlighted.
 
 ## Civillians
 
@@ -50,8 +52,16 @@ Role List:
 - Voodoo
   - Choose one person to die alongside you.
 
+- Detective
+  - Investigate other players' identities with limited checks.
+  - Checks are capped and shown on HUD as "Detective: remaining/max".
+  - Click players in the detective screen to perform a check (has cooldown).
+  - Known identities are remembered per target for the rest of the match.
+
 - Troll
-  - ???????.
+  - A chaotic civilian who can trigger pranks to confuse killers.
+  - Requires money to use (25 coins); action is on a cooldown.
+  - Designed to help passengers by disrupting killers' plans.
 
 ## ???? (disabled by default, turn on a config option to get them back on!)
 
