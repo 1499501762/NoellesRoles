@@ -82,7 +82,8 @@ jobs:
           fi
           dep="$(echo "$dep" | sed 's/[^h0-9\.]//g')"
           if [ -n "$file_url" ]; then
-            outname="libs/harpymodloader-${version_number}.jar"
+            # Write directly to Gradle's expected path to avoid later renames
+            outname="libs/harpymodloader-1.1.2-h1.3.jar"
             echo "Downloading harpymodloader: $file_url -> $outname"
             curl -L -s -o "$outname" "$file_url"
             echo "harp_file=$outname" >> "$GITHUB_OUTPUT"
@@ -91,34 +92,6 @@ jobs:
           fi
           echo "harp_version=$version_number" >> "$GITHUB_OUTPUT"
           echo "dep=$dep" >> "$GITHUB_OUTPUT"
-
-      - name: Normalize harp jar name for Gradle
-        if: steps.get-harp.outputs.harp_file != 'none'
-        run: |
-          src="${{ steps.get-harp.outputs.harp_file }}"
-          dest="libs/harpymodloader-1.1.2-h1.3.jar"
-
-          if [ ! -f "$src" ]; then
-            echo "❌ Source file missing: $src" >&2
-            exit 1
-          fi
-
-          # If src and dest refer to the same file, skip copying
-          if { [ -e "$dest" ] && [ "$src" -ef "$dest" ]; } || [ "$src" = "$dest" ]; then
-            echo "✓ harpymodloader already has correct name: $(du -h "$src" | cut -f1)"
-          else
-            if [ -f "$dest" ] && cmp -s "$src" "$dest"; then
-              echo "✓ harpymodloader already up-to-date: $(du -h \"$dest\" | cut -f1)"
-            else
-              cp -fv "$src" "$dest" || echo "⚠ cp returned non-zero, continuing if target exists"
-              if [ -f "$dest" ]; then
-                echo "✓ harpymodloader normalized: $(du -h \"$dest\" | cut -f1)"
-              else
-                echo "❌ Failed to place $dest" >&2
-                exit 1
-              fi
-            fi
-          fi
 
       - name: Download wathe from Modrinth (try specified or fallback to GitHub release)
         id: get-wathe
@@ -151,44 +124,12 @@ jobs:
             chosen_url="${WATHE_GITHUB_FALLBACK}"
             chosen_ver=""
           fi
-          outname="libs/wathe"
-          if [ -n "$chosen_ver" ]; then
-            outname="libs/wathe-${chosen_ver}.jar"
-          else
-            outname="libs/wathe.jar"
-          fi
+          # Always write to Gradle's expected path to avoid later renames
+          outname="libs/wathe-1.3.2-1.21.1.jar"
           echo "Downloading wathe: $chosen_url -> $outname"
           curl -L -s -o "$outname" "$chosen_url"
           echo "wathe_file=$outname" >> "$GITHUB_OUTPUT"
           echo "wathe_version=$chosen_ver" >> "$GITHUB_OUTPUT"
-
-      - name: Normalize wathe jar name for Gradle
-        if: steps.get-wathe.outputs.wathe_file != ''
-        run: |
-          src="${{ steps.get-wathe.outputs.wathe_file }}"
-          dest="libs/wathe-1.3.2-1.21.1.jar"
-
-          if [ ! -f "$src" ]; then
-            echo "❌ Source file missing: $src" >&2
-            exit 1
-          fi
-
-          # If src and dest refer to the same file, skip copying
-          if { [ -e "$dest" ] && [ "$src" -ef "$dest" ]; } || [ "$src" = "$dest" ]; then
-            echo "✓ wathe already has correct name: $(du -h "$src" | cut -f1)"
-          else
-            if [ -f "$dest" ] && cmp -s "$src" "$dest"; then
-              echo "✓ wathe already up-to-date: $(du -h \"$dest\" | cut -f1)"
-            else
-              cp -fv "$src" "$dest" || echo "⚠ cp returned non-zero, continuing if target exists"
-              if [ -f "$dest" ]; then
-                echo "✓ wathe normalized: $(du -h \"$dest\" | cut -f1)"
-              else
-                echo "❌ Failed to place $dest" >&2
-                exit 1
-              fi
-            fi
-          fi
 
       - name: Verify libs files before build
         run: |
