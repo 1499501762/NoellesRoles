@@ -97,17 +97,14 @@ jobs:
         run: |
           src="${{ steps.get-harp.outputs.harp_file }}"
           dest="libs/harpymodloader-1.1.2-h1.3.jar"
-          
+
           if [ ! -f "$src" ]; then
             echo "❌ Source file missing: $src" >&2
             exit 1
           fi
-          
-          # Check if source and destination are the same
-          src_real=$(cd "$(dirname "$src")" && pwd -P)/$(basename "$src")
-          dest_real=$(cd "$(dirname "$dest")" && pwd -P)/$(basename "$dest")
-          
-          if [ "$src_real" = "$dest_real" ]; then
+
+          # If src and dest refer to the same file, skip copying
+          if [ -e "$dest" ] && [ "$src" -ef "$dest" ] || [ "$src" = "$dest" ]; then
             echo "✓ harpymodloader already has correct name: $(du -h "$src" | cut -f1)"
           else
             cp -fv "$src" "$dest"
@@ -161,17 +158,14 @@ jobs:
         run: |
           src="${{ steps.get-wathe.outputs.wathe_file }}"
           dest="libs/wathe-1.3.2-1.21.1.jar"
-          
+
           if [ ! -f "$src" ]; then
             echo "❌ Source file missing: $src" >&2
             exit 1
           fi
-          
-          # Check if source and destination are the same
-          src_real=$(cd "$(dirname "$src")" && pwd -P)/$(basename "$src")
-          dest_real=$(cd "$(dirname "$dest")" && pwd -P)/$(basename "$dest")
-          
-          if [ "$src_real" = "$dest_real" ]; then
+
+          # If src and dest refer to the same file, skip copying
+          if [ -e "$dest" ] && [ "$src" -ef "$dest" ] || [ "$src" = "$dest" ]; then
             echo "✓ wathe already has correct name: $(du -h "$src" | cut -f1)"
           else
             cp -fv "$src" "$dest"
