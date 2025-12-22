@@ -95,7 +95,18 @@ jobs:
       - name: Normalize harp jar name for Gradle
         if: steps.get-harp.outputs.harp_file != 'none'
         run: |
-          cp -f "${{ steps.get-harp.outputs.harp_file }}" libs/harpymodloader-1.1.2-h1.3.jar
+          src="${{ steps.get-harp.outputs.harp_file }}"
+          dest="libs/harpymodloader-1.1.2-h1.3.jar"
+          if [ ! -f "$src" ]; then
+            echo "❌ Source file missing: $src" >&2
+            exit 1
+          fi
+          if [ "$src" != "$dest" ]; then
+            cp -fv "$src" "$dest"
+            echo "✓ harpymodloader normalized: $(du -h $dest | cut -f1)"
+          else
+            echo "✓ harpymodloader already has correct name: $(du -h $dest | cut -f1)"
+          fi
 
       - name: Download wathe from Modrinth (try specified or fallback to GitHub release)
         id: get-wathe
@@ -148,9 +159,37 @@ jobs:
             echo "❌ Source file missing: $src" >&2
             exit 1
           fi
+          if [ "$src" != "$dest" ]; then
+            cp -fv "$src" "$dest"
+            echo "✓ wathe normalized: $(du -h $dest | cut -f1)"
+          else
+            echo "✓ wathe already has correct name: $(du -h $dest | cut -f1)"
+          fi
 
-      - name: Build
-        run: ./gradlew --no-daemon clean build
+      - name: Verify libs files before build
+        run: |
+          echo "📁 Libs directory contents:"
+          ls -lh libs/ || echo "  (libs dir empty or missing)"
+          echo ""
+          echo "📋 Gradle will use:"
+          file libs/wathe-1.3.2-1.21.1.jar && echo "✓ wathe JAR found" || echo "❌ wathe JAR missing"
+          file libs/harpymodloader-1.1.2-h1.3.jar && echo "✓ harpymodloader JAR found" || echo "❌ harpymodloader JAR missing"
+
+      - name: Build with Gradle
+        run: ./gradlew --no-daemon clean build --info 2>&1 | tee build.log
+
+      - name: Check build results
+        if: always()
+        run: |
+          echo "📊 Build artifacts:"
+          find build/libs -name '*.jar' -type f 2>/dev/null | while read f; do
+            echo "  - $(basename $f) ($(du -h $f | cut -f1))"
+          done || echo "  (no JARs produced)"
+          echo ""
+          if [ -f build.log ]; then
+            echo "📝 Last 40 lines of build log:"
+            tail -40 build.log
+          fi
 
       - name: Collect release files
         run: |
