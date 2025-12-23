@@ -62,7 +62,7 @@ public class DetectivePlayerComponent implements AutoSyncedComponent, ServerTick
         // 初始化/重置身份列表：记录自身身份为已知且已被猜测
         String nameString = gameWorldComponent.getRole(player.getUuid()).identifier().getPath();
         String selfIdentity = gameWorldComponent.getRole(player.getUuid()).identifier() != null
-            ? Text.translatable("announcement.role." + nameString).getString()
+            ? Text.translatable("announcement.role.noellesroles." + nameString).getString()
             : "???";
         this.guessList.clear();
         this.guessList.add(new GuessInfo(this.player.getUuid(), selfIdentity, true));

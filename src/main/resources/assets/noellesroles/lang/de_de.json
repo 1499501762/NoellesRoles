@@ -1,68 +1,68 @@
 {
-  "announcement.goals.jester": "Finde und kooperiere mit den Mördern.",
-  "announcement.role.jester": "Narr",
+  "announcement.goals.noellesroles.jester": "Finde und kooperiere mit den Mördern.",
+  "announcement.role.noellesroles.jester": "Narr",
 
-  "announcement.goals.morphling": "Trickse jeden aus.",
-  "announcement.role.morphling": "Polymorph",
+  "announcement.goals.noellesroles.morphling": "Trickse jeden aus.",
+  "announcement.role.noellesroles.morphling": "Polymorph",
 
-  "announcement.goals.awesome_binglus": "Heiliger Bingus",
-  "announcement.role.awesome_binglus": "Heiliger Bingu",
+  "announcement.goals.noellesroles.awesome_binglus": "Heiliger Bingus",
+  "announcement.role.noellesroles.awesome_binglus": "Heiliger Bingu",
 
-  "announcement.goals.conductor": "Benutze den Hauptschlüssel um alle Türen im Zug zu öffnen!",
-  "announcement.role.conductor": "Zugführer",
+  "announcement.goals.noellesroles.conductor": "Benutze den Hauptschlüssel um alle Türen im Zug zu öffnen!",
+  "announcement.role.noellesroles.conductor": "Zugführer",
 
-  "announcement.goals.the_insane_damned_paranoid_killer": "Ich höre die Toten.",
-  "announcement.role.the_insane_damned_paranoid_killer": "Der Wahnsinnige Verdammte Paranoide Mörderer vom Untergang Tot Zerstörung und Waffeln",
+  "announcement.goals.noellesroles.the_insane_damned_paranoid_killer": "Ich höre die Toten.",
+  "announcement.role.noellesroles.the_insane_damned_paranoid_killer": "Der Wahnsinnige Verdammte Paranoide Mörderer vom Untergang Tot Zerstörung und Waffeln",
 
-  "announcement.goals.bartender": "Sehe andere Spieler die Trinken durch Wände!",
-  "announcement.role.bartender": "Barkeeper",
+  "announcement.goals.noellesroles.bartender": "Sehe andere Spieler die Trinken durch Wände!",
+  "announcement.role.noellesroles.bartender": "Barkeeper",
 
-  "announcement.goals.phantom": "Werde unsichtbar: aber pass auf Kollisionen auf.",
-  "announcement.role.phantom": "Phantom",
+  "announcement.goals.noellesroles.phantom": "Werde unsichtbar: aber pass auf Kollisionen auf.",
+  "announcement.role.noellesroles.phantom": "Phantom",
 
-  "announcement.goals.noisemaker": "Alarmiere andere Spieler wo du bist sobald du stirbst.",
-  "announcement.role.noisemaker": "Heulboje",
+  "announcement.goals.noellesroles.noisemaker": "Alarmiere andere Spieler wo du bist sobald du stirbst.",
+  "announcement.role.noellesroles.noisemaker": "Heulboje",
 
-  "announcement.goals.voodoo": "Wähle einer anderen Spieler der am gleichen seidenen faden hängt.",
-  "announcement.role.voodoo": "Puppenspieler",
+  "announcement.goals.noellesroles.voodoo": "Wähle einer anderen Spieler der am gleichen seidenen faden hängt.",
+  "announcement.role.noellesroles.voodoo": "Puppenspieler",
   "hud.voodoo.deaths_must_be_triggered_by_another_player": "Voodoo deaths must be triggered by another player!",
 
-  "announcement.goals.swapper": "Tausche plätze mit anderen Spielern.",
-  "announcement.role.swapper": "Wechsler",
+  "announcement.goals.noellesroles.swapper": "Tausche plätze mit anderen Spielern.",
+  "announcement.role.noellesroles.swapper": "Wechsler",
   "hud.swapper.first_player_selection": "Select first player to swap",
   "hud.swapper.second_player_selection": "Select second player to swap",
 
-  "announcement.goals.coroner": "Untersuche Tote und sammle deren Informationen.",
-  "announcement.role.coroner": "Forensiker",
+  "announcement.goals.noellesroles.coroner": "Untersuche Tote und sammle deren Informationen.",
+  "announcement.role.noellesroles.coroner": "Forensiker",
   "announcement.win.coroner": "Passengers Win!",
   "hud.coroner.sanity_requirements": "50% sanity required to use ability",
   "hud.coroner.death_info": "Died %ss ago to ",
   "hud.coroner.role_info": "Their role was ",
 
-  "announcement.goals.executioner": "Bekomm ein Mörder nachdem ihre Zielperson verstirbt (zu einem nicht-Mörder).",
-  "announcement.role.executioner": "Henker",
+  "announcement.goals.noellesroles.executioner": "Bekomm ein Mörder nachdem ihre Zielperson verstirbt (zu einem nicht-Mörder).",
+  "announcement.role.noellesroles.executioner": "Henker",
 
-  "announcement.goals.trapper": "Check other player's roles.",
-  "announcement.role.trapper": "Trapper",
+  "announcement.goals.noellesroles.trapper": "Check other player's roles.",
+  "announcement.role.noellesroles.trapper": "Trapper",
 
-  "announcement.goals.recaller": "Teleportier dich über all hin auf dem Zug!",
-  "announcement.role.recaller": "Rückrufer",
+  "announcement.goals.noellesroles.recaller": "Teleportier dich über all hin auf dem Zug!",
+  "announcement.role.noellesroles.recaller": "Rückrufer",
 
-  "announcement.goals.vulture": "Fresse Tote um zu einem Mörder zu werden.",
-  "announcement.role.vulture": "Geier",
+  "announcement.goals.noellesroles.vulture": "Fresse Tote um zu einem Mörder zu werden.",
+  "announcement.role.noellesroles.vulture": "Geier",
   "hud.vulture.eat": "Drücke %s um zu fressen",
   "hud.vulture.already_consumed": "Dieser Tote wurde gefressen.",
  
-  "announcement.role.sniper": "Sniper",
-  "announcement.goals.sniper": "Kill players by guessing their roles.",
+  "announcement.role.noellesroles.sniper": "Sniper",
+  "announcement.goals.noellesroles.sniper": "Kill players by guessing their roles.",
   "hud.sniper.choose_player": "Select player and role",
   "hud.sniper.selected": "Selected",
  
-  "announcement.role.troll": "Troll",
-  "announcement.goals.troll": "Use your abilities to troll the killers and help the passengers win.",
+  "announcement.role.noellesroles.troll": "Troll",
+  "announcement.goals.noellesroles.troll": "Use your abilities to troll the killers and help the passengers win.",
  
-  "announcement.role.detective": "Detective",
-  "announcement.goals.detective": "You can investigate other players' roles.",
+  "announcement.role.noellesroles.detective": "Detective",
+  "announcement.goals.noellesroles.detective": "You can investigate other players' roles.",
 
 
   "item.noellesroles.fake_revolver": "Spielzeugrevolver",

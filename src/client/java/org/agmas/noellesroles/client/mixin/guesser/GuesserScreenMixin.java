@@ -42,36 +42,39 @@ public abstract class GuesserScreenMixin extends LimitedHandledScreen<PlayerScre
     void renderGuesserHeads(CallbackInfo ci) {
         GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(player.getWorld());
         WorldModifierComponent worldModifierComponent = WorldModifierComponent.KEY.get(player.getWorld());
+        if (!worldModifierComponent.isRole(player, Noellesroles.GUESSER)) return;
+        
         GuesserPlayerWidget.selectedPlayer = null;
-        if (worldModifierComponent.isRole(player,Noellesroles.GUESSER)) {
-            GuesserRoleWidget.stopClosing = false;
-            List<UUID> entries = new ArrayList<>(MinecraftClient.getInstance().player.networkHandler.getPlayerUuids());
-            if (!gameWorldComponent.isInnocent(player)) {
-                entries.clear();
-                for (AbstractClientPlayerEntity worldPlayer : MinecraftClient.getInstance().world.getPlayers()) {
-                    if (gameWorldComponent.isInnocent(worldPlayer) && !gameWorldComponent.isRole(player, Noellesroles.MIMIC))
-                        entries.add(worldPlayer.getUuid());
-                }
+        GuesserRoleWidget.stopClosing = false;
+        List<UUID> entries = new ArrayList<>(MinecraftClient.getInstance().player.networkHandler.getPlayerUuids());
+        if (!gameWorldComponent.isInnocent(player)) {
+            entries.clear();
+            for (AbstractClientPlayerEntity worldPlayer : MinecraftClient.getInstance().world.getPlayers()) {
+                if (gameWorldComponent.isInnocent(worldPlayer) && !gameWorldComponent.isRole(player, Noellesroles.MIMIC))
+                    entries.add(worldPlayer.getUuid());
             }
-            int apart = 36;
-            int x = ((LimitedInventoryScreen)(Object)this).width / 2 - (entries.size()) * apart / 2 + 9;
-            int shouldBeY = (((LimitedInventoryScreen)(Object)this).height - 32) / 2;
-            int y = shouldBeY + 105;
-
-            for(int i = 0; i < entries.size(); ++i) {
-                GuesserPlayerWidget child = new GuesserPlayerWidget(((LimitedInventoryScreen)(Object)this), x + apart * i, y, entries.get(i), player.networkHandler.getPlayerListEntry(entries.get(i)));
-                addDrawableChild(child);
-                child.visible = false;
-            }
-
-            GuesserRoleWidget child = new GuesserRoleWidget(((LimitedInventoryScreen)(Object)this), textRenderer, (width/2)-100, y);
-            addDrawableChild(child);
-            child.setVisible(false);
         }
+        int apart = 36;
+        int x = ((LimitedInventoryScreen)(Object)this).width / 2 - (entries.size()) * apart / 2 + 9;
+        int shouldBeY = (((LimitedInventoryScreen)(Object)this).height - 32) / 2;
+        int y = shouldBeY + 105;
+
+        for(int i = 0; i < entries.size(); ++i) {
+            GuesserPlayerWidget child = new GuesserPlayerWidget(((LimitedInventoryScreen)(Object)this), x + apart * i, y, entries.get(i), player.networkHandler.getPlayerListEntry(entries.get(i)));
+            addDrawableChild(child);
+            child.visible = false;
+        }
+
+        GuesserRoleWidget child = new GuesserRoleWidget(((LimitedInventoryScreen)(Object)this), textRenderer, (width/2)-100, y);
+        addDrawableChild(child);
+        child.setVisible(false);
     }
 
     @Inject(method = "render", at = @At("TAIL"))
     void swapGuesserModes(CallbackInfo ci) {
+        WorldModifierComponent worldModifierComponent = WorldModifierComponent.KEY.get(player.getWorld());
+        if (!worldModifierComponent.isRole(player, Noellesroles.GUESSER)) return;
+        
         for (Element child : children()) {
             GuesserRoleWidget.stopClosing = GuesserPlayerWidget.selectedPlayer != null;
             if (child instanceof GuesserPlayerWidget gpw) {

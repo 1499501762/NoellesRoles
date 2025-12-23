@@ -1,4 +1,4 @@
-package org.agmas.noellesroles.client;
+package org.agmas.noellesroles.client.ui;
 
 import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedInventoryScreen;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;

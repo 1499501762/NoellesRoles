@@ -1,73 +1,73 @@
 {
-  "announcement.goals.jester": "Encuentra y coopera con los Asesinos.",
-  "announcement.role.jester": "Bufón!",
+  "announcement.goals.noellesroles.jester": "Encuentra y coopera con los Asesinos.",
+  "announcement.role.noellesroles.jester": "Bufón!",
 
-  "announcement.goals.morphling": "Engaña a todos.",
-  "announcement.role.morphling": "Metamorfo!",
+  "announcement.goals.noellesroles.morphling": "Engaña a todos.",
+  "announcement.role.noellesroles.morphling": "Metamorfo!",
 
-  "announcement.goals.awesome_binglus": "Binglu impresionante",
-  "announcement.role.awesome_binglus": "Binglus impresionantes",
+  "announcement.goals.noellesroles.awesome_binglus": "Binglu impresionante",
+  "announcement.role.noellesroles.awesome_binglus": "Binglus impresionantes",
 
-  "announcement.goals.conductor": "¡Usa la llave maestra para abrir todas las puertas del tren!",
-  "announcement.role.conductor": "Conductor!",
+  "announcement.goals.noellesroles.conductor": "¡Usa la llave maestra para abrir todas las puertas del tren!",
+  "announcement.role.noellesroles.conductor": "Conductor!",
 
-  "announcement.goals.the_insane_damned_paranoid_killer": "Oigo a gente muerta.",
-  "announcement.role.the_insane_damned_paranoid_killer": "El Insano Maldito Asesino Paranoico de la Perdición, Muerte, Destrucción y Gofres",
+  "announcement.goals.noellesroles.the_insane_damned_paranoid_killer": "Oigo a gente muerta.",
+  "announcement.role.noellesroles.the_insane_damned_paranoid_killer": "El Insano Maldito Asesino Paranoico de la Perdición, Muerte, Destrucción y Gofres",
   "announcement.win.the_insane_damned_paranoid_killer": "¡Ganan los Asesinos!",
 
 
-  "announcement.goals.bartender": "¡Ve a los jugadores que beben a través de las paredes!",
-  "announcement.role.bartender": "Bartender!",
+  "announcement.goals.noellesroles.bartender": "¡Ve a los jugadores que beben a través de las paredes!",
+  "announcement.role.noellesroles.bartender": "Bartender!",
 
-  "announcement.goals.phantom": "Vuélvete invisible, pero cuidado con las colisiones.",
-  "announcement.role.phantom": "Fantasma!",
+  "announcement.goals.noellesroles.phantom": "Vuélvete invisible, pero cuidado con las colisiones.",
+  "announcement.role.noellesroles.phantom": "Fantasma!",
 
-  "announcement.goals.noisemaker": "Avisa a los jugadores de tu ubicación al morir.",
-  "announcement.role.noisemaker": "Ruidoso!",
+  "announcement.goals.noellesroles.noisemaker": "Avisa a los jugadores de tu ubicación al morir.",
+  "announcement.role.noellesroles.noisemaker": "Ruidoso!",
 
-  "announcement.goals.voodoo": "Elige a otro jugador para que caiga contigo.",
-  "announcement.role.voodoo": "Vudú!",
+  "announcement.goals.noellesroles.voodoo": "Elige a otro jugador para que caiga contigo.",
+  "announcement.role.noellesroles.voodoo": "Vudú!",
   "hud.voodoo.deaths_must_be_triggered_by_another_player": "Voodoo deaths must be triggered by another player!",
 
-  "announcement.goals.swapper": "Intercambia posiciones con otros jugadores.",
-  "announcement.role.swapper": "Intercambiador!",
+  "announcement.goals.noellesroles.swapper": "Intercambia posiciones con otros jugadores.",
+  "announcement.role.noellesroles.swapper": "Intercambiador!",
   "hud.swapper.first_player_selection": "Selecciona el primer jugador para intercambiar",
   "hud.swapper.second_player_selection": "Selecciona el segundo jugador para intercambiar",
 
-  "announcement.goals.coroner": "Obtén información de los cuerpos.",
-  "announcement.role.coroner": "Forense!",
+  "announcement.goals.noellesroles.coroner": "Obtén información de los cuerpos.",
+  "announcement.role.noellesroles.coroner": "Forense!",
   "announcement.win.coroner": "¡Ganan los Pasajeros!",
   "hud.coroner.sanity_requirements": "Se requiere un 50% de cordura para usar la habilidad",
   "hud.coroner.death_info": "Murió hace %s s a manos de ",
   "hud.coroner.role_info": "Su rol era ",
 
-  "announcement.goals.executioner": "Conviértete en asesino cuando tu objetivo muera (a manos de alguien que no sea asesino).",
-  "announcement.role.executioner": "Ejecutor!",
+  "announcement.goals.noellesroles.executioner": "Conviértete en asesino cuando tu objetivo muera (a manos de alguien que no sea asesino).",
+  "announcement.role.noellesroles.executioner": "Ejecutor!",
 
-  "announcement.goals.trapper": "Comprueba los roles de otros jugadores.",
-  "announcement.role.trapper": "Trampero!",
+  "announcement.goals.noellesroles.trapper": "Comprueba los roles de otros jugadores.",
+  "announcement.role.noellesroles.trapper": "Trampero!",
 
-  "announcement.goals.recaller": "¡Teletranspórtate a cualquier parte del tren!",
-  "announcement.role.recaller": "Recordador!",
+  "announcement.goals.noellesroles.recaller": "¡Teletranspórtate a cualquier parte del tren!",
+  "announcement.role.noellesroles.recaller": "Recordador!",
 
-  "announcement.goals.better_vigilante": "Uhhhhhhhhhhhhh",
-  "announcement.role.better_vigilante": "Mejor Vigilante!",
+  "announcement.goals.noellesroles.better_vigilante": "Uhhhhhhhhhhhhh",
+  "announcement.role.noellesroles.better_vigilante": "Mejor Vigilante!",
 
-  "announcement.goals.vulture": "Devora cuerpos para convertirte en asesino.",
-  "announcement.role.vulture": "Buitre!",
+  "announcement.goals.noellesroles.vulture": "Devora cuerpos para convertirte en asesino.",
+  "announcement.role.noellesroles.vulture": "Buitre!",
   "hud.vulture.eat": "¡Pulsa %s para comer!",
   "hud.vulture.already_consumed": "Este cuerpo ya ha sido consumido.",
  
-  "announcement.role.sniper": "Sniper",
-  "announcement.goals.sniper": "Kill players by guessing their roles.",
+  "announcement.role.noellesroles.sniper": "Sniper",
+  "announcement.goals.noellesroles.sniper": "Kill players by guessing their roles.",
   "hud.sniper.choose_player": "Select player and role",
   "hud.sniper.selected": "Selected",
  
-  "announcement.role.troll": "Troll",
-  "announcement.goals.troll": "Use your abilities to troll the killers and help the passengers win.",
+  "announcement.role.noellesroles.troll": "Troll",
+  "announcement.goals.noellesroles.troll": "Use your abilities to troll the killers and help the passengers win.",
  
-  "announcement.role.detective": "Detective",
-  "announcement.goals.detective": "You can investigate other players' roles.",
+  "announcement.role.noellesroles.detective": "Detective",
+  "announcement.goals.noellesroles.detective": "You can investigate other players' roles.",
 
 
   "item.noellesroles.fake_revolver": "Revólver falso",

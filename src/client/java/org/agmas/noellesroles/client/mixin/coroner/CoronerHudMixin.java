@@ -74,7 +74,7 @@ public abstract class CoronerHudMixin {
                     if (role.identifier().equals(bodyDeathReasonComponent.playerRole)) foundRole =role;
                 }
                 if ((WatheClient.isPlayerSpectatingOrCreative() || gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.CORONER)) && !bodyDeathReasonComponent.vultured ) {
-                    Text roleInfo = Text.translatable("hud.coroner.role_info").withColor(Colors.RED).append(Text.translatable("announcement.role." + bodyDeathReasonComponent.playerRole.getPath()).withColor(foundRole.color()));
+                    Text roleInfo = Text.translatable("hud.coroner.role_info").withColor(Colors.RED).append(Text.translatable("announcement.role.noellesroles." + bodyDeathReasonComponent.playerRole.getPath()).withColor(foundRole.color()));
                     context.drawTextWithShadow(renderer, roleInfo, -renderer.getWidth(roleInfo) / 2, 48, Colors.WHITE);
                 }
                 if (gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.VULTURE) ) {

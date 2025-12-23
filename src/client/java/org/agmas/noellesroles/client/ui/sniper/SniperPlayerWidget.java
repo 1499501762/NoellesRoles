@@ -1,4 +1,4 @@
-package org.agmas.noellesroles.client;
+package org.agmas.noellesroles.client.ui.sniper;
 
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedInventoryScreen;
