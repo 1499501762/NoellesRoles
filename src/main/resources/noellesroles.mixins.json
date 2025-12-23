@@ -17,7 +17,6 @@
     "framing.DoNotApplyFakePoisonMixin",
     "framing.FramingPassiveIncomeMixin",
     "framing.FramingRolesShopComponentMixin",
-    "host.MasterKeyDropMixin",
     "host.MasterKeySmallDoorMixin",
     "host.MasterKeyTrainDoorMixin",
     "host.MoneyIncreaseMixin",

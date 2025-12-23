@@ -27,7 +27,7 @@ public abstract class VoodooVooMixin {
                     PlayerEntity voodooed = victim.getWorld().getPlayerByUuid(voodooPlayerComponent.target);
                     if (voodooed != null) {
                         if (GameFunctions.isPlayerAliveAndSurvival(voodooed) && voodooed != victim) {
-                            GameFunctions.killPlayer(voodooed, true, null, Identifier.of(Noellesroles.MOD_ID, "voodoo"));
+                            GameFunctions.killPlayer(voodooed, true, null, Noellesroles.VOODOO_MAGIC_DEATH_REASON);
                         }
                     }
                 }

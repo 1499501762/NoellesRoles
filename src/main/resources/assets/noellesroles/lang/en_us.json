@@ -51,6 +51,17 @@
   "announcement.goals.recaller": "Teleport to anywhere on the train!",
   "announcement.role.recaller": "Recaller",
 
+  "announcement.goals.guesser": "Guess civilian's roles to kill them instantly!",
+  "announcement.role.guesser": "Guesser",
+
+  "announcement.goals.mimic": "You look like a killer cohort to other killers!",
+  "announcement.role.mimic": "Mimic",
+
+  "announcement.modifier.tiny": "Tiny",
+  "announcement.modifier.chameleon": "Chameleon",
+  "announcement.modifier.guesser": "Guesser",
+
+
   "announcement.goals.better_vigilante": "Uhhhhhhhhhhhhh",
   "announcement.role.better_vigilante": "Better Vigilante",
 
@@ -93,6 +104,7 @@
   "tip.recaller.teleport": "Use %s to teleport!",
   "tip.vulture": "%s/%s bodies eaten.",
   "tip.recaller.not_enough_money": "100\uE781 required to teleport.",
+  "tip.selected": "Selected",
   "tip.noellesroles.cooldown": "Ability usable in %ss",
   "hud.voodoo.deaths_must_be_triggered_by_another_player": "Voodoo deaths must be triggered by another player!",
   "hud.noellesroles.detective": "Detective: %s/%s",

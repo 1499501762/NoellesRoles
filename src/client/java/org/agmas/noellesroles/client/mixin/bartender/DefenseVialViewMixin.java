@@ -1,8 +1,8 @@
 package org.agmas.noellesroles.client.mixin.bartender;
 
+import dev.doctor4t.wathe.api.event.CanSeePoison;
 import dev.doctor4t.wathe.block_entity.BeveragePlateBlockEntity;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
-import dev.doctor4t.wathe.api.event.CanSeePoison;
 import dev.doctor4t.wathe.index.WatheParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;

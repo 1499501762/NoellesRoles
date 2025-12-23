@@ -33,7 +33,7 @@ public abstract class FramingShopMixin extends LimitedHandledScreen<PlayerScreen
     @Inject(method = "init", at = @At("HEAD"))
     void framingShopAddChildren(CallbackInfo ci) {
         GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(player.getWorld());
-        if (gameWorldComponent.isRole(player,Noellesroles.EXECUTIONER) || gameWorldComponent.isRole(player,Noellesroles.JESTER)) {
+        if (gameWorldComponent.isRole(player,Noellesroles.EXECUTIONER) || gameWorldComponent.isRole(player,Noellesroles.JESTER) || gameWorldComponent.isRole(player,Noellesroles.MIMIC)) {
             List<ShopEntry> entries = Noellesroles.FRAMING_ROLES_SHOP;
             int apart = 36;
             int x = width / 2 - (entries.size()) * apart / 2 + 9;

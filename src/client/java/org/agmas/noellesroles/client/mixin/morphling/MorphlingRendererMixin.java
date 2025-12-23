@@ -30,6 +30,7 @@ public abstract class MorphlingRendererMixin {
 
     @Inject(method = "getTexture(Lnet/minecraft/client/network/AbstractClientPlayerEntity;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
     void renderMorphlingSkin(AbstractClientPlayerEntity abstractClientPlayerEntity, CallbackInfoReturnable<Identifier> cir) {
+        if (NoellesrolesClient.SHUFFLED_PLAYER_ENTRIES_CACHE == null) return;
         if (WatheClient.moodComponent != null) {
             if ((ConfigWorldComponent.KEY.get(abstractClientPlayerEntity.getWorld())).insaneSeesMorphs && WatheClient.moodComponent.isLowerThanDepressed() && NoellesrolesClient.SHUFFLED_PLAYER_ENTRIES_CACHE.containsKey(abstractClientPlayerEntity.getUuid())) {
                 cir.setReturnValue(WatheClient.PLAYER_ENTRIES_CACHE.get(NoellesrolesClient.SHUFFLED_PLAYER_ENTRIES_CACHE.get(abstractClientPlayerEntity.getUuid())).getSkinTextures().texture());
@@ -51,6 +52,7 @@ public abstract class MorphlingRendererMixin {
     }
     @WrapOperation(method = "renderArm", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getSkinTextures()Lnet/minecraft/client/util/SkinTextures;"))
     SkinTextures renderArm(AbstractClientPlayerEntity instance, Operation<SkinTextures> original) {
+        if (NoellesrolesClient.SHUFFLED_PLAYER_ENTRIES_CACHE == null) return original.call(instance);
         if ((MorphlingPlayerComponent.KEY.get(instance)).getMorphTicks() > 0) {
             if (instance.getEntityWorld().getPlayerByUuid((MorphlingPlayerComponent.KEY.get(instance)).disguise) != null) {
                  return ((AbstractClientPlayerEntity) instance.getEntityWorld().getPlayerByUuid((MorphlingPlayerComponent.KEY.get(instance)).disguise)).getSkinTextures();

@@ -28,6 +28,7 @@ public abstract class GiveCoinsOnMoodCompletionMixin {
         if (mood > getMood()) {
             if (gameWorldComponent.getRole(player) != null) {
                 if (gameWorldComponent.getRole(player).getMoodType().equals(Role.MoodType.REAL)) {
+                    if (gameWorldComponent.isRole(player, Noellesroles.MIMIC)) return;
                     PlayerShopComponent shopComponent = PlayerShopComponent.KEY.get(player);
                     shopComponent.addToBalance(50);
                 }

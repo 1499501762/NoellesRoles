@@ -1,7 +1,7 @@
 # You will need doctor4t's train mod placed inside the "libs" folder (alongside HarpyModLoader). Please install it yourself.
-
 New roles for [The Last Voyage of the Harpy Express](https://modrinth.com/modpack/harpy-express) created by [doctor4t](https://www.youtube.com/@doctor4t).
 
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/h_c-dpjlONY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 Role List:
 
 ## Killers & Non-Innocents
@@ -11,11 +11,13 @@ Role List:
   - Has a fake knife and a fake revolver
   - **When shot, goes psycho mode**. Does not have a shield, so one more shot will kill the jester.
   - Can accidentaly kill their killer teammates and end the game, make sure to co-operate!
+  - Has a shop with tools to frame people; gains money passively.
 
 - Executioner
   - Gains a target at the start of the game
   - If the target dies to a civillian or natural causes, the Executioner becomes a random Killer role.
   - If the target dies to a killer, the executioner re-targets.
+  - Has a shop with tools to frame people; gains money passively.
 
 - Morphling
   - Can morph into any **alive** player on a cooldown.
@@ -31,9 +33,15 @@ Role List:
   - Open the sniper screen, select a target and a role.
   - The action has a cooldown; your current selection is highlighted.
 
+- Vulture
+  - Eat bodies to turn into a killer!
+  - Only enables past 8 players.
+  - Neutral role.
+
+
 ## Civillians
 
-- Host
+- Conductor
   - Has a key to every door on the train.
   - This key will drop after the host dies- make sure everyone knows you have it, or the killers can clear themselves with it!
 
@@ -45,6 +53,11 @@ Role List:
 
 - Noisemaker
   - On death, your body will glow.
+  - Can buy firecrackers in the store.
+
+- Recaller
+  - Save a location to teleport to later
+  - Use your ability key to teleport to your saved location for 100 dollars (50 dollars per task done)
 
 - Coroner
   - See the time of death and death reason of bodies. (also enabled in spectator mode!)
@@ -71,10 +84,12 @@ Role List:
 - The Insane Damned Paranoid Killer Of Doom Death Destruction And Waffles
   - Killer Role
   - Can hear ghosts
+- Better Vigilante
+  - Spawns with a grenade
 
 ## Extras
-  - Coroner's ability can be used by spectators when looking at a body
-  - (Configurable) Players will start morphing skins and have a hidden name when having extremely low mood.
+- Coroner's ability can be used by spectators when looking at a body
+- (Configurable) Players will start morphing skins and have a hidden name when having extremely low mood.
 
 ## Config Note
 Use /setEnabledRole and /listRoles (from HarpyModLoader) to enable or disable roles.
@@ -86,5 +101,8 @@ Use /setEnabledRole and /listRoles (from HarpyModLoader) to enable or disable ro
 
 - eyelego for the "Master Key" item art
 - DragonSlayr15001 for the Mood icons
-- Alazi for russian translation
+- Alazi for Russian Translation
+- ZeroIcceBear, Qlicky, YourZi for Chinese Translation
+- LucCraftGHG for the German Translation
+- Hugo0272 for the Spanish Translation
 - All the testers in this mod's discord, for giving out so many cool ideas!
