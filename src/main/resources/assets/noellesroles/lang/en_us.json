@@ -1,6 +1,8 @@
 {
-  "announcement.goals.jester": "Find and co-operate with the Killers.",
-  "announcement.role.jester": "Jester",
+  "key.noellesroles.ability": "Ability",
+  
+  "announcement.goals.noellesroles.jester": "Find and co-operate with the Killers.",
+  "announcement.role.noellesroles.jester": "Jester",
 
   "announcement.goals.noellesroles.morphling": "Fool everyone.",
   "announcement.role.noellesroles.morphling": "Morphling",
