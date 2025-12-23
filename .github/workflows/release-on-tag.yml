@@ -41,11 +41,22 @@ jobs:
       - name: Prepare libs directory
         run: mkdir -p libs
 
+      - name: Read versions from gradle.properties
+        id: read-versions
+        run: |
+          WATHE_VER=$(grep '^wathe_version=' gradle.properties | cut -d'=' -f2 | tr -d '\r')
+          HARP_VER=$(grep '^harpymodloader_version=' gradle.properties | cut -d'=' -f2 | tr -d '\r')
+          echo "wathe_version=$WATHE_VER" >> "$GITHUB_OUTPUT"
+          echo "harp_version=$HARP_VER" >> "$GITHUB_OUTPUT"
+          echo "📋 Read from gradle.properties:"
+          echo "  wathe: $WATHE_VER"
+          echo "  harpymodloader: $HARP_VER"
+
       - name: Download harpymodloader from Modrinth and determine dep suffix
         id: get-harp
         shell: bash
         env:
-          HARP_WANT_VER: ${{ vars.HARP_WANT_VER }}
+          HARP_WANT_VER: ${{ steps.read-versions.outputs.harp_version }}
         run: |
           set -e
           SLUG="harpymodloader"
@@ -83,7 +94,7 @@ jobs:
           dep="$(echo "$dep" | sed 's/[^h0-9\.]//g')"
           if [ -n "$file_url" ]; then
             # Write directly to Gradle's expected path to avoid later renames
-            outname="libs/harpymodloader-1.1.2-h1.3.jar"
+            outname="libs/harpymodloader-${{ steps.read-versions.outputs.harp_version }}.jar"
             echo "Downloading harpymodloader: $file_url -> $outname"
             curl -L -s -o "$outname" "$file_url"
             echo "harp_file=$outname" >> "$GITHUB_OUTPUT"
@@ -97,7 +108,7 @@ jobs:
         id: get-wathe
         shell: bash
         env:
-          WATHE_WANT_VER: ${{ vars.WATHE_WANT_VER }}
+          WATHE_WANT_VER: ${{ steps.read-versions.outputs.wathe_version }}
           WATHE_GITHUB_FALLBACK: ${{ secrets.WATHE_GITHUB_FALLBACK }}
         run: |
           set -e
@@ -125,7 +136,7 @@ jobs:
             chosen_ver=""
           fi
           # Always write to Gradle's expected path to avoid later renames
-          outname="libs/wathe-1.3.2-1.21.1.jar"
+          outname="libs/wathe-${{ steps.read-versions.outputs.wathe_version }}.jar"
           echo "Downloading wathe: $chosen_url -> $outname"
           curl -L -s -o "$outname" "$chosen_url"
           echo "wathe_file=$outname" >> "$GITHUB_OUTPUT"
@@ -137,8 +148,8 @@ jobs:
           ls -lh libs/ || echo "  (libs dir empty or missing)"
           echo ""
           echo "📋 Gradle will use:"
-          file libs/wathe-1.3.2-1.21.1.jar && echo "✓ wathe JAR found" || echo "❌ wathe JAR missing"
-          file libs/harpymodloader-1.1.2-h1.3.jar && echo "✓ harpymodloader JAR found" || echo "❌ harpymodloader JAR missing"
+          ls -1 libs/wathe-*.jar 2>/dev/null && echo "✓ wathe JAR found" || echo "❌ wathe JAR missing"
+          ls -1 libs/harpymodloader-*.jar 2>/dev/null && echo "✓ harpymodloader JAR found" || echo "❌ harpymodloader JAR missing"
 
       - name: Build with Gradle
         run: ./gradlew --no-daemon clean build --info 2>&1 | tee build.log
