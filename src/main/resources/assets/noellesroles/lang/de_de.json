@@ -3,12 +3,12 @@
   "announcement.goals.noellesroles.jester": "Finde und kooperiere mit den Mördern.",
   "announcement.role.noellesroles.jester": "Narr",
  
-  "announcement.goals.noellesroles.thief": "Stehle die Identität anderer Spieler und gewinne als sie.",
+  "announcement.goals.noellesroles.noellesroles.thief": "Stehle die Identität anderer Spieler und gewinne als sie.",
   "announcement.role.noellesroles.thief": "Dieb",
   "hud.thief.stolen_role": "Gestohlene Rolle: ",
 
   "announcement.goals.noellesroles.morphling": "Trickse jeden aus.",
-  "announcement.role.noellesroles.morphling": "Polymorph",
+  "announcement.role.noellesroles.noellesroles.morphling": "Polymorph",
 
   "announcement.goals.noellesroles.awesome_binglus": "Heiliger Bingus",
   "announcement.role.noellesroles.awesome_binglus": "Heiliger Bingu",
@@ -49,6 +49,12 @@
   "announcement.role.noellesroles.executioner": "Henker",
   "hud.executioner.target": "Henker-Ziel: %s",
 
+  "announcement.goals.noellesroles.guesser": "Guess civilian's roles to kill them instantly!",
+  "announcement.role.noellesroles.guesser": "Guesser",
+
+  "announcement.goals.noellesroles.mimic": "You look like a killer cohort to other killers!",
+  "announcement.role.noellesroles.mimic": "Mimic",
+
   "announcement.goals.noellesroles.trapper": "Check other player's roles.",
   "announcement.role.noellesroles.trapper": "Trapper",
 
@@ -80,7 +86,15 @@
   "item.noellesroles.defense_vial.tooltip": "Right click on food/drink trays to use\nClears all poison applied to trays\nProtects anyone who drinks a defensed drink one extra hit of life.\nInvisible to other players.",
   "item.noellesroles.delusion_vial": "Delusion Vial",
   "item.noellesroles.delusion_vial.tooltip": "Right click on food/drink trays to use\nCreates fakes poison, making the consumer of the poisoned item\nthink they are poisoned, but have no physical effect.",
+  "item.noellesroles.role_mine": "Role Mine",
+  "item.noellesroles.role_mine.tooltip": "Right click to Place down on Floors or Ceilings.\nInvisible to other players, both placed and in hand.",
+  "item.noellesroles.trapper_report": "Trapper Report",
 
+  "announcement.modifier.noellesroles.tiny": "Tiny",
+  "announcement.modifier.noellesroles.chameleon": "Chameleon",
+  "announcement.modifier.noellesroles.guesser": "Guesser",
+  "announcement.modifier.noellesroles.graverobber": "Graverobber",
+  "announcement.modifier.noellesroles.feather": "Feather",
   "announcement.modifier.empty_modifier": "Keine",
 
   "death_reason.wathe.gun_shot": "a bullet.",
@@ -91,6 +105,7 @@
   "death_reason.wathe.poison": "poison!",
   "death_reason.wathe.fell_out_of_train": "being ran over.",
   "death_reason.noellesroles.voodoo": "voodoo magic.",
+  "death_reason.noellesroles.modded_backfire": "guilt.",
 
   "tip.phantom": "Use %s to go invisible!",
   "tip.recaller.place": "Drücke %s um deine Position zu speichern!",
@@ -103,5 +118,8 @@
   "tip.troll.trollaction": "Press %s to troll!",
   "tip.master_key_invisible_count": "Master Keys look like lockpicks with less than %s people.",
   "tip.master_key_invisible": "Master Keys look like lockpicks.",
+  "tip.trapper.caught": "You caught %s players in your trap. Their roles were:",
+
+  "subtitles.noellesroles.role_mine_beep": "Role Mine Beeps",
   "announcement.win.the_insane_damned_paranoid_killer": "Killers Win!"
 }

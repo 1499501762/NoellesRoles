@@ -3,12 +3,12 @@
   "announcement.goals.noellesroles.jester": "Найдите убийц и объединитесь с ними.",
   "announcement.role.noellesroles.jester": "Шут",
 
-  "announcement.goals.noellesroles.thief": "Укради личность других игроков и выиграй как они.",
+  "announcement.goals.noellesroles.noellesroles.thief": "Укради личность других игроков и выиграй как они.",
   "announcement.role.noellesroles.thief": "Вор",
   "hud.thief.stolen_role": "Украденная роль: ",
 
   "announcement.goals.noellesroles.morphling": "Обмани всех.",
-  "announcement.role.noellesroles.morphling": "Имитатор",
+  "announcement.role.noellesroles.noellesroles.morphling": "Имитатор",
 
   "announcement.goals.noellesroles.awesome_binglus": "Превосходный Бунглус",
   "announcement.role.noellesroles.awesome_binglus": "Превосходный Бунглус",
@@ -49,6 +49,12 @@
   "announcement.role.noellesroles.executioner": "Жнец",
   "hud.executioner.target": "Цель Жнеца: %s",
 
+  "announcement.goals.noellesroles.guesser": "Guess civilian's roles to kill them instantly!",
+  "announcement.role.noellesroles.guesser": "Guesser",
+
+  "announcement.goals.noellesroles.mimic": "You look like a killer cohort to other killers!",
+  "announcement.role.noellesroles.mimic": "Mimic",
+
   "announcement.goals.noellesroles.trapper": "Узнайте роли других игроков.",
   "announcement.role.noellesroles.trapper": "Мастер ловушек",
 
@@ -81,7 +87,15 @@
   "item.noellesroles.defense_vial.tooltip": "Щелкните ПКМ по подносу с едой/напитками, чтобы использовать\nОчищает всё содержимое подноса от яда\nДаёт дополнительную жизнь любому, кто выпьет защищённый напиток\nНе видно другим игрокам.",
   "item.noellesroles.delusion_vial": "Ампула заблуждения",
   "item.noellesroles.delusion_vial.tooltip": "Щелкните ПКМ по подносу с едой/напитками, чтобы использовать\nПоддельный яд, который работает как обычный,\nно не может причинить вреда жертве.",
+  "item.noellesroles.role_mine": "Role Mine",
+  "item.noellesroles.role_mine.tooltip": "Right click to Place down on Floors or Ceilings.\nInvisible to other players, both placed and in hand.",
+  "item.noellesroles.trapper_report": "Trapper Report",
 
+  "announcement.modifier.noellesroles.tiny": "Tiny",
+  "announcement.modifier.noellesroles.chameleon": "Chameleon",
+  "announcement.modifier.noellesroles.guesser": "Guesser",
+  "announcement.modifier.noellesroles.graverobber": "Graverobber",
+  "announcement.modifier.noellesroles.feather": "Feather",
   "announcement.modifier.empty_modifier": "Нет",
 
 
@@ -93,6 +107,7 @@
   "death_reason.wathe.poison": "от отравления!",
   "death_reason.wathe.fell_out_of_train": "от падения с поезда.",
   "death_reason.noellesroles.voodoo": "от магии вуду.",
+  "death_reason.noellesroles.modded_backfire": "guilt.",
 
   "tip.phantom": "Нажмите %s чтобы стать невидимым!",
   "tip.recaller.place": "Нажмите %s чтобы сохранить текущую позицию!",
@@ -106,5 +121,8 @@
   "tip.troll.trollaction": "Press %s to troll!",
   "tip.master_key_invisible_count": "Master Keys look like lockpicks with less than %s people.",
   "tip.master_key_invisible": "Master Keys look like lockpicks.",
+  "tip.trapper.caught": "You caught %s players in your trap. Their roles were:",
+
+  "subtitles.noellesroles.role_mine_beep": "Role Mine Beeps",
   "hud.coroner.role_info": "Their role was "
 }

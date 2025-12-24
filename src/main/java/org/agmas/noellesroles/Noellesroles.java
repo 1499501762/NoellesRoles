@@ -187,6 +187,9 @@ public class Noellesroles implements ModInitializer {
     public static final ArrayList<Identifier> VANNILA_ROLE_IDS = new ArrayList<>();
     public static final ArrayList<Role> KILLER_SIDED_NEUTRALS = new ArrayList<>();
 
+
+    public static final Modifier GRAVEROBBER = null;
+
     public static ArrayList<ShopEntry> FRAMING_ROLES_SHOP = new ArrayList<>();
 
     public static Identifier VOODOO_MAGIC_DEATH_REASON = Identifier.of(Noellesroles.MOD_ID, "voodoo");
@@ -303,103 +306,7 @@ public class Noellesroles implements ModInitializer {
     }
 
     public void registerEvents() {
-        //
-        // Bartender / Jester Psycho Invulnerability
-        //
-        AllowPlayerDeath.EVENT.register(((PlayerEntity playerEntityVictim, PlayerEntity playerEntityKiller, Identifier identifier) -> {
-            if (identifier == GameConstants.DeathReasons.FELL_OUT_OF_TRAIN) return true;
-            GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(playerEntityVictim.getWorld());
-            
-            // THIEF偷取被击杀者的身份
-            if (playerEntityKiller != null && gameWorldComponent.isRole(playerEntityKiller, Noellesroles.THIEF)) {
-                ThiefPlayerComponent thiefComponent = ThiefPlayerComponent.KEY.get(playerEntityKiller);
-                if (!thiefComponent.hasStolen) {
-                    // 收回THIEF的真刀
-                    removeKnifeFromPlayer(playerEntityKiller);
-
-                    Identifier victimRole = gameWorldComponent.getRole(playerEntityVictim.getUuid()).identifier();
-                    thiefComponent.stealIdentity(victimRole);
-                    
-                    // 找到对应的角色并初始化
-                    initializePlayerRole(playerEntityKiller, gameWorldComponent.getRole(playerEntityVictim));
-                }
-            }
-            
-            if (gameWorldComponent.isRole(playerEntityVictim,Noellesroles.JESTER)) {
-                PlayerPsychoComponent component =  PlayerPsychoComponent.KEY.get(playerEntityVictim);
-                if (component.getPsychoTicks() > GameConstants.getInTicks(0,44)) {
-                    return false;
-                }
-            }
-
-            BartenderPlayerComponent bartenderPlayerComponent = BartenderPlayerComponent.KEY.get(playerEntityVictim);
-            if (bartenderPlayerComponent.armor > 0) {
-                playerEntityVictim.getWorld().playSound(playerEntityVictim, playerEntityVictim.getBlockPos(), WatheSounds.ITEM_PSYCHO_ARMOUR, SoundCategory.MASTER, 5.0F, 1.0F);
-                bartenderPlayerComponent.armor--;
-                return false;
-            }
-
-            return true;
-        }));
-        //
-        // Mimic & Executioner backfire
-        //
-        AllowPlayerDeath.EVENT.register(((playerEntity, killer,identifier) -> {
-            GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(playerEntity.getWorld());
-            if (identifier.equals(GameConstants.DeathReasons.FELL_OUT_OF_TRAIN) && killer != null) {
-                if (gameWorldComponent.isRole(killer, MIMIC) && gameWorldComponent.isInnocent(playerEntity)) {
-                    GameFunctions.killPlayer(killer, true, null, Identifier.of(MOD_ID, "modded_backfire"));
-                }
-            }
-            if (identifier.equals(GameConstants.DeathReasons.GUN) && killer != null) {
-                if (gameWorldComponent.isRole(killer, EXECUTIONER) && ExecutionerPlayerComponent.KEY.get(killer).target != playerEntity.getUuid()) {
-                    GameFunctions.killPlayer(killer, true, null, Identifier.of(MOD_ID, "modded_backfire"));
-                }
-            }
-            return true;
-        }));
-        AllowPlayerPunching.EVENT.register(((playerEntity, playerEntity1) -> {
-            GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(playerEntity.getWorld());
-            return gameWorldComponent.isRole(playerEntity, Noellesroles.MIMIC) && playerEntity.getMainHandStack().isOf(ModItems.FAKE_KNIFE);
-        }));
-        ModifierAssigned.EVENT.register(((playerEntity, modifier) -> {
-            if (modifier.equals(TINY)) {
-                playerEntity.getAttributeInstance(EntityAttributes.GENERIC_SCALE).removeModifier(tinyModifier);
-                playerEntity.getAttributeInstance(EntityAttributes.GENERIC_SCALE).addPersistentModifier(tinyModifier);
-            }
-            if (modifier.equals(FEATHER)) {
-                playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, StatusEffectInstance.INFINITE, 0, true, false));
-            }
-        }));
-        ResetPlayerEvent.EVENT.register(((playerEntity) -> {
-            playerEntity.removeStatusEffect(StatusEffects.SLOW_FALLING);
-            playerEntity.getAttributeInstance(EntityAttributes.GENERIC_SCALE).removeModifier(tinyModifier);
-        }));
-        CanSeePoison.EVENT.register((player)->{
-            GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(player.getWorld());
-            if (gameWorldComponent.isRole((PlayerEntity) player, Noellesroles.BARTENDER)) {
-                return true;
-            }
-            return false;
-        });
-        ShouldDropOnDeath.EVENT.register(((itemStack,identifier) -> {
-            return itemStack.isOf(ModItems.MASTER_KEY);
-        }));
-        ModdedRoleAssigned.EVENT.register((player,role)->{
-            if (role.equals(THIEF)) {
-                ThiefPlayerComponent thiefComponent = ThiefPlayerComponent.KEY.get(player);
-                thiefComponent.reset();
-                // 给THIEF发一把真刀用于击杀
-                player.giveItemStack(WatheItems.KNIFE.getDefaultStack());
-            } else {
-                // 对其他角色使用统一的初始化方法
-                initializePlayerRole(player, role);
-            }
-        }
-    }
-
-    public void registerEvents() {
-        AllowPlayerDeath.EVENT.register(((playerEntity, killer,identifier) -> {
+        AllowPlayerDeath.EVENT.register(((playerEntityVictim, playerEntityKiller, identifier) -> {
             if (identifier == GameConstants.DeathReasons.FELL_OUT_OF_TRAIN) return true;
             GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(playerEntityVictim.getWorld());
             

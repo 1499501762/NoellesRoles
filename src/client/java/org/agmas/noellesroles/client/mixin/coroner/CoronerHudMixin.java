@@ -81,7 +81,7 @@ public abstract class CoronerHudMixin {
                     // }else{
                     Text roleInfo = Text.translatable("hud.coroner.role_info").withColor(Colors.RED).append(Harpymodloader.getRoleName(foundRole));
                     context.drawTextWithShadow(renderer, roleInfo, -renderer.getWidth(roleInfo) / 2, 48, Colors.WHITE);
-                    }
+                    // }
                 }
                 if (gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.VULTURE) ) {
                     if (bodyDeathReasonComponent.vultured) {
