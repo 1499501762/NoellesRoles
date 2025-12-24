@@ -59,6 +59,10 @@ Role List:
   - Save a location to teleport to later
   - Use your ability key to teleport to your saved location for 100 dollars (50 dollars per task done)
 
+- Trapper
+  - Trap a group of people to find their roles.
+  - Reveals the roles of all players caught in the trap.
+
 - Coroner
   - See the time of death and death reason of bodies. (also enabled in spectator mode!)
 
