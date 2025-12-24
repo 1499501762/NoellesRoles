@@ -55,7 +55,7 @@ public class ExecutionerPlayerComponent implements AutoSyncedComponent, ServerTi
             gameWorldComponent.getRoles().forEach((uuid2,role1)->{
                 PlayerEntity player2 = player.getWorld().getPlayerByUuid(uuid2);
                 if (uuid2 == null) return;
-                if (role1.isInnocent() && GameFunctions.isPlayerAliveAndSurvival(player2) && !role1.equals(WatheRoles.VIGILANTE)) {
+                if (role1.isInnocent() && GameFunctions.isPlayerAliveAndSurvival(player2) && !role1.equals(WatheRoles.VIGILANTE) && !role1.equals(Noellesroles.MIMIC)) {
                     innocentPlayers.add(uuid2);
                 }
             });

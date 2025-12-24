@@ -4,12 +4,12 @@
   "announcement.goals.noellesroles.jester": "Find and co-operate with the Killers.",
   "announcement.role.noellesroles.jester": "Jester",
 
-  "announcement.goals.noellesroles.thief": "Steal other players' identities and win as them.",
+  "announcement.goals.noellesroles.noellesroles.thief": "Steal other players' identities and win as them.",
   "announcement.role.noellesroles.thief": "Thief",
   "hud.thief.stolen_role": "Stolen Role: ",
 
   "announcement.goals.noellesroles.morphling": "Fool everyone.",
-  "announcement.role.noellesroles.morphling": "Morphling",
+  "announcement.role.noellesroles.noellesroles.morphling": "Morphling",
 
   "announcement.goals.noellesroles.awesome_binglus": "Awesome Binglu",
   "announcement.role.noellesroles.awesome_binglus": "Awesome Binglus",
@@ -19,7 +19,6 @@
 
   "announcement.goals.noellesroles.the_insane_damned_paranoid_killer": "I hear dead people.",
   "announcement.role.noellesroles.the_insane_damned_paranoid_killer": "The Insane Damned Paranoid Killer Of Doom Death Destruction And Waffles",
-  "announcement.win.the_insane_damned_paranoid_killer": "Killers Win!",
 
 
   "announcement.goals.noellesroles.bartender": "See players that drink through walls!",
@@ -42,7 +41,6 @@
 
   "announcement.goals.noellesroles.coroner": "Get information from dead bodies.",
   "announcement.role.noellesroles.coroner": "Coroner",
-  "announcement.win.coroner": "Passengers Win!",
   "hud.coroner.sanity_requirements": "50% sanity required to use ability",
   "hud.coroner.death_info": "Died %ss ago to ",
   "hud.coroner.role_info": "Their role was ",
@@ -51,7 +49,7 @@
   "announcement.role.noellesroles.executioner": "Executioner",
   "hud.executioner.target": "Executioner Target: %s",
 
-  "announcement.goals.noellesroles.trapper": "Check other player's roles.",
+  "announcement.goals.noellesroles.trapper": "Trap a group of people to find their role.",
   "announcement.role.noellesroles.trapper": "Trapper",
 
   "announcement.goals.noellesroles.recaller": "Teleport to anywhere on the train!",
@@ -63,10 +61,11 @@
   "announcement.goals.noellesroles.mimic": "You look like a killer cohort to other killers!",
   "announcement.role.noellesroles.mimic": "Mimic",
 
-  "announcement.modifier.tiny": "Tiny",
-  "announcement.modifier.chameleon": "Chameleon",
-  "announcement.modifier.guesser": "Guesser",
-  "announcement.modifier.empty_modifier": "None",
+  "announcement.modifier.noellesroles.tiny": "Tiny",
+  "announcement.modifier.noellesroles.chameleon": "Chameleon",
+  "announcement.modifier.noellesroles.guesser": "Guesser",
+  "announcement.modifier.noellesroles.graverobber": "Graverobber",
+  "announcement.modifier.noellesroles.feather": "Feather",
 
 
   "announcement.goals.noellesroles.better_vigilante": "Uhhhhhhhhhhhhh",
@@ -93,9 +92,12 @@
   "item.noellesroles.master_key": "Master Key",
   "item.noellesroles.fake_knife": "Fake Knife",
   "item.noellesroles.defense_vial": "Defense Vial",
+  "item.noellesroles.trapper_report": "Trapper Report",
   "item.noellesroles.defense_vial.tooltip": "Right click on food/drink trays to use\nClears all poison applied to trays\nProtects anyone who drinks a defensed drink one extra hit of life.\nInvisible to other players.",
   "item.noellesroles.delusion_vial": "Delusion Vial",
   "item.noellesroles.delusion_vial.tooltip": "Right click on food/drink trays to use\nCreates fakes poison, making the consumer of the poisoned item\nthink they are poisoned, but have no physical effect.",
+  "item.noellesroles.role_mine": "Role Mine",
+  "item.noellesroles.role_mine.tooltip": "Right click to Place down on Floors or Ceilings.\nInvisible to other players, both placed and in hand.",
 
   "death_reason.wathe.gun_shot": "a bullet.",
   "death_reason.wathe.knife_stab": "a knife!",
@@ -105,6 +107,7 @@
   "death_reason.wathe.poison": "poison!",
   "death_reason.wathe.fell_out_of_train": "being ran over.",
   "death_reason.noellesroles.voodoo": "voodoo magic.",
+  "death_reason.noellesroles.modded_backfire": "guilt.",
 
   "tip.phantom": "Use %s to go invisible!",
   "tip.recaller.place": "Use %s to save your location!",
@@ -118,5 +121,8 @@
   "tip.troll.not_enough_money": "25\uE781 required to troll.",
   "tip.troll.trollaction": "Press %s to troll!",
   "tip.master_key_invisible_count": "Master Keys look like lockpicks with less than %s people.",
-  "tip.master_key_invisible": "Master Keys look like lockpicks."
+  "tip.master_key_invisible": "Master Keys look like lockpicks.",
+  "tip.trapper.caught": "You caught %s players in your trap. Their roles were:",
+
+  "subtitles.noellesroles.role_mine_beep": "Role Mine Beeps"
 }

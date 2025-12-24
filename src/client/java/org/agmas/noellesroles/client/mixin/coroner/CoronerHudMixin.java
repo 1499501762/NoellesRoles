@@ -27,6 +27,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
 import org.agmas.harpymodloader.Harpymodloader;
 import org.agmas.harpymodloader.client.HarpymodloaderClient;
+import org.agmas.harpymodloader.component.WorldModifierComponent;
 import org.agmas.noellesroles.AbilityPlayerComponent;
 import org.agmas.noellesroles.Noellesroles;
 import org.agmas.noellesroles.client.NoellesrolesClient;
@@ -66,19 +67,19 @@ public abstract class CoronerHudMixin {
 
                 Text name = Text.translatable("hud.coroner.death_info", NoellesrolesClient.targetBody.age/20).append(Text.translatable("death_reason." + bodyDeathReasonComponent.deathReason.getNamespace()+ "." + bodyDeathReasonComponent.deathReason.getPath()));
                 if (bodyDeathReasonComponent.vultured) {
-                    name = Text.literal("aa aaaaaa aaa aa a aaaaa aaa").formatted(Formatting.OBFUSCATED);
+                    name = Text.literal("a".repeat(player.getRandom().nextBetween(12,26))).formatted(Formatting.OBFUSCATED);
                 }
                 context.drawTextWithShadow(renderer, name, -renderer.getWidth(name) / 2, 32, Colors.RED);
                 Role foundRole = WatheRoles.CIVILIAN;
                 for (Role role : WatheRoles.ROLES) {
                     if (role.identifier().equals(bodyDeathReasonComponent.playerRole)) foundRole =role;
                 }
-                if ((WatheClient.isPlayerSpectatingOrCreative() || gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.CORONER)) && !bodyDeathReasonComponent.vultured ) {
-                    if (bodyDeathReasonComponent.playerRole.getNamespace().equals("noellesroles")) {
-                        Text roleInfo = Text.translatable("hud.coroner.role_info").withColor(Colors.RED).append(Text.translatable("announcement.role.noellesroles." + bodyDeathReasonComponent.playerRole.getPath()).withColor(foundRole.color()));
-                    context.drawTextWithShadow(renderer, roleInfo, -renderer.getWidth(roleInfo) / 2, 48, Colors.WHITE);
-                    }else{
-                    Text roleInfo = Text.translatable("hud.coroner.role_info").withColor(Colors.RED).append(Text.translatable("announcement.role." + bodyDeathReasonComponent.playerRole.getPath()).withColor(foundRole.color()));
+                if ((WatheClient.isPlayerSpectatingOrCreative() || gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.CORONER) || WorldModifierComponent.KEY.get(MinecraftClient.getInstance().player.getWorld()).isModifier(player.getUuid(), Noellesroles.GRAVEROBBER))  && !bodyDeathReasonComponent.vultured ) {
+                    // if (bodyDeathReasonComponent.playerRole.getNamespace().equals("noellesroles")) {
+                    //     Text roleInfo = Text.translatable("hud.coroner.role_info").withColor(Colors.RED).append(Text.translatable("announcement.role.noellesroles." + bodyDeathReasonComponent.playerRole.getPath()).withColor(foundRole.color()));
+                    // context.drawTextWithShadow(renderer, roleInfo, -renderer.getWidth(roleInfo) / 2, 48, Colors.WHITE);
+                    // }else{
+                    Text roleInfo = Text.translatable("hud.coroner.role_info").withColor(Colors.RED).append(Harpymodloader.getRoleName(foundRole));
                     context.drawTextWithShadow(renderer, roleInfo, -renderer.getWidth(roleInfo) / 2, 48, Colors.WHITE);
                     }
                 }

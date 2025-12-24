@@ -4,6 +4,7 @@
   "package": "org.agmas.noellesroles.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "DoNotCollideWithFeatherMixin",
     "GiveCoinsOnMoodCompletionMixin",
     "bartender.BartenderPlayerShopComponentMixin",
     "bartender.BartenderReseterMixin",
@@ -12,6 +13,7 @@
     "bartender.PoisonToHealsMixin",
     "coroner.CoronerAddDeathReasonMixin",
     "executioner.ExecutionerConfirmMixin",
+    "executioner.ExecutionerGunPickupMixin",
     "executioner.NoTargetBackfireMixin",
     "framing.DelusionVialApplyMixin",
     "framing.DoNotApplyFakePoisonMixin",
@@ -26,6 +28,7 @@
     "morphling.MorphlingReseterMixin",
     "noisemaker.NoisemakerKillMixin",
     "noisemaker.NoisemakerPlayerShopComponentMixin",
+    "trapper.TrapperPlayerShopComponentMixin",
     "voodoo.VoodooVooMixin"
   ],
   "injectors": {

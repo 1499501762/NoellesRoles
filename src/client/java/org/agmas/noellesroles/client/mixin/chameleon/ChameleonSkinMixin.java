@@ -20,6 +20,7 @@ public class ChameleonSkinMixin {
     public int visibilityMixin(int par3, @Local(argsOnly = true) LivingEntity livingEntity) {
 
         if (livingEntity instanceof PlayerEntity player) {
+            if (player.isSpectator()) return par3;
             ChameleonPlayerComponent chameleonPlayerComponent = ChameleonPlayerComponent.KEY.get(player);
             if (chameleonPlayerComponent.hidingTicks > 0) {
                 return new Color(1.0f, 1.0f, 1.0f, MathHelper.clamp(MathHelper.lerp(chameleonPlayerComponent.hidingTicks/400f, 1.0f, 0.0f), 0f, 1.0f)).getRGB();

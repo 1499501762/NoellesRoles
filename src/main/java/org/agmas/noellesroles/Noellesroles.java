@@ -118,7 +118,8 @@ public class Noellesroles implements ModInitializer {
     public static Identifier BETTER_VIGILANTE_ID = Identifier.of(MOD_ID, "better_vigilante");
     public static Identifier TINY_ID = Identifier.of(MOD_ID, "tiny");
     public static Identifier CHAMELEON_ID = Identifier.of(MOD_ID, "chameleon");
-    public static Identifier SPEEDY_ID = Identifier.of(MOD_ID, "speedy");
+    public static Identifier GRAVEROBBER_ID = Identifier.of(MOD_ID, "graverobber");
+    public static Identifier FEATHER_ID = Identifier.of(MOD_ID, "feather");
     public static Identifier SNIPER_ID = Identifier.of(MOD_ID, "sniper");
     public static Identifier TROLL_ID = Identifier.of(MOD_ID, "troll");
     public static Identifier DETECTIVE_ID = Identifier.of(MOD_ID, "detective");
@@ -141,7 +142,7 @@ public class Noellesroles implements ModInitializer {
 
     public static Role VOODOO =WatheRoles.registerRole(new Role(VOODOO_ID, new Color(128, 114, 253).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
     public static Role THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES =WatheRoles.registerRole(new Role(THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES_ID, new Color(255, 0, 0, 192).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
-    //public static Role TRAPPER =WatheRoles.registerRole(new Role(TRAPPER_ID, new Color(132, 186, 167).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
+    public static Role TRAPPER =WatheRoles.registerRole(new Role(TRAPPER_ID, new Color(132, 186, 167).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
     public static Role CORONER =WatheRoles.registerRole(new Role(CORONER_ID, new Color(122, 122, 122).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
 
     public static Role EXECUTIONER =WatheRoles.registerRole(new Role(EXECUTIONER_ID, new Color(74, 27, 5).getRGB(),false,false,Role.MoodType.FAKE, WatheRoles.CIVILIAN.getMaxSprintTime(),true));
@@ -158,9 +159,9 @@ public class Noellesroles implements ModInitializer {
     public static Role THIEF = WatheRoles.registerRole(new Role(THIEF_ID, new Color(100, 100, 100).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
 
     // public static Modifier EMPTY_MODIFIER = HMLModifiers.registerModifier(new Modifier(EMPTY_MODIFIER_ID, new Color(255, 255, 255, 255).getRGB(), null, null, false, false));
-    public static Modifier TINY = HMLModifiers.registerModifier(new Modifier(TINY_ID, new Color(255, 223, 142).getRGB(), new ArrayList<>(List.of(MORPHLING)), null, false, false));
-    public static Modifier CHAMELEON = HMLModifiers.registerModifier(new Modifier(CHAMELEON_ID, new Color(198, 255, 137).getRGB(), new ArrayList<>(List.of(PHANTOM,MORPHLING)), null, false, false));
-    public static Modifier GUESSER = HMLModifiers.registerModifier(new Modifier(GUESSER_ID, new Color(158, 43, 25, 191).getRGB(), 
+    public static Modifier TINY = HMLModifiers.registerModifier(new Modifier(TINY_ID, new Color(255, 166, 0).getRGB(), new ArrayList<>(List.of(MORPHLING)), null, false, false));
+    public static Modifier CHAMELEON = HMLModifiers.registerModifier(new Modifier(CHAMELEON_ID, new Color(198, 255, 137, 255).getRGB(), new ArrayList<>(List.of(PHANTOM,MORPHLING)), null, false, false));
+    public static Modifier GUESSER = HMLModifiers.registerModifier(new Modifier(GUESSER_ID, new Color(158, 43, 25, 255).getRGB(), 
             new ArrayList<>(List.of(THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES,
                     SNIPER,
                     THIEF,
@@ -170,7 +171,10 @@ public class Noellesroles implements ModInitializer {
             null, 
             true, false));
     
-    // public static Modifier SNIPER_MODIFIER = HMLModifiers.registerModifier(new Modifier(SNIPER_ID, new Color(255, 70, 70).getRGB(),new ArrayList<>(List.of(SNIPER)),null,false,false));
+    // public static Modifier SNIPER_MODIFIER = HMLModifiers.registerModifier(new Modifier(SNIPER_ID, new Color(255, 70, 70).getRGB(),new ArrayList<>(List.of(SNIPER)),null,false,false));    public static Modifier GRAVEROBBER = HMLModifiers.registerModifier(new Modifier(GRAVEROBBER_ID, new Color(174, 95, 95, 255).getRGB(),null,null,true,false));
+    public static Modifier FEATHER = HMLModifiers.registerModifier(new Modifier(FEATHER_ID, new Color(255, 236, 161, 255).getRGB(),null,null,false,false));
+
+
 
     public static final CustomPayload.Id<MorphC2SPacket> MORPH_PACKET = MorphC2SPacket.ID;
     public static final CustomPayload.Id<SwapperC2SPacket> SWAP_PACKET = SwapperC2SPacket.ID;
@@ -214,6 +218,7 @@ public class Noellesroles implements ModInitializer {
 
         NoellesRolesConfig.HANDLER.load();
         ModItems.init();
+        NoellesRolesEntities.init();
 
         Harpymodloader.setRoleMaximum(CONDUCTOR_ID,1);
         Harpymodloader.setRoleMaximum(EXECUTIONER_ID,1);
@@ -298,7 +303,103 @@ public class Noellesroles implements ModInitializer {
     }
 
     public void registerEvents() {
+        //
+        // Bartender / Jester Psycho Invulnerability
+        //
         AllowPlayerDeath.EVENT.register(((PlayerEntity playerEntityVictim, PlayerEntity playerEntityKiller, Identifier identifier) -> {
+            if (identifier == GameConstants.DeathReasons.FELL_OUT_OF_TRAIN) return true;
+            GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(playerEntityVictim.getWorld());
+            
+            // THIEF偷取被击杀者的身份
+            if (playerEntityKiller != null && gameWorldComponent.isRole(playerEntityKiller, Noellesroles.THIEF)) {
+                ThiefPlayerComponent thiefComponent = ThiefPlayerComponent.KEY.get(playerEntityKiller);
+                if (!thiefComponent.hasStolen) {
+                    // 收回THIEF的真刀
+                    removeKnifeFromPlayer(playerEntityKiller);
+
+                    Identifier victimRole = gameWorldComponent.getRole(playerEntityVictim.getUuid()).identifier();
+                    thiefComponent.stealIdentity(victimRole);
+                    
+                    // 找到对应的角色并初始化
+                    initializePlayerRole(playerEntityKiller, gameWorldComponent.getRole(playerEntityVictim));
+                }
+            }
+            
+            if (gameWorldComponent.isRole(playerEntityVictim,Noellesroles.JESTER)) {
+                PlayerPsychoComponent component =  PlayerPsychoComponent.KEY.get(playerEntityVictim);
+                if (component.getPsychoTicks() > GameConstants.getInTicks(0,44)) {
+                    return false;
+                }
+            }
+
+            BartenderPlayerComponent bartenderPlayerComponent = BartenderPlayerComponent.KEY.get(playerEntityVictim);
+            if (bartenderPlayerComponent.armor > 0) {
+                playerEntityVictim.getWorld().playSound(playerEntityVictim, playerEntityVictim.getBlockPos(), WatheSounds.ITEM_PSYCHO_ARMOUR, SoundCategory.MASTER, 5.0F, 1.0F);
+                bartenderPlayerComponent.armor--;
+                return false;
+            }
+
+            return true;
+        }));
+        //
+        // Mimic & Executioner backfire
+        //
+        AllowPlayerDeath.EVENT.register(((playerEntity, killer,identifier) -> {
+            GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(playerEntity.getWorld());
+            if (identifier.equals(GameConstants.DeathReasons.FELL_OUT_OF_TRAIN) && killer != null) {
+                if (gameWorldComponent.isRole(killer, MIMIC) && gameWorldComponent.isInnocent(playerEntity)) {
+                    GameFunctions.killPlayer(killer, true, null, Identifier.of(MOD_ID, "modded_backfire"));
+                }
+            }
+            if (identifier.equals(GameConstants.DeathReasons.GUN) && killer != null) {
+                if (gameWorldComponent.isRole(killer, EXECUTIONER) && ExecutionerPlayerComponent.KEY.get(killer).target != playerEntity.getUuid()) {
+                    GameFunctions.killPlayer(killer, true, null, Identifier.of(MOD_ID, "modded_backfire"));
+                }
+            }
+            return true;
+        }));
+        AllowPlayerPunching.EVENT.register(((playerEntity, playerEntity1) -> {
+            GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(playerEntity.getWorld());
+            return gameWorldComponent.isRole(playerEntity, Noellesroles.MIMIC) && playerEntity.getMainHandStack().isOf(ModItems.FAKE_KNIFE);
+        }));
+        ModifierAssigned.EVENT.register(((playerEntity, modifier) -> {
+            if (modifier.equals(TINY)) {
+                playerEntity.getAttributeInstance(EntityAttributes.GENERIC_SCALE).removeModifier(tinyModifier);
+                playerEntity.getAttributeInstance(EntityAttributes.GENERIC_SCALE).addPersistentModifier(tinyModifier);
+            }
+            if (modifier.equals(FEATHER)) {
+                playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, StatusEffectInstance.INFINITE, 0, true, false));
+            }
+        }));
+        ResetPlayerEvent.EVENT.register(((playerEntity) -> {
+            playerEntity.removeStatusEffect(StatusEffects.SLOW_FALLING);
+            playerEntity.getAttributeInstance(EntityAttributes.GENERIC_SCALE).removeModifier(tinyModifier);
+        }));
+        CanSeePoison.EVENT.register((player)->{
+            GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(player.getWorld());
+            if (gameWorldComponent.isRole((PlayerEntity) player, Noellesroles.BARTENDER)) {
+                return true;
+            }
+            return false;
+        });
+        ShouldDropOnDeath.EVENT.register(((itemStack,identifier) -> {
+            return itemStack.isOf(ModItems.MASTER_KEY);
+        }));
+        ModdedRoleAssigned.EVENT.register((player,role)->{
+            if (role.equals(THIEF)) {
+                ThiefPlayerComponent thiefComponent = ThiefPlayerComponent.KEY.get(player);
+                thiefComponent.reset();
+                // 给THIEF发一把真刀用于击杀
+                player.giveItemStack(WatheItems.KNIFE.getDefaultStack());
+            } else {
+                // 对其他角色使用统一的初始化方法
+                initializePlayerRole(player, role);
+            }
+        }
+    }
+
+    public void registerEvents() {
+        AllowPlayerDeath.EVENT.register(((playerEntity, killer,identifier) -> {
             if (identifier == GameConstants.DeathReasons.FELL_OUT_OF_TRAIN) return true;
             GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(playerEntityVictim.getWorld());
             
@@ -332,18 +433,38 @@ public class Noellesroles implements ModInitializer {
 
             return true;
         }));
+        //
+        // Mimic & Executioner backfire
+        //
+        AllowPlayerDeath.EVENT.register(((playerEntity, killer,identifier) -> {
+            GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(playerEntity.getWorld());
+            if (identifier.equals(GameConstants.DeathReasons.FELL_OUT_OF_TRAIN) && killer != null) {
+                if (gameWorldComponent.isRole(killer, MIMIC) && gameWorldComponent.isInnocent(playerEntity)) {
+                    GameFunctions.killPlayer(killer, true, null, Identifier.of(MOD_ID, "modded_backfire"));
+                }
+            }
+            if (identifier.equals(GameConstants.DeathReasons.GUN) && killer != null) {
+                if (gameWorldComponent.isRole(killer, EXECUTIONER) && ExecutionerPlayerComponent.KEY.get(killer).target != playerEntity.getUuid()) {
+                    GameFunctions.killPlayer(killer, true, null, Identifier.of(MOD_ID, "modded_backfire"));
+                }
+            }
+            return true;
+        }));
         AllowPlayerPunching.EVENT.register(((playerEntity, playerEntity1) -> {
             GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(playerEntity.getWorld());
-            if (gameWorldComponent.isRole(playerEntity, Noellesroles.MIMIC)) return (gameWorldComponent.getRole(playerEntity1) != null && KILLER_SIDED_NEUTRALS.contains(gameWorldComponent.getRole(playerEntity1))) || gameWorldComponent.canUseKillerFeatures(playerEntity1);
-            return false;
+            return gameWorldComponent.isRole(playerEntity, Noellesroles.MIMIC) && playerEntity.getMainHandStack().isOf(ModItems.FAKE_KNIFE);
         }));
         ModifierAssigned.EVENT.register(((playerEntity, modifier) -> {
             if (modifier.equals(TINY)) {
                 playerEntity.getAttributeInstance(EntityAttributes.GENERIC_SCALE).removeModifier(tinyModifier);
                 playerEntity.getAttributeInstance(EntityAttributes.GENERIC_SCALE).addPersistentModifier(tinyModifier);
             }
+            if (modifier.equals(FEATHER)) {
+                playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, StatusEffectInstance.INFINITE, 0, true, false));
+            }
         }));
         ResetPlayerEvent.EVENT.register(((playerEntity) -> {
+            playerEntity.removeStatusEffect(StatusEffects.SLOW_FALLING);
             playerEntity.getAttributeInstance(EntityAttributes.GENERIC_SCALE).removeModifier(tinyModifier);
         }));
         CanSeePoison.EVENT.register((player)->{
