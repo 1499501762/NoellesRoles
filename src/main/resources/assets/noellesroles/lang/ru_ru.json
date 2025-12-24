@@ -1,6 +1,11 @@
 {
+  "key.noellesroles.ability": "Способность",
   "announcement.goals.noellesroles.jester": "Найдите убийц и объединитесь с ними.",
   "announcement.role.noellesroles.jester": "Шут",
+
+  "announcement.goals.noellesroles.thief": "Укради личность других игроков и выиграй как они.",
+  "announcement.role.noellesroles.thief": "Вор",
+  "hud.thief.stolen_role": "Украденная роль: ",
 
   "announcement.goals.noellesroles.morphling": "Обмани всех.",
   "announcement.role.noellesroles.morphling": "Имитатор",
@@ -77,6 +82,8 @@
   "item.noellesroles.delusion_vial": "Ампула заблуждения",
   "item.noellesroles.delusion_vial.tooltip": "Щелкните ПКМ по подносу с едой/напитками, чтобы использовать\nПоддельный яд, который работает как обычный,\nно не может причинить вреда жертве.",
 
+  "announcement.modifier.empty_modifier": "Нет",
+
 
   "death_reason.wathe.gun_shot": "от пулевого ранения.",
   "death_reason.wathe.knife_stab": "от ножевого ранения!",
@@ -91,6 +98,7 @@
   "tip.recaller.place": "Нажмите %s чтобы сохранить текущую позицию!",
   "tip.recaller.teleport": "Нажмите %s чтобы телепортироваться!",
   "tip.vulture": "%s/%s тел съедено.",
+  "tip.selected": "Выбрано",
   "tip.recaller.not_enough_money": "100\uE781 необходимо для телепортации.",
   "tip.noellesroles.cooldown": "способность можно использовать через %sс",
   "hud.noellesroles.detective": "Детектив: %s/%s",

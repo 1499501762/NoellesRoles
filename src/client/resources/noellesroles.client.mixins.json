@@ -29,6 +29,7 @@
     "vulture.VultureEatenBodyMixin",
     "vulture.VultureHudMixin",
     "sniper.SniperScreenMixin",
+    "thief.ThiefHudMixin",
     "troll.TrollHudMixin"
   ],
   "injectors": {

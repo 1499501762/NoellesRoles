@@ -4,6 +4,10 @@
   "announcement.goals.noellesroles.jester": "Find and co-operate with the Killers.",
   "announcement.role.noellesroles.jester": "Jester",
 
+  "announcement.goals.noellesroles.thief": "Steal other players' identities and win as them.",
+  "announcement.role.noellesroles.thief": "Thief",
+  "hud.thief.stolen_role": "Stolen Role: ",
+
   "announcement.goals.noellesroles.morphling": "Fool everyone.",
   "announcement.role.noellesroles.morphling": "Morphling",
 
@@ -62,6 +66,7 @@
   "announcement.modifier.tiny": "Tiny",
   "announcement.modifier.chameleon": "Chameleon",
   "announcement.modifier.guesser": "Guesser",
+  "announcement.modifier.empty_modifier": "None",
 
 
   "announcement.goals.noellesroles.better_vigilante": "Uhhhhhhhhhhhhh",

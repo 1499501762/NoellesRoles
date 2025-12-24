@@ -95,7 +95,7 @@ public abstract class SniperScreenMixin extends LimitedHandledScreen<PlayerScree
                     roleObj,
                     i
             );
-            System.out.println("[ROLE_INIT] i=" + i + " name=" + roleObj.identifier() + " x=" + (baseXRoles + apartRoles * i) + " y=" + yRoles);
+            // System.out.println("[ROLE_INIT] i=" + i + " name=" + roleObj.identifier() + " x=" + (baseXRoles + apartRoles * i) + " y=" + yRoles);
             addDrawableChild(rWidget);
             i++;
         }

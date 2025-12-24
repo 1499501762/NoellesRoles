@@ -13,6 +13,7 @@ import org.agmas.noellesroles.voodoo.VoodooPlayerComponent;
 import org.agmas.noellesroles.morphling.MorphlingPlayerComponent;
 import org.agmas.noellesroles.recaller.RecallerPlayerComponent;
 import org.agmas.noellesroles.vulture.VulturePlayerComponent;
+import org.agmas.noellesroles.thief.ThiefPlayerComponent;
 import org.jetbrains.annotations.NotNull;
 import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
@@ -36,6 +37,7 @@ public class NoellesRolesComponents implements EntityComponentInitializer, World
         registry.beginRegistration(PlayerEntity.class, SniperPlayerComponent.KEY).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(SniperPlayerComponent::new);
         registry.beginRegistration(PlayerEntity.class, DetectivePlayerComponent.KEY).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(DetectivePlayerComponent::new);
         registry.beginRegistration(PlayerEntity.class, ChameleonPlayerComponent.KEY).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(ChameleonPlayerComponent::new);
+        registry.beginRegistration(PlayerEntity.class, ThiefPlayerComponent.KEY).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(ThiefPlayerComponent::new);
     }
 
     @Override

@@ -43,7 +43,12 @@ public class SniperRoleWidget extends ButtonWidget {
         }, DEFAULT_NARRATION_SUPPLIER);
         this.screen = screen;
         this.role = role;
-        this.roleNameString = Text.translatable("announcement.role."+role.identifier().getNamespace() + "." + role.identifier().getPath());
+        if (role.identifier().getNamespace()=="noellesroles") {
+            this.roleNameString = Text.translatable("announcement.role."+role.identifier().getNamespace() + "." + role.identifier().getPath());
+        } else {
+            this.roleNameString = Text.translatable("announcement.role."+role.identifier().getPath());
+        }
+        
         this.idx = idx;
     }
     protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {

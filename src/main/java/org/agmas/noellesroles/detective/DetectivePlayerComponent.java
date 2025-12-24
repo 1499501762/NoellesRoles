@@ -60,10 +60,7 @@ public class DetectivePlayerComponent implements AutoSyncedComponent, ServerTick
     public void reset(int playerCount) {
         GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(player.getWorld());
         // 初始化/重置身份列表：记录自身身份为已知且已被猜测
-        String nameString = gameWorldComponent.getRole(player.getUuid()).identifier().getPath();
-        String selfIdentity = gameWorldComponent.getRole(player.getUuid()).identifier() != null
-            ? Text.translatable("announcement.role.noellesroles." + nameString).getString()
-            : "???";
+        String selfIdentity = Text.translatable("announcement.role.noellesroles." + gameWorldComponent.getRole(player.getUuid()).identifier().getPath()).getString();
         this.guessList.clear();
         this.guessList.add(new GuessInfo(this.player.getUuid(), selfIdentity, true));
         double ratio = NoellesRolesConfig.HANDLER.instance().detectiveAbilityRatio;

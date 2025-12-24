@@ -3,8 +3,13 @@
   "announcement.goals.noellesroles.jester": "找到杀手并与其合作取得胜利。",
   "announcement.role.noellesroles.jester": "狂信者",
 
+  "announcement.goals.noellesroles.thief": "偷取其他玩家的身份并以其身份获胜。",
+  "announcement.role.noellesroles.thief": "小偷",
+  "hud.thief.stolen_role": "已偷取身份：",
+
   "announcement.goals.noellesroles.morphling": "变成其他人的样子愚弄所有人。",
   "announcement.role.noellesroles.morphling": "变形怪",
+
 
   "announcement.goals.noellesroles.awesome_binglus": "你有超多便条，随便写吧",
   "announcement.role.noellesroles.awesome_binglus": "记者",

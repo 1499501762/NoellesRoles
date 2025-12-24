@@ -76,6 +76,13 @@ Role List:
   - Requires money to use (25 coins); action is on a cooldown.
   - Designed to help passengers by disrupting killers' plans.
 
+- Thief
+  - Steal another player's identity by killing them with a knife.
+  - Starts with a real knife to make the first kill.
+  - After a successful kill, the knife is removed and you assume the victim's role.
+  - Your inventory screen will show "Stolen Role: [Role Name]" as a reminder.
+  - Win by achieving the stolen role's victory condition.
+
 ## ???? (disabled by default, turn on a config option to get them back on!)
 
 - Awesome Binglus

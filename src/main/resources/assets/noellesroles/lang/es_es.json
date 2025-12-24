@@ -1,6 +1,11 @@
 {
+  "key.noellesroles.ability": "Habilidad",
   "announcement.goals.noellesroles.jester": "Encuentra y coopera con los Asesinos.",
   "announcement.role.noellesroles.jester": "Bufón!",
+
+  "announcement.goals.noellesroles.thief": "Roba la identidad de otros jugadores y gana como ellos.",
+  "announcement.role.noellesroles.thief": "Ladrón",
+  "hud.thief.stolen_role": "Rol robado: ",
 
   "announcement.goals.noellesroles.morphling": "Engaña a todos.",
   "announcement.role.noellesroles.morphling": "Metamorfo!",
@@ -27,6 +32,7 @@
 
   "announcement.goals.noellesroles.voodoo": "Elige a otro jugador para que caiga contigo.",
   "announcement.role.noellesroles.voodoo": "Vudú!",
+  "hud.voodoo.player_deaths_only": "¡Las muertes de vudú deben ser provocadas por otro jugador!",
   "hud.voodoo.deaths_must_be_triggered_by_another_player": "Voodoo deaths must be triggered by another player!",
 
   "announcement.goals.noellesroles.swapper": "Intercambia posiciones con otros jugadores.",
@@ -43,6 +49,7 @@
 
   "announcement.goals.noellesroles.executioner": "Conviértete en asesino cuando tu objetivo muera (a manos de alguien que no sea asesino).",
   "announcement.role.noellesroles.executioner": "Ejecutor!",
+  "hud.executioner.target": "Objetivo del Ejecutor: %s",
 
   "announcement.goals.noellesroles.trapper": "Comprueba los roles de otros jugadores.",
   "announcement.role.noellesroles.trapper": "Trampero!",
@@ -57,6 +64,7 @@
   "announcement.role.noellesroles.vulture": "Buitre!",
   "hud.vulture.eat": "¡Pulsa %s para comer!",
   "hud.vulture.already_consumed": "Este cuerpo ya ha sido consumido.",
+  "tip.selected": "Seleccionado",
  
   "announcement.role.noellesroles.sniper": "Sniper",
   "announcement.goals.noellesroles.sniper": "Kill players by guessing their roles.",
@@ -77,6 +85,8 @@
   "item.noellesroles.defense_vial.tooltip": "Haz clic derecho en las bandejas de comida/bebida para usarlo\nElimina todo el veneno aplicado a las bandejas\nProtege a cualquiera que beba una bebida protegida con un golpe extra de vida.\nInvisible para otros jugadores.",
   "item.noellesroles.delusion_vial": "Vial de ilusión",
   "item.noellesroles.delusion_vial.tooltip": "Haz clic derecho en las bandejas de comida/bebida para usarlo\nCrea veneno falso, haciendo que quien consuma el objeto envenenado\ncrea que está envenenado, pero sin ningún efecto físico.",
+
+  "announcement.modifier.empty_modifier": "Ninguno",
 
   "death_reason.wathe.gun_shot": "una bala.",
   "death_reason.wathe.knife_stab": "una puñalada",

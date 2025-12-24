@@ -53,15 +53,17 @@ public class DetectivePlayerWidget extends ButtonWidget {
             Text name = targetPlayerEntry.getName();
             context.drawTooltip(tr, name,
                     this.getX() - 4 - tr.getWidth(name) / 2,
-                    this.getY() - 9);
+                    this.getY() - 24);
 
             DetectivePlayerComponent comp = DetectivePlayerComponent.KEY.get(MinecraftClient.getInstance().player);
-                String identityRaw = comp != null ? comp.getIdentityByUUID(targetPlayerEntry.getUuid()) : "???";
-                Text identityText = "???".equals(identityRaw) ? Text.literal("???") : Text.translatable(identityRaw);
-                int color = "???".equals(identityRaw) ? new Color(180, 180, 180).getRGB() : new Color(140, 220, 120).getRGB();
-                context.drawTooltip(tr, identityText,
-                    this.getX() - 4 - tr.getWidth(identityText) / 2,
-                    this.getY() + 8);
+            String identityRaw = comp != null ? comp.getIdentityByUUID(targetPlayerEntry.getUuid()) : "???";
+
+            Text identityText = Text.literal(identityRaw);
+
+            // int color = "???".equals(identityRaw) ? new Color(180, 180, 180).getRGB() : new Color(140, 220, 120).getRGB();
+            context.drawTooltip(tr, identityText,
+                this.getX() - 4 - tr.getWidth(identityText) / 2,
+                this.getY() -8);
             // 冷却数值显示
             if (inCooldown) {
                 int cd = AbilityPlayerComponent.KEY.get(MinecraftClient.getInstance().player).cooldown / 20;
@@ -82,8 +84,7 @@ public class DetectivePlayerWidget extends ButtonWidget {
 
     // HUD 辅助渲染：在屏幕右下角绘制一行文字
     public static void drawHudLine(DrawContext context, TextRenderer textRenderer, Text line, int color) {
-        int drawY = context.getScaledWindowHeight();
-        drawY -= textRenderer.getWrappedLinesHeight(line, Integer.MAX_VALUE);
+        int drawY = context.getScaledWindowHeight()- textRenderer.getWrappedLinesHeight(line, Integer.MAX_VALUE);
         int drawX = context.getScaledWindowWidth() - textRenderer.getWidth(line);
         context.drawTextWithShadow(textRenderer, line, drawX, drawY, color);
     }

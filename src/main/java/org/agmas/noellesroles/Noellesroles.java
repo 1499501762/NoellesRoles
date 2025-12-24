@@ -74,6 +74,7 @@ import org.agmas.noellesroles.util.Effects;
 import org.agmas.noellesroles.util.PlayerBodyCreater;
 import org.agmas.noellesroles.voodoo.VoodooPlayerComponent;
 import org.agmas.noellesroles.vulture.VulturePlayerComponent;
+import org.agmas.noellesroles.thief.ThiefPlayerComponent;
 
 import java.awt.*;
 import java.lang.reflect.Constructor;
@@ -122,6 +123,7 @@ public class Noellesroles implements ModInitializer {
     public static Identifier TROLL_ID = Identifier.of(MOD_ID, "troll");
     public static Identifier DETECTIVE_ID = Identifier.of(MOD_ID, "detective");
     public static Identifier EMPTY_MODIFIER_ID = Identifier.of(MOD_ID, "empty_modifier");
+    public static Identifier THIEF_ID = Identifier.of(MOD_ID, "thief");
 
     public static Identifier THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES_ID = Identifier.of(MOD_ID, "the_insane_damned_paranoid_killer");
 
@@ -153,14 +155,15 @@ public class Noellesroles implements ModInitializer {
     public static Role SNIPER = WatheRoles.registerRole(new Role(SNIPER_ID, new Color(255, 70, 70).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
     public static Role TROLL = WatheRoles.registerRole(new Role(TROLL_ID, new Color(255, 255, 158).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
     public static Role DETECTIVE = WatheRoles.registerRole(new Role(DETECTIVE_ID, new Color(155, 155, 58).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
+    public static Role THIEF = WatheRoles.registerRole(new Role(THIEF_ID, new Color(100, 100, 100).getRGB(),true,false,Role.MoodType.REAL, WatheRoles.CIVILIAN.getMaxSprintTime(),false));
 
-    // 为不该拿到其他 Modifier 的角色准备一个空 Modifier，当 HML 选择 Modifier 时会优先匹配允许列表
-    public static Modifier EMPTY_MODIFIER = HMLModifiers.registerModifier(new Modifier(EMPTY_MODIFIER_ID, new Color(255, 255, 255, 255).getRGB(), null, null, false, false));
+    // public static Modifier EMPTY_MODIFIER = HMLModifiers.registerModifier(new Modifier(EMPTY_MODIFIER_ID, new Color(255, 255, 255, 255).getRGB(), null, null, false, false));
     public static Modifier TINY = HMLModifiers.registerModifier(new Modifier(TINY_ID, new Color(255, 223, 142).getRGB(), new ArrayList<>(List.of(MORPHLING)), null, false, false));
     public static Modifier CHAMELEON = HMLModifiers.registerModifier(new Modifier(CHAMELEON_ID, new Color(198, 255, 137).getRGB(), new ArrayList<>(List.of(PHANTOM,MORPHLING)), null, false, false));
     public static Modifier GUESSER = HMLModifiers.registerModifier(new Modifier(GUESSER_ID, new Color(158, 43, 25, 191).getRGB(), 
             new ArrayList<>(List.of(THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES,
                     SNIPER,
+                    THIEF,
                     DETECTIVE,
                     SWAPPER,
                     VOODOO)), 
@@ -220,6 +223,7 @@ public class Noellesroles implements ModInitializer {
         Harpymodloader.setRoleMaximum(SNIPER_ID,1);
         Harpymodloader.setRoleMaximum(TROLL_ID,1);
         Harpymodloader.setRoleMaximum(DETECTIVE_ID,1);
+        Harpymodloader.setRoleMaximum(THIEF_ID,1);
 
         PayloadTypeRegistry.playC2S().register(MorphC2SPacket.ID, MorphC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(AbilityC2SPacket.ID, AbilityC2SPacket.CODEC);
@@ -242,12 +246,77 @@ public class Noellesroles implements ModInitializer {
 
     EntityAttributeModifier tinyModifier = new EntityAttributeModifier(Identifier.of(MOD_ID, "tiny_modifier"), -0.15, EntityAttributeModifier.Operation.ADD_VALUE);
 
-
+    /**
+     * 根据角色初始化玩家（发放物品、初始化Component等）
+     */
+    private void initializePlayerRole(PlayerEntity player, Role role) {
+        AbilityPlayerComponent abilityPlayerComponent = (AbilityPlayerComponent) AbilityPlayerComponent.KEY.get(player);
+        GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(player.getWorld());
+        abilityPlayerComponent.cooldown = NoellesRolesConfig.HANDLER.instance().generalCooldownTicks;
+        
+        if (role.equals(EXECUTIONER)) {
+            ExecutionerPlayerComponent executionerPlayerComponent = (ExecutionerPlayerComponent) ExecutionerPlayerComponent.KEY.get(player);
+            executionerPlayerComponent.won = false;
+            executionerPlayerComponent.reset();
+            executionerPlayerComponent.sync();
+        }
+        if (role.equals(VULTURE)) {
+            VulturePlayerComponent vulturePlayerComponent = VulturePlayerComponent.KEY.get(player);
+            vulturePlayerComponent.reset();
+            vulturePlayerComponent.bodiesRequired = (int)((player.getWorld().getPlayers().size()/3f) - Math.floor(player.getWorld().getPlayers().size()/6f));
+            vulturePlayerComponent.sync();
+        }
+        if (role.equals(BETTER_VIGILANTE)) {
+            player.giveItemStack(WatheItems.GRENADE.getDefaultStack());
+        }
+        if (role.equals(MIMIC)) {
+            player.giveItemStack(ModItems.FAKE_KNIFE.getDefaultStack());
+        }
+        if (role.equals(JESTER)) {
+            player.giveItemStack(ModItems.FAKE_KNIFE.getDefaultStack());
+            player.giveItemStack(ModItems.FAKE_REVOLVER.getDefaultStack());
+        }
+        if (role.equals(CONDUCTOR)) {
+            player.giveItemStack(ModItems.MASTER_KEY.getDefaultStack());
+        }
+        if (role.equals(SNIPER)) {
+            SniperPlayerComponent sniperPlayerComponent = SniperPlayerComponent.KEY.get(player);
+            abilityPlayerComponent.cooldown = NoellesRolesConfig.HANDLER.instance().sniperCooldownTicks;
+            sniperPlayerComponent.reset(player.getWorld().getPlayers().size());
+            sniperPlayerComponent.sync();
+        }
+        if (role.equals(DETECTIVE)) {
+            DetectivePlayerComponent detectiveComp = DetectivePlayerComponent.KEY.get(player);
+            detectiveComp.reset(player.getWorld().getPlayers().size());
+            detectiveComp.sync();
+        }
+        if (role.equals(AWESOME_BINGLUS)) {
+            for (int i = 0; i < 16; i++) {
+                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+            }
+        }
+    }
 
     public void registerEvents() {
         AllowPlayerDeath.EVENT.register(((PlayerEntity playerEntityVictim, PlayerEntity playerEntityKiller, Identifier identifier) -> {
             if (identifier == GameConstants.DeathReasons.FELL_OUT_OF_TRAIN) return true;
             GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(playerEntityVictim.getWorld());
+            
+            // THIEF偷取被击杀者的身份
+            if (playerEntityKiller != null && gameWorldComponent.isRole(playerEntityKiller, Noellesroles.THIEF)) {
+                ThiefPlayerComponent thiefComponent = ThiefPlayerComponent.KEY.get(playerEntityKiller);
+                if (!thiefComponent.hasStolen) {
+                    // 收回THIEF的真刀
+                    removeKnifeFromPlayer(playerEntityKiller);
+
+                    Identifier victimRole = gameWorldComponent.getRole(playerEntityVictim.getUuid()).identifier();
+                    thiefComponent.stealIdentity(victimRole);
+                    
+                    // 找到对应的角色并初始化
+                    initializePlayerRole(playerEntityKiller, gameWorldComponent.getRole(playerEntityVictim));
+                }
+            }
+            
             if (gameWorldComponent.isRole(playerEntityVictim,Noellesroles.JESTER)) {
                 PlayerPsychoComponent component =  PlayerPsychoComponent.KEY.get(playerEntityVictim);
                 if (component.getPsychoTicks() > GameConstants.getInTicks(0,44)) {
@@ -288,67 +357,14 @@ public class Noellesroles implements ModInitializer {
             return itemStack.isOf(ModItems.MASTER_KEY);
         }));
         ModdedRoleAssigned.EVENT.register((player,role)->{
-            AbilityPlayerComponent abilityPlayerComponent = (AbilityPlayerComponent) AbilityPlayerComponent.KEY.get(player);
-            GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(player.getWorld());
-            abilityPlayerComponent.cooldown = NoellesRolesConfig.HANDLER.instance().generalCooldownTicks;
-            if (role.equals(EXECUTIONER)) {
-                ExecutionerPlayerComponent executionerPlayerComponent = (ExecutionerPlayerComponent) ExecutionerPlayerComponent.KEY.get(player);
-                executionerPlayerComponent.won = false;
-                executionerPlayerComponent.reset();
-                executionerPlayerComponent.sync();
-            }
-            if (role.equals(VULTURE)) {
-                VulturePlayerComponent vulturePlayerComponent = VulturePlayerComponent.KEY.get(player);
-                vulturePlayerComponent.reset();
-                vulturePlayerComponent.bodiesRequired = (int)((player.getWorld().getPlayers().size()/3f) - Math.floor(player.getWorld().getPlayers().size()/6f));
-                vulturePlayerComponent.sync();
-            }
-            if (role.equals(BETTER_VIGILANTE)) {
-                player.giveItemStack(WatheItems.GRENADE.getDefaultStack());
-            }
-            if (role.equals(MIMIC)) {
-                player.giveItemStack(ModItems.FAKE_KNIFE.getDefaultStack());
-            }
-            if (role.equals(JESTER)) {
-                player.giveItemStack(ModItems.FAKE_KNIFE.getDefaultStack());
-                player.giveItemStack(ModItems.FAKE_REVOLVER.getDefaultStack());
-            }
-            if (role.equals(CONDUCTOR)) {
-                player.giveItemStack(ModItems.MASTER_KEY.getDefaultStack());
-            }
-            if (role.equals(SNIPER)) {
-                SniperPlayerComponent sniperPlayerComponent = SniperPlayerComponent.KEY.get(player);
-                abilityPlayerComponent.cooldown = NoellesRolesConfig.HANDLER.instance().sniperCooldownTicks;
-                sniperPlayerComponent.reset(player.getWorld().getPlayers().size());
-                sniperPlayerComponent.sync();
-                // player.giveItemStack(ModItems.SNIPER_TRACKER.getDefaultStack());
-            }
-            if (role.equals(DETECTIVE)) {
-                DetectivePlayerComponent detectiveComp = DetectivePlayerComponent.KEY.get(player);
-                detectiveComp.reset(player.getWorld().getPlayers().size());
-                detectiveComp.sync();
-            }
-            // if (role.equals(TROLL)) {
-            //     player.giveItemStack(ModItems.FAKE_KNIFE.getDefaultStack());
-            //     player.giveItemStack(ModItems.FAKE_REVOLVER.getDefaultStack());
-            // }
-            if (role.equals(AWESOME_BINGLUS)) {
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
-                player.giveItemStack(WatheItems.NOTE.getDefaultStack());
+            if (role.equals(THIEF)) {
+                ThiefPlayerComponent thiefComponent = ThiefPlayerComponent.KEY.get(player);
+                thiefComponent.reset();
+                // 给THIEF发一把真刀用于击杀
+                player.giveItemStack(WatheItems.KNIFE.getDefaultStack());
+            } else {
+                // 对其他角色使用统一的初始化方法
+                initializePlayerRole(player, role);
             }
         });
         ServerTickEvents.END_SERVER_TICK.register(((server) -> {
@@ -378,6 +394,19 @@ public class Noellesroles implements ModInitializer {
         }
 
 
+    }
+
+    /**
+     * 移除玩家背包中所有真刀（无论耐久/NBT）。
+     */
+    private void removeKnifeFromPlayer(PlayerEntity player) {
+        var inventory = player.getInventory();
+        for (int slot = 0; slot < inventory.size(); slot++) {
+            ItemStack stack = inventory.getStack(slot);
+            if (stack.isOf(WatheItems.KNIFE)) {
+                inventory.setStack(slot, ItemStack.EMPTY);
+            }
+        }
     }
 
 
@@ -537,13 +566,23 @@ public class Noellesroles implements ModInitializer {
             PlayerEntity target = detective.getWorld().getPlayerByUuid(payload.target());
             if (target == null) return;
             // 可选：禁止自查
-            // if (target.getUuid().equals(detective.getUuid())) return;
+            if (target.getUuid().equals(detective.getUuid())) return;
 
-            // 写入身份并标记已猜测
-            String nameString = Text.translatable("announcement.role." + gameWorld.getRole(target.getUuid()).identifier().getNamespace() + "." + gameWorld.getRole(target.getUuid()).identifier().getPath()).getString();
-            String identity = gameWorld.getRole(target.getUuid()).identifier() != null
-                    ? nameString
-                    : "???";
+            // 写入翻译后的身份文本并标记已猜测
+            String identity;
+            if (gameWorld.getRole(target.getUuid()) != null && gameWorld.getRole(target.getUuid()).identifier() != null) {
+                Identifier rid = gameWorld.getRole(target.getUuid()).identifier();
+                String key;
+                if (rid.getNamespace() == MOD_ID) {
+                    key = "announcement.role." + rid.getNamespace() + "." + rid.getPath();
+                }else {
+                    key = "announcement.role." + rid.getPath();
+                }
+                
+                identity = Text.translatable(key).getString();
+            } else {
+                identity = "???";
+            }
             detectiveComp.addOrUpdateGuess(target.getUuid(), identity, true);
             detectiveComp.detectRemaining--;
             detectiveComp.sync();
