@@ -7,9 +7,10 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.text.Text;
-import org.agmas.noellesroles.client.DetectivePlayerWidget;
+
 import org.agmas.noellesroles.AbilityPlayerComponent;
 import org.agmas.noellesroles.Noellesroles;
+import org.agmas.noellesroles.client.ui.DetectivePlayerWidget;
 import org.agmas.noellesroles.detective.DetectivePlayerComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

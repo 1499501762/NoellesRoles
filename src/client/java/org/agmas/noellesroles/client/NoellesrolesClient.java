@@ -15,12 +15,14 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.loader.impl.util.log.Log;
 import net.fabricmc.loader.impl.util.log.LogCategory;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -30,7 +32,9 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import org.agmas.noellesroles.AbilityPlayerComponent;
 import org.agmas.noellesroles.ModItems;
+import org.agmas.noellesroles.NoellesRolesEntities;
 import org.agmas.noellesroles.Noellesroles;
+import org.agmas.noellesroles.client.renderer.RoleMineEntityRenderer;
 import org.agmas.noellesroles.packet.AbilityC2SPacket;
 import org.agmas.noellesroles.packet.MorphC2SPacket;
 import org.agmas.noellesroles.packet.VultureEatC2SPacket;
@@ -81,9 +85,11 @@ public class NoellesrolesClient implements ClientModInitializer {
                 });
             }
         });
+        EntityRendererRegistry.register(NoellesRolesEntities.ROLE_MINE_ENTITY_ENTITY_TYPE, RoleMineEntityRenderer::new);
 
         ItemTooltipCallback.EVENT.register(((itemStack, tooltipContext, tooltipType, list) -> {
             tooltipHelper(ModItems.DEFENSE_VIAL, itemStack, list);
+            tooltipHelper(ModItems.ROLE_MINE, itemStack, list);
             tooltipHelper(ModItems.DELUSION_VIAL, itemStack, list);
         }));
     }

@@ -1,73 +1,84 @@
 {
-  "announcement.goals.jester": "Найдите убийц и объединитесь с ними.",
-  "announcement.role.jester": "Шут",
+  "key.noellesroles.ability": "Способность",
+  "announcement.goals.noellesroles.jester": "Найдите убийц и объединитесь с ними.",
+  "announcement.role.noellesroles.jester": "Шут",
 
-  "announcement.goals.morphling": "Обмани всех.",
-  "announcement.role.morphling": "Имитатор",
+  "announcement.goals.noellesroles.noellesroles.thief": "Укради личность других игроков и выиграй как они.",
+  "announcement.role.noellesroles.thief": "Вор",
+  "hud.thief.stolen_role": "Украденная роль: ",
 
-  "announcement.goals.awesome_binglus": "Превосходный Бунглус",
-  "announcement.role.awesome_binglus": "Превосходный Бунглус",
+  "announcement.goals.noellesroles.morphling": "Обмани всех.",
+  "announcement.role.noellesroles.noellesroles.morphling": "Имитатор",
 
-  "announcement.goals.conductor": "Используйте мастер-ключ, чтобы открыть любую дверь в поезде!",
-  "announcement.role.conductor": "Кондуктор",
+  "announcement.goals.noellesroles.awesome_binglus": "Превосходный Бунглус",
+  "announcement.role.noellesroles.awesome_binglus": "Превосходный Бунглус",
 
-  "announcement.goals.the_insane_damned_paranoid_killer": "Я слышу голоса мёртвых.",
-  "announcement.role.the_insane_damned_paranoid_killer": "Безумный Проклятый Параноидальный Убийца Смерти, Разрушения и Вафель",
+  "announcement.goals.noellesroles.conductor": "Используйте мастер-ключ, чтобы открыть любую дверь в поезде!",
+  "announcement.role.noellesroles.conductor": "Кондуктор",
+
+  "announcement.goals.noellesroles.the_insane_damned_paranoid_killer": "Я слышу голоса мёртвых.",
+  "announcement.role.noellesroles.the_insane_damned_paranoid_killer": "Безумный Проклятый Параноидальный Убийца Смерти, Разрушения и Вафель",
   "announcement.win.the_insane_damned_paranoid_killer": "Убийцы победили!",
 
-  "announcement.goals.bartender": "Смотрите на игроков, которые пьют сквозь стены!",
-  "announcement.role.bartender": "Пьяница",
+  "announcement.goals.noellesroles.bartender": "Смотрите на игроков, которые пьют сквозь стены!",
+  "announcement.role.noellesroles.bartender": "Пьяница",
 
-  "announcement.goals.phantom": "Станьте невидимыми, но остерегайтесь столкновений с другими игракоми.",
-  "announcement.role.phantom": "Фантом",
+  "announcement.goals.noellesroles.phantom": "Станьте невидимыми, но остерегайтесь столкновений с другими игракоми.",
+  "announcement.role.noellesroles.phantom": "Фантом",
 
-  "announcement.goals.noisemaker": "Оповещайте игроков о вашем местоположении в случае смерти.",
-  "announcement.role.noisemaker": "Шумный парень",
+  "announcement.goals.noellesroles.noisemaker": "Оповещайте игроков о вашем местоположении в случае смерти.",
+  "announcement.role.noellesroles.noisemaker": "Шумный парень",
 
-  "announcement.goals.voodoo": "Выберите другого игрока, который умрёт с вами.",
-  "announcement.role.voodoo": "Вуду",
+  "announcement.goals.noellesroles.voodoo": "Выберите другого игрока, который умрёт с вами.",
+  "announcement.role.noellesroles.voodoo": "Вуду",
   "hud.voodoo.player_deaths_only": "Причиной смерти вуду должен быть другой игрок!",
   "hud.voodoo.deaths_must_be_triggered_by_another_player": "Voodoo deaths must be triggered by another player!",
 
-  "announcement.goals.swapper": "Меняйтесь местами с другими игроками.",
-  "announcement.role.swapper": "Обменник",
+  "announcement.goals.noellesroles.swapper": "Меняйтесь местами с другими игроками.",
+  "announcement.role.noellesroles.swapper": "Обменник",
   "hud.swapper.first_player_selection": "Выберите первого игрока для обмена",
   "hud.swapper.second_player_selection": "Выберите второго игрока для обмена",
 
-  "announcement.goals.coroner": "Получите информацию о мертвых телах.",
-  "announcement.role.coroner": "Детектив",
+  "announcement.goals.noellesroles.coroner": "Получите информацию о мертвых телах.",
+  "announcement.role.noellesroles.coroner": "Детектив",
   "announcement.win.coroner": "Пассажиры победили!",
   "hud.coroner.sanity_requirements": "Необходимо 50% рассудка, чтобы использовать эту способность",
   "hud.coroner.death_info": "Погиб %s с назад ",
 
-  "announcement.goals.executioner": "Станьте убийцей, как только ваша цель умрет (от рук не-убийцы).",
-  "announcement.role.executioner": "Жнец",
+  "announcement.goals.noellesroles.executioner": "Станьте убийцей, как только ваша цель умрет (от рук не-убийцы).",
+  "announcement.role.noellesroles.executioner": "Жнец",
   "hud.executioner.target": "Цель Жнеца: %s",
 
-  "announcement.goals.trapper": "Узнайте роли других игроков.",
-  "announcement.role.trapper": "Мастер ловушек",
+  "announcement.goals.noellesroles.guesser": "Guess civilian's roles to kill them instantly!",
+  "announcement.role.noellesroles.guesser": "Guesser",
 
-  "announcement.goals.recaller": "Телепортируйтесь в любое место на поезде!",
-  "announcement.role.recaller": "Телепортатор",
+  "announcement.goals.noellesroles.mimic": "You look like a killer cohort to other killers!",
+  "announcement.role.noellesroles.mimic": "Mimic",
 
-  "announcement.goals.better_vigilante": "Уххххххххххххх",
-  "announcement.role.better_vigilante": "Линчеватель, но лучше",
+  "announcement.goals.noellesroles.trapper": "Узнайте роли других игроков.",
+  "announcement.role.noellesroles.trapper": "Мастер ловушек",
 
-  "announcement.goals.vulture": "Пожирайте чужие тела, чтобы стать убийцей.",
-  "announcement.role.vulture": "Стервятник",
+  "announcement.goals.noellesroles.recaller": "Телепортируйтесь в любое место на поезде!",
+  "announcement.role.noellesroles.recaller": "Телепортатор",
+
+  "announcement.goals.noellesroles.better_vigilante": "Уххххххххххххх",
+  "announcement.role.noellesroles.better_vigilante": "Линчеватель, но лучше",
+
+  "announcement.goals.noellesroles.vulture": "Пожирайте чужие тела, чтобы стать убийцей.",
+  "announcement.role.noellesroles.vulture": "Стервятник",
   "hud.vulture.eat": "Нажмите %s чтобы съесть!",
   "hud.vulture.already_consumed": "Это тело уже съедено.",
  
-  "announcement.role.sniper": "Sniper",
-  "announcement.goals.sniper": "Kill players by guessing their roles.",
+  "announcement.role.noellesroles.sniper": "Sniper",
+  "announcement.goals.noellesroles.sniper": "Kill players by guessing their roles.",
   "hud.sniper.choose_player": "Select player and role",
   "hud.sniper.selected": "Selected",
  
-  "announcement.role.troll": "Troll",
-  "announcement.goals.troll": "Use your abilities to troll the killers and help the passengers win.",
+  "announcement.role.noellesroles.troll": "Troll",
+  "announcement.goals.noellesroles.troll": "Use your abilities to troll the killers and help the passengers win.",
  
-  "announcement.role.detective": "Detective",
-  "announcement.goals.detective": "You can investigate other players' roles.",
+  "announcement.role.noellesroles.detective": "Detective",
+  "announcement.goals.noellesroles.detective": "You can investigate other players' roles.",
 
   "item.noellesroles.fake_revolver": "Поддельный револьвер",
   "item.noellesroles.master_key": "Мастер-ключ",
@@ -76,6 +87,16 @@
   "item.noellesroles.defense_vial.tooltip": "Щелкните ПКМ по подносу с едой/напитками, чтобы использовать\nОчищает всё содержимое подноса от яда\nДаёт дополнительную жизнь любому, кто выпьет защищённый напиток\nНе видно другим игрокам.",
   "item.noellesroles.delusion_vial": "Ампула заблуждения",
   "item.noellesroles.delusion_vial.tooltip": "Щелкните ПКМ по подносу с едой/напитками, чтобы использовать\nПоддельный яд, который работает как обычный,\nно не может причинить вреда жертве.",
+  "item.noellesroles.role_mine": "Role Mine",
+  "item.noellesroles.role_mine.tooltip": "Right click to Place down on Floors or Ceilings.\nInvisible to other players, both placed and in hand.",
+  "item.noellesroles.trapper_report": "Trapper Report",
+
+  "announcement.modifier.noellesroles.tiny": "Tiny",
+  "announcement.modifier.noellesroles.chameleon": "Chameleon",
+  "announcement.modifier.noellesroles.guesser": "Guesser",
+  "announcement.modifier.noellesroles.graverobber": "Graverobber",
+  "announcement.modifier.noellesroles.feather": "Feather",
+  "announcement.modifier.empty_modifier": "Нет",
 
 
   "death_reason.wathe.gun_shot": "от пулевого ранения.",
@@ -86,11 +107,13 @@
   "death_reason.wathe.poison": "от отравления!",
   "death_reason.wathe.fell_out_of_train": "от падения с поезда.",
   "death_reason.noellesroles.voodoo": "от магии вуду.",
+  "death_reason.noellesroles.modded_backfire": "guilt.",
 
   "tip.phantom": "Нажмите %s чтобы стать невидимым!",
   "tip.recaller.place": "Нажмите %s чтобы сохранить текущую позицию!",
   "tip.recaller.teleport": "Нажмите %s чтобы телепортироваться!",
   "tip.vulture": "%s/%s тел съедено.",
+  "tip.selected": "Выбрано",
   "tip.recaller.not_enough_money": "100\uE781 необходимо для телепортации.",
   "tip.noellesroles.cooldown": "способность можно использовать через %sс",
   "hud.noellesroles.detective": "Детектив: %s/%s",
@@ -98,5 +121,8 @@
   "tip.troll.trollaction": "Press %s to troll!",
   "tip.master_key_invisible_count": "Master Keys look like lockpicks with less than %s people.",
   "tip.master_key_invisible": "Master Keys look like lockpicks.",
+  "tip.trapper.caught": "You caught %s players in your trap. Their roles were:",
+
+  "subtitles.noellesroles.role_mine_beep": "Role Mine Beeps",
   "hud.coroner.role_info": "Their role was "
 }

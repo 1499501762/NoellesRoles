@@ -1,4 +1,4 @@
-package org.agmas.noellesroles.client;
+package org.agmas.noellesroles.client.ui.sniper;
 import dev.doctor4t.wathe.api.Role;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedInventoryScreen;
@@ -31,7 +31,7 @@ public class SniperRoleWidget extends ButtonWidget {
     public final MutableText roleNameString;
     private final int idx;
     public SniperRoleWidget(LimitedInventoryScreen screen, int x, int y, @NotNull Role role, int idx) {
-        super(x, y, 16, 16, Text.translatable("announcement.role." + role.identifier().getPath()), (a) -> {
+        super(x, y, 16, 16, Text.translatable("announcement.role."+role.identifier().getNamespace() + "." + role.identifier().getPath()), (a) -> {
             ClientPlayNetworking.send(new SniperC2SPacket(MinecraftClient.getInstance().player.getUuid(), role.identifier()));
             
             //模拟枪响
@@ -43,7 +43,12 @@ public class SniperRoleWidget extends ButtonWidget {
         }, DEFAULT_NARRATION_SUPPLIER);
         this.screen = screen;
         this.role = role;
-        this.roleNameString = Text.translatable("announcement.role." + role.identifier().getPath());
+        if (role.identifier().getNamespace()=="noellesroles") {
+            this.roleNameString = Text.translatable("announcement.role."+role.identifier().getNamespace() + "." + role.identifier().getPath());
+        } else {
+            this.roleNameString = Text.translatable("announcement.role."+role.identifier().getPath());
+        }
+        
         this.idx = idx;
     }
     protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {

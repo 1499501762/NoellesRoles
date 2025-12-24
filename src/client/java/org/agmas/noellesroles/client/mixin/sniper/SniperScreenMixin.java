@@ -11,8 +11,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.text.Text;
 import org.agmas.noellesroles.Noellesroles;
-import org.agmas.noellesroles.client.SniperPlayerWidget;
-import org.agmas.noellesroles.client.SniperRoleWidget;
+import org.agmas.noellesroles.client.ui.sniper.SniperPlayerWidget;
+import org.agmas.noellesroles.client.ui.sniper.SniperRoleWidget;
 import org.agmas.noellesroles.util.RoleUtils;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -95,7 +95,7 @@ public abstract class SniperScreenMixin extends LimitedHandledScreen<PlayerScree
                     roleObj,
                     i
             );
-            System.out.println("[ROLE_INIT] i=" + i + " name=" + roleObj.identifier() + " x=" + (baseXRoles + apartRoles * i) + " y=" + yRoles);
+            // System.out.println("[ROLE_INIT] i=" + i + " name=" + roleObj.identifier() + " x=" + (baseXRoles + apartRoles * i) + " y=" + yRoles);
             addDrawableChild(rWidget);
             i++;
         }

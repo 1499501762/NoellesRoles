@@ -1,22 +1,17 @@
 package org.agmas.noellesroles.client.mixin.voodoo;
 
-import com.mojang.authlib.GameProfile;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
-import dev.doctor4t.wathe.client.WatheClient;
 import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedHandledScreen;
 import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedInventoryScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.text.Text;
 import org.agmas.noellesroles.ConfigWorldComponent;
 import org.agmas.noellesroles.Noellesroles;
-import org.agmas.noellesroles.client.SwapperPlayerWidget;
-import org.agmas.noellesroles.client.VoodooPlayerWidget;
+import org.agmas.noellesroles.client.ui.VoodooPlayerWidget;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

@@ -10,8 +10,10 @@ import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
+import org.agmas.harpymodloader.component.WorldModifierComponent;
 import org.agmas.noellesroles.AbilityPlayerComponent;
 import org.agmas.noellesroles.Noellesroles;
 import org.agmas.noellesroles.client.NoellesrolesClient;
@@ -27,5 +29,7 @@ public abstract class PhantomRattatoulieMixin {
     @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/LivingEntity;FFFFFF)V", at = @At("HEAD"), cancellable = true)
     public void phantomRatMixin(MatrixStack matrices, VertexConsumerProvider vertexConsumerProvider, int i, LivingEntity livingEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
        if (livingEntity.isInvisible()) ci.cancel();
+       WorldModifierComponent worldModifierComponent = WorldModifierComponent.KEY.get(livingEntity.getWorld());
+       if (worldModifierComponent.isRole(livingEntity.getUuid(), Noellesroles.CHAMELEON)) ci.cancel();
     }
 }

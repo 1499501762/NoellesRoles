@@ -1,38 +1,32 @@
-package org.agmas.noellesroles.client;
+package org.agmas.noellesroles.client.ui.guesser;
 
 import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedInventoryScreen;
 import dev.doctor4t.wathe.util.ShopEntry;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.loader.impl.util.log.Log;
-import net.fabricmc.loader.impl.util.log.LogCategory;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.PlayerSkinDrawer;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
-import net.minecraft.world.World;
 import org.agmas.noellesroles.AbilityPlayerComponent;
-import org.agmas.noellesroles.packet.MorphC2SPacket;
-import org.agmas.noellesroles.packet.SwapperC2SPacket;
-import org.agmas.noellesroles.voodoo.VoodooPlayerComponent;
-import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.UUID;
 
-public class VoodooPlayerWidget extends ButtonWidget{
+public class GuesserPlayerWidget extends ButtonWidget{
     public final LimitedInventoryScreen screen;
     public final UUID targetUUID;
     public final PlayerListEntry targetPlayerEntry;
+    public static UUID selectedPlayer;
 
 
-    public VoodooPlayerWidget(LimitedInventoryScreen screen, int x, int y, UUID targetUUID, PlayerListEntry targetPlayerEntry, World world, int index) {
+    public GuesserPlayerWidget(LimitedInventoryScreen screen, int x, int y, UUID targetUUID, PlayerListEntry targetPlayerEntry) {
         super(x, y, 16, 16, Text.literal(""), (a) -> {
-            ClientPlayNetworking.send(new MorphC2SPacket(targetUUID));
+            AbilityPlayerComponent playerComponent = AbilityPlayerComponent.KEY.get(screen.player);
+            if (playerComponent.cooldown > 0) return;
+            selectedPlayer = targetUUID;
         }, DEFAULT_NARRATION_SUPPLIER);
         this.screen = screen;
         this.targetPlayerEntry = targetPlayerEntry;
@@ -41,19 +35,12 @@ public class VoodooPlayerWidget extends ButtonWidget{
 
     protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         super.renderWidget(context, mouseX, mouseY, delta);
-        VoodooPlayerComponent voodooPlayerComponent = (VoodooPlayerComponent) VoodooPlayerComponent.KEY.get(MinecraftClient.getInstance().player);
         if ((AbilityPlayerComponent.KEY.get(MinecraftClient.getInstance().player)).cooldown == 0) {
             context.drawGuiTexture(ShopEntry.Type.TOOL.getTexture(), this.getX() - 7, this.getY() - 7, 30, 30);
             PlayerSkinDrawer.draw(context, targetPlayerEntry.getSkinTextures().texture(), this.getX(), this.getY(), 16);
             if (this.isHovered()) {
                 this.drawShopSlotHighlight(context, this.getX(), this.getY(), 0);
-
-            }
-
-            if (voodooPlayerComponent.target.equals(targetUUID)) {
-
-                context.drawTooltip(MinecraftClient.getInstance().textRenderer, Text.literal("Selected"), this.getX() - 4 - MinecraftClient.getInstance().textRenderer.getWidth("Selected") / 2, this.getY() - 9);
-                this.drawShopSlotHighlight(context, this.getX(), this.getY(), 0);
+                context.drawTooltip(MinecraftClient.getInstance().textRenderer, Text.of(targetPlayerEntry.getProfile().getName()), this.getX() - 4 - MinecraftClient.getInstance().textRenderer.getWidth(Text.literal(targetPlayerEntry.getProfile().getName())) / 2, this.getY() - 9);
             }
         }
 
@@ -63,12 +50,9 @@ public class VoodooPlayerWidget extends ButtonWidget{
             PlayerSkinDrawer.draw(context, targetPlayerEntry.getSkinTextures().texture(), this.getX(), this.getY(), 16);
             if (this.isHovered()) {
                 this.drawShopSlotHighlight(context, this.getX(), this.getY(), 0);
+                context.drawTooltip(MinecraftClient.getInstance().textRenderer, Text.of(targetPlayerEntry.getProfile().getName()), this.getX() - 4 - MinecraftClient.getInstance().textRenderer.getWidth(Text.literal(targetPlayerEntry.getProfile().getName())) / 2, this.getY() - 9);
             }
 
-            if (voodooPlayerComponent.target.equals(targetUUID)) {
-                context.drawTooltip(MinecraftClient.getInstance().textRenderer, Text.literal("Selected"), this.getX() - 4 - MinecraftClient.getInstance().textRenderer.getWidth("Selected") / 2, this.getY() - 9);
-                this.drawShopSlotHighlight(context, this.getX(), this.getY(), 0);
-            }
             context.setShaderColor(1f,1f,1f,1f);
             context.drawText(MinecraftClient.getInstance().textRenderer, AbilityPlayerComponent.KEY.get(MinecraftClient.getInstance().player).cooldown/20+"",this.getX(),this.getY(), Color.RED.getRGB(),true);
 

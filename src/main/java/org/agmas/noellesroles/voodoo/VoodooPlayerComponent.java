@@ -37,7 +37,8 @@ public class VoodooPlayerComponent implements AutoSyncedComponent {
     }
 
     public void writeToNbt(@NotNull NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-        tag.putUuid("target", player.getUuid());
+        if (target == null) target = player.getUuid(); // don't know why i need this null check but it crashes my devenv so whatever i guess
+        tag.putUuid("target", target);
     }
 
     public void readFromNbt(@NotNull NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {

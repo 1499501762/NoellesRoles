@@ -1,0 +1,8 @@
+{
+  "role_mine_beep": {
+    "subtitle": "subtitles.noellesroles.role_mine_beep",
+    "sounds": [
+      "noellesroles:role_mine_beep"
+    ]
+  }
+}
