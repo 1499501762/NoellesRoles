@@ -40,7 +40,7 @@
   "hud.swapper.second_player_selection": "Выберите второго игрока для обмена",
 
   "announcement.goals.noellesroles.coroner": "Получите информацию о мертвых телах.",
-  "announcement.role.noellesroles.coroner": "Детектив",
+  "announcement.role.noellesroles.coroner": "Патологоанатом",
   "announcement.win.coroner": "Пассажиры победили!",
   "hud.coroner.sanity_requirements": "Необходимо 50% рассудка, чтобы использовать эту способность",
   "hud.coroner.death_info": "Погиб %s с назад ",
@@ -115,14 +115,5 @@
   "tip.vulture": "%s/%s тел съедено.",
   "tip.selected": "Выбрано",
   "tip.recaller.not_enough_money": "100\uE781 необходимо для телепортации.",
-  "tip.noellesroles.cooldown": "способность можно использовать через %sс",
-  "hud.noellesroles.detective": "Детектив: %s/%s",
-  "tip.troll.not_enough_money": "25\uE781 required to troll.",
-  "tip.troll.trollaction": "Press %s to troll!",
-  "tip.master_key_invisible_count": "Master Keys look like lockpicks with less than %s people.",
-  "tip.master_key_invisible": "Master Keys look like lockpicks.",
-  "tip.trapper.caught": "You caught %s players in your trap. Their roles were:",
-
-  "subtitles.noellesroles.role_mine_beep": "Role Mine Beeps",
-  "hud.coroner.role_info": "Their role was "
+  "tip.noellesroles.cooldown": "способность можно использовать через %sс"
 }

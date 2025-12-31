@@ -58,11 +58,7 @@ public abstract class GuesserSuggestorMixin {
                 if (m.identifier().getPath().startsWith(textField.getText()) || textField.getText().isEmpty()) {
                     MutableText s = Text.literal(m.identifier().getPath());
                     if (!MinecraftClient.getInstance().getLanguageManager().getLanguage().startsWith("en_")) {
-                        var id = m.identifier();
-                        Text localized = "noellesroles".equals(id.getNamespace())
-                                ? Text.translatable("announcement.role." + id.getNamespace() + "." + id.getPath())
-                                : Text.translatable("announcement.role." + id.getPath());
-                        s.append(Text.literal(" (").append(localized).append(")"));
+                        s.append(Text.literal(" (").append((Harpymodloader.getRoleName(m)).append(")")));
                     }
                     messages.add(s.withColor(m.color()).asOrderedText());
                 }
