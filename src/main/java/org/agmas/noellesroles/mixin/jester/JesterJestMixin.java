@@ -19,7 +19,7 @@ public abstract class JesterJestMixin {
     private static void jesterJest(PlayerEntity victim, boolean spawnBody, PlayerEntity killer, Identifier identifier, CallbackInfo ci) {
         if (killer != null) {
             GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(victim.getWorld());
-            if (gameWorldComponent.isRole(victim, Noellesroles.JESTER) && !gameWorldComponent.isRole(killer, Noellesroles.JESTER) && gameWorldComponent.isInnocent(killer)) {
+            if (gameWorldComponent.isRole(victim, Noellesroles.JESTER) && !gameWorldComponent.isRole(killer, Noellesroles.JESTER)&& !gameWorldComponent.isRole(killer, Noellesroles.THIEF) && gameWorldComponent.isInnocent(killer)) {
                 PlayerPsychoComponent component = PlayerPsychoComponent.KEY.get(victim);
                 if (component.getPsychoTicks() <= 0) {
                     component.startPsycho();

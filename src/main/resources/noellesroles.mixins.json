@@ -4,6 +4,7 @@
   "package": "org.agmas.noellesroles.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ClearDroppedItemsMixin",
     "DoNotCollideWithFeatherMixin",
     "GiveCoinsOnMoodCompletionMixin",
     "bartender.BartenderPlayerShopComponentMixin",
@@ -28,6 +29,7 @@
     "morphling.MorphlingReseterMixin",
     "noisemaker.NoisemakerKillMixin",
     "noisemaker.NoisemakerPlayerShopComponentMixin",
+    "thief.ThiefReseterMixin",
     "trapper.TrapperPlayerShopComponentMixin",
     "voodoo.VoodooVooMixin"
   ],
