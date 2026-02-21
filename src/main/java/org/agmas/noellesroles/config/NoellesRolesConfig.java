@@ -48,6 +48,27 @@ public class NoellesRolesConfig {
     @SerialEntry(comment = "Sniper role shot ratio (20% of players)")
     public double sniperShotRatio = 0.2;
 
+        @SerialEntry(comment = "DJ role cooldown in ticks (default 60 seconds)")
+        public int djCooldownTicks = GameConstants.getInTicks(1,0); // 60s
+
+        @SerialEntry(comment = "DJ role effect range (blocks)")
+        public double djEffectRange = 16.0;
+
+        @SerialEntry(comment = "DJ healing disc health restoration per target")
+        public double djHealingAmount = 10.0;
+
+        @SerialEntry(comment = "DJ stamina restore amount per target (ticks)")
+        public int djStaminaRestoreTicks = 25;
+
+        @SerialEntry(comment = "DJ money disc income per use (not enforced by core, for integrations)")
+        public int djMoneyIncome = 100;
+
+        @SerialEntry(comment = "DJ song id list (网易云歌曲 ID 列表)")
+        public java.util.List<Long> djSongIds = java.util.Arrays.asList(210255L, 284578L);
+
+        @SerialEntry(comment = "DJ sanity (mood) restore amount per target (0..1 scale)")
+        public float djSanRestoreAmount = 0.015f;
+
     @SerialEntry(comment = "Toll role cooldown in ticks (default 30 seconds)")
     public int tollCooldownTicks = GameConstants.getInTicks(0,25); // 25s
 

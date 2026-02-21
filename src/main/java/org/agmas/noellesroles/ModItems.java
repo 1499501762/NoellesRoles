@@ -5,6 +5,7 @@ import dev.doctor4t.wathe.index.WatheItems;
 import dev.doctor4t.wathe.index.tag.WatheItemTags;
 import dev.doctor4t.wathe.item.RevolverItem;
 import net.minecraft.item.Item;
+import dev.doctor4t.wathe.item.KnifeItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -16,6 +17,7 @@ import org.agmas.noellesroles.item.RoleMineItem;
 public class ModItems {
     public static void init() {
         GameConstants.ITEM_COOLDOWNS.put(FAKE_REVOLVER, GameConstants.getInTicks(0,8));
+        GameConstants.ITEM_COOLDOWNS.put(JAMMED_REVOLVER, GameConstants.getInTicks(0,8));
         // GameConstants.ITEM_COOLDOWNS.put(SNIPER_TRACKER, NoellesRolesConfig.HANDLER.instance().sniperCooldownTicks);
     }
 
@@ -26,6 +28,10 @@ public class ModItems {
     public static final Item FAKE_REVOLVER = register(
             new RevolverItem(new Item.Settings().maxCount(1)),
             "fake_revolver"
+    );
+    public static final Item JAMMED_REVOLVER = register(
+            new RevolverItem(new Item.Settings().maxCount(1)),
+            "jammed_revolver"
     );
     public static final Item MASTER_KEY = register(
             new Item(new Item.Settings().maxCount(1)),

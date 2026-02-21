@@ -1,6 +1,15 @@
 plugins {
-    id 'fabric-loom' version '1.13-SNAPSHOT'
+    id 'fabric-loom' version '1.14.7'
     id 'maven-publish'
+}
+
+// Ensure duplicate resources from client/main are excluded during copy tasks (sourcesJar/processResources)
+tasks.withType(Copy).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.matching { it.name == 'sourcesJar' }.configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 version = project.mod_version
@@ -64,6 +73,13 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modApi files("libs/wathe-${project.wathe_version}.jar")
     modApi files("libs/harpymodloader-${project.harpymodloader_version}.jar")
+    // Local NetMusic jar placed in libs/ for compile/runtime
+    modImplementation files("libs/netmusic-1.2.1-fabric+mc1.21.1.jar")
+    // If a local Simple Voice Chat jar is provided in libs/, prefer using it at runtime.
+    // Temporarily disabled: local Simple Voice Chat jar causes mixin injection crash in dev runs.
+    // Restore this line or replace with a compatible version if voice chat is required.
+    // modImplementation files("libs/voicechat-fabric-1.21.1-2.6.11.jar")
+
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cca_version}"
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-world:${project.cca_version}"
@@ -71,9 +87,8 @@ dependencies {
     modImplementation "dev.isxander:yet-another-config-lib:${project.yacl_version}"
     modImplementation "dev.doctor4t:ratatouille:${project.ratatouille_version}"
     modImplementation "maven.modrinth:midnightlib:${project.midnightlib_version}"
-
+    
     implementation "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
-
     modRuntimeOnly "maven.modrinth:simple-voice-chat:fabric-${voicechat_version}"
     modRuntimeOnly "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}:fabric-stub"
 
@@ -119,6 +134,11 @@ jar {
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}" }
     }
+}
+
+// Allow excluding duplicate resources (client and main resource overlap like lang files)
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 // configure the maven publication

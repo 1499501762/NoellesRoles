@@ -26,7 +26,10 @@
     "recaller.RecallerHudMixin",
     "detective.DetectiveScreenMixin",
     "detective.DetectiveHudMixin",
+    "dj.DJHudMixin",
     "swapper.SwapperScreenMixin",
+    "scarecrow.ScarecrowScreenMixin",
+    "hypnotist.HypnotistScreenMixin",
     "trapper.TrapperHandMixin",
     "trapper.TrapperInvisPaperMixin",
     "trapper.TrapperShopMixin",
@@ -35,7 +38,14 @@
     "vulture.VultureHudMixin",
     "sniper.SniperScreenMixin",
     "thief.ThiefHudMixin",
-    "troll.TrollHudMixin"
+    "troll.TrollHudMixin",
+    "troll.TrollShopMixin",
+    "gambler.GamblerHudMixin",
+    "gambler.GamblerShopMixin",
+    "pickpocket.PickpocketHudMixin",
+    "pickpocket.PickpocketShopMixin",
+    "brawler.BrawlerHudMixin",
+    "brawler.BrawlerParticlesMixin"
   ],
   "injectors": {
     "defaultRequire": 1

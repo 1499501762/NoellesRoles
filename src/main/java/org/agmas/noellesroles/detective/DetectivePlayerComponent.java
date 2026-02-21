@@ -60,7 +60,8 @@ public class DetectivePlayerComponent implements AutoSyncedComponent, ServerTick
     public void reset(int playerCount) {
         GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(player.getWorld());
         // 初始化/重置身份列表：记录自身身份为已知且已被猜测
-        String selfIdentity = Text.translatable("announcement.role.noellesroles." + gameWorldComponent.getRole(player.getUuid()).identifier().getPath()).getString();
+        // store the translation key (not the translated string) so client can localize
+        String selfIdentity = "announcement.role.noellesroles." + gameWorldComponent.getRole(player.getUuid()).identifier().getPath();
         this.guessList.clear();
         this.guessList.add(new GuessInfo(this.player.getUuid(), selfIdentity, true));
         double ratio = NoellesRolesConfig.HANDLER.instance().detectiveAbilityRatio;
@@ -89,6 +90,7 @@ public class DetectivePlayerComponent implements AutoSyncedComponent, ServerTick
      * @param guessed 是否已被猜测
     */
     public void addOrUpdateGuess(UUID uuid, String identity, boolean guessed) {
+        // identity now expected to be a translation key (e.g. "announcement.role.noellesroles.xxx") or "???"
         String value = (identity == null || identity.isEmpty()) ? "???" : identity;
         for (GuessInfo info : this.guessList) {
             if (info.uuid.equals(uuid)) {

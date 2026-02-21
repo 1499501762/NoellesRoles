@@ -29,24 +29,17 @@ import java.util.UUID;
 
 public class SniperPlayerWidget extends ButtonWidget{
     public final LimitedInventoryScreen screen;
-    public final UUID targetUUID=null;
+    public final UUID targetUUID;
     public final AbstractClientPlayerEntity targetPlayerEntry;
 
 
     public SniperPlayerWidget(LimitedInventoryScreen screen, int x, int y, @NotNull AbstractClientPlayerEntity targetPlayerEntry, int index) {
         super(x, y, 16, 16, targetPlayerEntry.getName(), (a) -> {
             ClientPlayNetworking.send(new SniperC2SPacket(targetPlayerEntry.getUuid(), GameWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld()).getRole(MinecraftClient.getInstance().player).identifier()));
-            
-            //模拟枪响
-            // SniperPlayerComponent sniperComp = (SniperPlayerComponent) SniperPlayerComponent.KEY.get(MinecraftClient.getInstance().player);
-            // if (!sniperComp.targetUUID.equals(MinecraftClient.getInstance().player.getUuid()) && !sniperComp.guessedIdentity.equals(GameWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld()).getRole(MinecraftClient.getInstance().player).identifier())) {
-            //     PlayerEntity target = MinecraftClient.getInstance().player.getWorld().getPlayerByUuid(sniperComp.targetUUID);
-            //     ClientPlayNetworking.send(new GunShootPayload(target.getId()));
-            // }
         }, DEFAULT_NARRATION_SUPPLIER);
         this.screen = screen;
         this.targetPlayerEntry = targetPlayerEntry;
-        // this.targetUUID = targetPlayerEntry.getUuid();
+        this.targetUUID = targetPlayerEntry.getUuid();
     }
 
     protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {

@@ -7,6 +7,7 @@ import dev.doctor4t.wathe.api.Role;
 import dev.doctor4t.wathe.api.WatheRoles;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerShopComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
 import dev.doctor4t.wathe.client.gui.RoleAnnouncementTexts;
 import dev.doctor4t.wathe.game.GameFunctions;
 import dev.doctor4t.wathe.index.tag.WatheItemTags;
@@ -56,20 +57,36 @@ public abstract class ExecutionerGunPickupMixin extends Entity {
     @WrapMethod(method = "onPlayerCollision")
     private void executionerConfirm(PlayerEntity player, Operation<Void> original) {
         if (getStack().isIn(WatheItemTags.GUNS)) {
-            if (GameWorldComponent.KEY.get(player.getWorld()).isRole(player, Noellesroles.EXECUTIONER) && !player.equals(getOwner()) && !player.getInventory().contains((itemStack) -> itemStack.isIn(WatheItemTags.GUNS))) {
-                if (!getWorld().isClient) { // is this the best way to do it? NO! I'm just lazy and this is the only way i FOUND to do it! HAHAhAHAHAHAHAHAHAHAH
-                    ItemStack itemStack = this.getStack();
-                    Item item = itemStack.getItem();
-                    int i = itemStack.getCount();
-                    if (pickupDelay == 0 && (owner == null || owner.equals(player.getUuid())) && player.getInventory().insertStack(itemStack)) {
-                        player.sendPickup(this, i);
-                        if (itemStack.isEmpty()) {
-                            this.discard();
-                            itemStack.setCount(i);
-                        }
+            // Rules:
+            // - Executioner role may pick up guns.
+            // - Other killer roles may NOT pick up guns.
+            // - Innocent players may pick up guns only when their SAN (mood) > 0.
+            if (!player.getInventory().contains((itemStack) -> itemStack.isIn(WatheItemTags.GUNS))) {
+                GameWorldComponent gwc = GameWorldComponent.KEY.get(player.getWorld());
+                boolean isExecutioner = gwc.isRole(player, Noellesroles.EXECUTIONER);
+                boolean isKiller = !gwc.isInnocent(player);
+                // Deny if player is a killer but not the executioner
+                if (isKiller && !isExecutioner) {
+                    // no pickup
+                } else {
+                    PlayerMoodComponent mood = PlayerMoodComponent.KEY.get(player);
+                    boolean allowByMood = mood.getMood() > 0f;
+                    if (isExecutioner || allowByMood) {
+                        if (!getWorld().isClient) {
+                            ItemStack itemStack = this.getStack();
+                            Item item = itemStack.getItem();
+                            int i = itemStack.getCount();
+                            if (pickupDelay == 0 && player.getInventory().insertStack(itemStack)) {
+                                player.sendPickup(this, i);
+                                if (itemStack.isEmpty()) {
+                                    this.discard();
+                                    itemStack.setCount(i);
+                                }
 
-                        player.increaseStat(Stats.PICKED_UP.getOrCreateStat(item), i);
-                        player.triggerItemPickedUpByEntityCriteria((ItemEntity) (Object) this);
+                                player.increaseStat(Stats.PICKED_UP.getOrCreateStat(item), i);
+                                player.triggerItemPickedUpByEntityCriteria((ItemEntity) (Object) this);
+                            }
+                        }
                     }
                 }
             }

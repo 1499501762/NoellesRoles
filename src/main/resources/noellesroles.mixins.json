@@ -14,7 +14,7 @@
     "bartender.PoisonToHealsMixin",
     "coroner.CoronerAddDeathReasonMixin",
     "executioner.ExecutionerConfirmMixin",
-    "executioner.ExecutionerGunPickupMixin",
+    "item.GuardedGunPickupMixin",
     "executioner.NoTargetBackfireMixin",
     "framing.DelusionVialApplyMixin",
     "framing.DoNotApplyFakePoisonMixin",
@@ -31,7 +31,11 @@
     "noisemaker.NoisemakerPlayerShopComponentMixin",
     "thief.ThiefReseterMixin",
     "trapper.TrapperPlayerShopComponentMixin",
-    "voodoo.VoodooVooMixin"
+    "voodoo.VoodooVooMixin",
+     "pickpocket.PickpocketPlayerShopComponentMixin",
+     "gambler.GamblerPlayerShopComponentMixin",
+    "troll.TrollPlayerShopComponentMixin",
+     "gambler.JammedRevolverMixin"
   ],
   "injectors": {
     "defaultRequire": 1

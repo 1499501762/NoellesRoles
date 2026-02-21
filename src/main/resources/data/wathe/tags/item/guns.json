@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "noellesroles:fake_revolver"
+    "noellesroles:fake_revolver",
+    "noellesroles:jammed_revolver"
   ]
 }

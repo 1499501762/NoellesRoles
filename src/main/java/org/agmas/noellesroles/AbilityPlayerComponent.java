@@ -5,6 +5,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
+
+import org.agmas.noellesroles.config.NoellesRolesConfig;
 import org.jetbrains.annotations.NotNull;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
@@ -21,7 +23,7 @@ public class AbilityPlayerComponent implements AutoSyncedComponent, ServerTickin
     public int abilityStates = 0;
 
     public void reset() {
-        this.cooldown = 0;
+        this.cooldown = NoellesRolesConfig.HANDLER.instance().generalCooldownTicks;
         abilityStates = 0;
         this.sync();
     }

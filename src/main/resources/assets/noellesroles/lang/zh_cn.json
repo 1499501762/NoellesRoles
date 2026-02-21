@@ -3,9 +3,6 @@
   
   "announcement.goals.noellesroles.jester": "找到杀手并与其合作取得胜利。",
   "announcement.role.noellesroles.jester": "狂信者",
-  "key.noellesroles.ability": "技能",
-  "announcement.goals.noellesroles.jester": "找到杀手并与其合作取得胜利。",
-  "announcement.role.noellesroles.jester": "狂信者",
 
   "announcement.goals.noellesroles.thief": "偷取其他玩家的身份并以其身份获胜。",
   "announcement.role.noellesroles.thief": "小偷",
@@ -13,7 +10,6 @@
 
   "announcement.goals.noellesroles.morphling": "变成其他人的样子愚弄所有人。",
   "announcement.role.noellesroles.morphling": "变形怪",
-
 
   "announcement.goals.noellesroles.awesome_binglus": "你有超多便条，随便写吧",
   "announcement.role.noellesroles.awesome_binglus": "记者",
@@ -23,21 +19,13 @@
 
   "announcement.goals.noellesroles.the_insane_damned_paranoid_killer": "我听得到死者的声音！",
   "announcement.role.noellesroles.the_insane_damned_paranoid_killer": "亡语杀手",
-  "announcement.win.the_insane_damned_paranoid_killer": "杀手胜利！",
 
-
-  "announcement.goals.noellesroles.bartender": "透过墙壁看见喝酒和中毒的玩家！",
-  "announcement.role.noellesroles.bartender": "酒保",
   "announcement.goals.noellesroles.bartender": "透过墙壁看见喝酒和中毒的玩家！",
   "announcement.role.noellesroles.bartender": "酒保",
 
   "announcement.goals.noellesroles.phantom": "可以隐形，但要小心你还有碰撞体积。",
   "announcement.role.noellesroles.phantom": "幻灵",
-  "announcement.goals.noellesroles.phantom": "可以隐形，但要小心你还有碰撞体积。",
-  "announcement.role.noellesroles.phantom": "幻灵",
 
-  "announcement.goals.noellesroles.noisemaker": "在死亡时向所有人高亮你的位置。",
-  "announcement.role.noellesroles.noisemaker": "大嗓门",
   "announcement.goals.noellesroles.noisemaker": "在死亡时向所有人高亮你的位置。",
   "announcement.role.noellesroles.noisemaker": "大嗓门",
 
@@ -47,14 +35,11 @@
 
   "announcement.goals.noellesroles.swapper": "指定两名玩家交换位置。",
   "announcement.role.noellesroles.swapper": "交换者",
-  "announcement.goals.noellesroles.swapper": "指定两名玩家交换位置。",
-  "announcement.role.noellesroles.swapper": "交换者",
   "hud.swapper.first_player_selection": "选择第一个交换的玩家",
   "hud.swapper.second_player_selection": "选择第二个交换的玩家",
 
   "announcement.goals.noellesroles.coroner": "从尸体上获取信息。",
   "announcement.role.noellesroles.coroner": "验尸官",
-  "announcement.win.coroner": "乘客胜利！",
   "hud.coroner.sanity_requirements": "验尸需保持一半的理智值",
   "hud.coroner.death_info": "死于 %s 秒前，死因是",
   "hud.coroner.role_info": "其身份为 ",
@@ -63,39 +48,27 @@
   "announcement.role.noellesroles.executioner": "仇杀客",
   "hud.executioner.target": "仇杀目标 %s",
 
-  "announcement.goals.noellesroles.trapper": "检查其他玩家的身份。",
-  "announcement.role.noellesroles.trapper": "检查官",
   "announcement.goals.noellesroles.trapper": "使用身份地雷获取其他乘客的身份。",
   "announcement.role.noellesroles.trapper": "陷阱师",
 
-  "announcement.goals.noellesroles.recaller": "传送到列车上的指定位置！",
-  "announcement.role.noellesroles.recaller": "回溯者",
   "announcement.goals.noellesroles.recaller": "传送至你在列车上保存的位置！",
   "announcement.role.noellesroles.recaller": "回溯者",
 
-  "announcement.goals.noellesroles.guesser": "猜测平民的角色以将其瞬间击杀。",
-  "announcement.role.noellesroles.guesser": "猜测者",
   "announcement.goals.noellesroles.guesser": "猜中平民的身份以将其瞬间击杀。",
   "announcement.role.noellesroles.guesser": "猜测者",
 
-  "announcement.goals.noellesroles.mimic": "在其他杀手眼中，你看起来像杀手同伙。但你是平民。",
-  "announcement.role.noellesroles.mimic": "模仿者",
   "announcement.goals.noellesroles.mimic": "杀手会误以为你是同伙，但你所属平民阵营。",
   "announcement.role.noellesroles.mimic": "模仿者",
 
   "announcement.goals.noellesroles.better_vigilante": "呃——————",
   "announcement.role.noellesroles.better_vigilante": "更好的义警",
 
-  "announcement.modifier.empty_modifier": "无",
   "announcement.modifier.noellesroles.tiny": "矮子",
   "announcement.modifier.noellesroles.chameleon": "变色龙",
   "announcement.modifier.noellesroles.guesser": "猜测者",
   "announcement.modifier.noellesroles.graverobber": "盗墓贼",
   "announcement.modifier.noellesroles.feather": "轻灵",
 
-
-  "announcement.goals.noellesroles.better_vigilante": "呃——————",
-  "announcement.role.noellesroles.better_vigilante": "更好的义警",
   "announcement.goals.noellesroles.vulture": "吃掉足够的尸体后变成杀手！",
   "announcement.role.noellesroles.vulture": "秃鹫",
   "hud.vulture.eat": "按下 %s 键来啃食尸体！",
@@ -116,7 +89,6 @@
   "item.noellesroles.master_key": "万能钥匙",
   "item.noellesroles.fake_knife": "仿真匕首",
   "item.noellesroles.defense_vial": "去毒试剂",
-  "item.noellesroles.trapper_report": "陷阱通报",
   "item.noellesroles.defense_vial.tooltip": "右键点击食物/饮品托盘以使用\n清除托盘上已施加的毒药\n让食用的玩家可以额外承受一次伤害。",
   "item.noellesroles.delusion_vial": "幻觉试剂",
   "item.noellesroles.delusion_vial.tooltip": "右键点击食物/饮品托盘以使用\n使误食的玩家获得假中毒\n误以为自己中毒，但不会造成任何实际后果。",
@@ -148,9 +120,59 @@
   "hud.noellesroles.detective": "侦探：%s/%s",
   "tip.troll.not_enough_money": "连 25\uE781都没有还想在这串",
   "tip.troll.trollaction": "按下 %s 键来开串",
-
-  "subtitles.noellesroles.role_mine_beep": "身份地雷提示音"
+  "announcement.modifier.noellesroles.brawler": "壮汉",
+  "announcement.modifier_description.noellesroles.brawler": "可以向前冲刺并肘击撞到的玩家，使其眩晕。",
+  "hud.brawler.ready": "按 %s 冲刺！",
+  "hud.brawler.charging": "冲刺中... (%.1fs)",
+  "hud.brawler.cooldown": "冷却中：%s 秒",
+  "subtitles.noellesroles.role_mine_beep": "身份地雷提示音",
+  "subtitles.noellesroles.brawler_ability": "壮汉冲刺",
+  "subtitles.noellesroles.brawler_hit": "壮汉命中",
+  "announcement.role.noellesroles.gambler": "赌徒",
+  "announcement.goals.noellesroles.gambler": "通过赌博改变你的余额；生存并帮助你的阵营获胜。",
+  "announcement.role.noellesroles.pickpocket": "窃贼",
+  "announcement.goals.noellesroles.pickpocket": "在不被发现的情况下从其他玩家处窃取金币。",
+  "message.gambler.win": "赢了！余额：%s",
+  "message.gambler.lose": "输了！余额：%s",
+  "item.noellesroles.jammed_revolver": "卡壳左轮手枪",
+  "hud.pickpocket.cooldown": "窃贼 冷却：%s 秒",
+  "hud.pickpocket.ready": "窃贼 已就绪（%s）",
+  "message.pickpocket.success": "你成功窃取了 %d 金币！",
+  "message.pickpocket.victim": "你被窃取了，余额减少至 %d 金币。",
+  "subtitles.noellesroles.pickpocket_success": "窃贼：窃取成功",
+  "subtitles.noellesroles.pickpocket_fail": "窃贼：窃取失败",
+  "message.pickpocket.fail": "窃取失败：目标正在盯着你！",
+  "message.pickpocket.victim_noticed": "你注意到有人试图窃取你。",
+  "hud.gambler.cooldown": "赌博技能将在 %s 秒后可用",
+  "hud.gambler.ready": "按 %s 发起赌博！",
+  "hud.gambler.loss_streak": "连输次数：%s",
+  "announcement.role.noellesroles.scarecrow": "稻草人",
+  "announcement.goals.noellesroles.scarecrow": "选择一名玩家，清空其理智并令其短时陷入黑暗与惊惧。",
+  "message.scarecrow.notice": "你突然感觉到一阵心悸，有什么东西盯上你了",
+  "hud.scarecrow.player_selection": "选择目标玩家",
+  "announcement.role.noellesroles.hypnotist": "催眠师",
+  "announcement.goals.noellesroles.hypnotist": "对一名理智低于一半的玩家施放催眠：若 30 秒内理智仍低于一半，该玩家将随机变为杀手。技能每局可用次数为当前玩家数的20%。",
+  "message.hypnotist.notice": "你感到一股令人舒适的罪恶爬上了心头，什么东西悄然改变了？",
+  "hud.hypnotist.player_selection": "选择要催眠的玩家",
+  "hud.hypnotist.uses_remaining": "剩余催眠次数：%s/%s",
+  "hud.hypnotist.no_uses": "催眠次数已用尽",
+  "message.dj.fail.no_songs": "未配置 DJ 歌单。",
+  "message.dj.started": "你放起了治疗唱片——附近的乘客感到精神焕发。",
+  "tip.dj.play": "按 %s 放一张治疗唱片（花费 %s ）",
+  "tip.dj.not_enough_money": "你没有足够的金币来播放唱片。",
+  "message.dj.not_enough_money": "你需要 100 金币来播放唱片。",
+  "announcement.role.noellesroles.dj": "DJ",
+  "announcement.goals.noellesroles.dj": "播放音乐，恢复附近乘客的体力与理智。",
+  "message.hypnotist.fail.not_zero": "目标的理智值未低于一半，无法催眠。",
+  "message.hypnotist.fail.already_used": "你本局的催眠次数已用尽。",
+  "message.hypnotist.fail.recovered": "催眠失败——目标已恢复理智。",
+  "message.hypnotist.success": "你成功催眠了 %s。",
+  "message.hypnotist.announcement": "是世界疯了，还是TA疯了？一名角色成为了新的杀手！",
+  "announcement.modifier.noellesroles.dumb": "哑巴",
+  "announcement.modifier_description.noellesroles.dumb": "无法通过语音聊天说话。",
+  "message.noellesroles.voice.muted_blocked": "§c你已被禁言，无法使用语音聊天",
+  "message.noellesroles.voice.muted": "§c你已被禁言：%s",
+  "message.noellesroles.voice.unmuted": "§a你的语音已恢复",
+  "message.noellesroles.voice.deafened": "§c你已被禁止收听：%s",
+  "message.noellesroles.voice.undeafened": "§a已恢复收听"
 }
-
-
-

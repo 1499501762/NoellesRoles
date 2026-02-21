@@ -4,5 +4,31 @@
     "sounds": [
       "noellesroles:role_mine_beep"
     ]
+  },
+  "brawler_ability": {
+    "subtitle": "subtitles.noellesroles.brawler_ability",
+    "sounds": [
+      "noellesroles:brawler_ability"
+    ]
+  }
+  ,
+  "pickpocket_success": {
+    "subtitle": "subtitles.noellesroles.pickpocket_success",
+    "sounds": [
+      "noellesroles:pickpocket_success"
+    ]
+  },
+  "pickpocket_fail": {
+    "subtitle": "subtitles.noellesroles.pickpocket_fail",
+    "sounds": [
+      "noellesroles:pickpocket_fail"
+    ]
+  }
+  ,
+  "brawler_hit": {
+    "subtitle": "subtitles.noellesroles.brawler_hit",
+    "sounds": [
+      "noellesroles:brawler_hit"
+    ]
   }
 }

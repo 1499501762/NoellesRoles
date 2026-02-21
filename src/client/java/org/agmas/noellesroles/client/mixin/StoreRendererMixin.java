@@ -8,6 +8,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import org.agmas.noellesroles.Noellesroles;
+import org.agmas.noellesroles.registry.RoleModifierRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,16 +22,11 @@ public abstract class StoreRendererMixin {
 
     @Shadow public static float offsetDelta;
 
-    @Inject(method = "renderHud", at = @At("HEAD"))
+    @Inject(method = "renderHud", at = @At("HEAD"), cancellable = true)
     private static void renderCoinsForCustomRoles(TextRenderer renderer,ClientPlayerEntity player, DrawContext context, float delta, CallbackInfo ci) {
-        if (((GameWorldComponent)GameWorldComponent.KEY.get(player.getWorld())).isRole(player.getUuid(), Noellesroles.BARTENDER)
-        || ((GameWorldComponent)GameWorldComponent.KEY.get(player.getWorld())).isRole(player.getUuid(), Noellesroles.RECALLER)
-        || ((GameWorldComponent)GameWorldComponent.KEY.get(player.getWorld())).isRole(player.getUuid(), Noellesroles.TROLL)
-        || ((GameWorldComponent)GameWorldComponent.KEY.get(player.getWorld())).isRole(player.getUuid(), Noellesroles.EXECUTIONER)
-        || ((GameWorldComponent)GameWorldComponent.KEY.get(player.getWorld())).isRole(player.getUuid(), Noellesroles.JESTER)
-        || ((GameWorldComponent)GameWorldComponent.KEY.get(player.getWorld())).isRole(player.getUuid(), Noellesroles.NOISEMAKER)
-        || ((GameWorldComponent)GameWorldComponent.KEY.get(player.getWorld())).isRole(player,Noellesroles.MIMIC)
-        || ((GameWorldComponent)GameWorldComponent.KEY.get(player.getWorld())).isRole(player,Noellesroles.TRAPPER)) {
+        GameWorldComponent gw = (GameWorldComponent)GameWorldComponent.KEY.get(player.getWorld());
+        var role = gw.getRole(player.getUuid());
+        if (role != null && RoleModifierRegistry.hasShop(role.identifier())) {
             int balance = ((PlayerShopComponent)PlayerShopComponent.KEY.get(player)).balance;
             if (view.getTarget() != (float)balance) {
                 offsetDelta = (float)balance > view.getTarget() ? 0.6F : -0.6F;
@@ -46,6 +42,8 @@ public abstract class StoreRendererMixin {
             view.render(renderer, context, 0, 0, colour, delta);
             context.getMatrices().pop();
             offsetDelta = MathHelper.lerp(delta / 16.0F, offsetDelta, 0.0F);
+            // 自定义商店已渲染，取消原版商店HUD渲染
+            ci.cancel();
         }
     }
 }

@@ -29,8 +29,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.awt.*;
+import java.util.UUID;
 
-@Mixin(WatheClient.class)
+@Mixin(value = WatheClient.class, priority = 100000)
 public abstract class InstinctMixin {
 
 

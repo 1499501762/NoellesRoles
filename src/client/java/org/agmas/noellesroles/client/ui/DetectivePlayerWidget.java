@@ -58,9 +58,14 @@ public class DetectivePlayerWidget extends ButtonWidget {
             DetectivePlayerComponent comp = DetectivePlayerComponent.KEY.get(MinecraftClient.getInstance().player);
             String identityRaw = comp != null ? comp.getIdentityByUUID(targetPlayerEntry.getUuid()) : "???";
 
-            Text identityText = Text.literal(identityRaw);
+            Text identityText;
+            if ("???".equals(identityRaw)) {
+                identityText = Text.literal("???");
+            } else {
+                // identityRaw is a translation key (e.g. announcement.role.noellesroles.some_role)
+                identityText = Text.translatable(identityRaw);
+            }
 
-            // int color = "???".equals(identityRaw) ? new Color(180, 180, 180).getRGB() : new Color(140, 220, 120).getRGB();
             context.drawTooltip(tr, identityText,
                 this.getX() - 4 - tr.getWidth(identityText) / 2,
                 this.getY() -8);

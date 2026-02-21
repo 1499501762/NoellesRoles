@@ -42,7 +42,13 @@
       "noellesroles:sniper",
       "noellesroles:detective",
       "noellesroles:thief",
-      "noellesroles:troll"
+      "noellesroles:hypnotist",
+      "noellesroles:dj",
+      "noellesroles:troll",
+      "noellesroles:brawler",
+      "noellesroles:pickpocket",
+      "noellesroles:dumb",
+      "noellesroles:gambler"
     ]
   },
   "mixins": [
