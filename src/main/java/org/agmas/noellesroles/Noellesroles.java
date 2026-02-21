@@ -5,10 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import dev.doctor4t.wathe.Wathe;
 import dev.doctor4t.wathe.api.Role;
 import dev.doctor4t.wathe.api.WatheRoles;
-import dev.doctor4t.wathe.cca.GameWorldComponent;
-import dev.doctor4t.wathe.cca.PlayerMoodComponent;
-import dev.doctor4t.wathe.cca.PlayerPsychoComponent;
-import dev.doctor4t.wathe.cca.PlayerShopComponent;
+import dev.doctor4t.wathe.cca.*;
 import dev.doctor4t.wathe.client.gui.RoleAnnouncementTexts;
 import dev.doctor4t.wathe.client.util.WatheItemTooltips;
 import dev.doctor4t.wathe.entity.PlayerBodyEntity;
@@ -966,6 +963,7 @@ public class Noellesroles implements ModInitializer {
                             gameWorldComponent.addRole(context.player(),shuffledKillerRoles.getFirst());
                             ModdedRoleAssigned.EVENT.invoker().assignModdedRole(context.player(),shuffledKillerRoles.getFirst());
                             playerShopComponent.setBalance(100);
+                            PlayerPoisonComponent.KEY.get(context.player()).reset();
                             if (Harpymodloader.VANNILA_ROLES.contains(gameWorldComponent.getRole(context.player()))) {
                                 ServerPlayNetworking.send((ServerPlayerEntity) context.player(), new AnnounceWelcomePayload(RoleAnnouncementTexts.ROLE_ANNOUNCEMENT_TEXTS.indexOf(WatheRoles.KILLER), gameWorldComponent.getAllKillerTeamPlayers().size(), 0));
                             } else {

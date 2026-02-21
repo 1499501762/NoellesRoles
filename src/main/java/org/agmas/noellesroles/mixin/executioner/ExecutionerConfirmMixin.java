@@ -3,6 +3,7 @@ package org.agmas.noellesroles.mixin.executioner;
 import dev.doctor4t.wathe.api.Role;
 import dev.doctor4t.wathe.api.WatheRoles;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerPoisonComponent;
 import dev.doctor4t.wathe.cca.PlayerShopComponent;
 import dev.doctor4t.wathe.client.gui.RoleAnnouncementTexts;
 import dev.doctor4t.wathe.game.GameFunctions;
@@ -51,6 +52,7 @@ public class ExecutionerConfirmMixin {
                 gameWorldComponent.addRole(executioner,shuffledKillerRoles.getFirst());
                 ModdedRoleAssigned.EVENT.invoker().assignModdedRole(executioner,shuffledKillerRoles.getFirst());
                 playerShopComponent.setBalance(200);
+                PlayerPoisonComponent.KEY.get(executioner).reset();
                 if (Harpymodloader.VANNILA_ROLES.contains(gameWorldComponent.getRole(executioner))) {
                     ServerPlayNetworking.send((ServerPlayerEntity) executioner, new AnnounceWelcomePayload(RoleAnnouncementTexts.ROLE_ANNOUNCEMENT_TEXTS.indexOf(WatheRoles.KILLER), gameWorldComponent.getAllKillerTeamPlayers().size(), 0));
                 } else {

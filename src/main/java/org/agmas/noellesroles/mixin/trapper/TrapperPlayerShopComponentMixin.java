@@ -10,6 +10,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import org.agmas.noellesroles.ConfigWorldComponent;
 import org.agmas.noellesroles.ModItems;
 import org.agmas.noellesroles.Noellesroles;
 import org.spongepowered.asm.mixin.Final;
@@ -32,8 +33,8 @@ public abstract class TrapperPlayerShopComponentMixin {
         GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(player.getWorld());
         if (gameWorldComponent.isRole(player,Noellesroles.TRAPPER)) {
             if (index == 0) {
-                if (balance >= 100) {
-                    this.balance -= 100;
+                if (balance >= ConfigWorldComponent.KEY.get(player.getWorld()).roleMinePrice) {
+                    this.balance -= ConfigWorldComponent.KEY.get(player.getWorld()).roleMinePrice;
                     sync();
                     player.giveItemStack(ModItems.ROLE_MINE.getDefaultStack());
                     PlayerEntity var6 = this.player;

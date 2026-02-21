@@ -75,4 +75,14 @@ public class NoellesRolesConfig {
     @SerialEntry(comment = "Detective role ability ratio (20% of players)")
     public double detectiveAbilityRatio = 0.2;
 
+
+
+    @SerialEntry(comment = "How many defense vials can be bought by one bartender in a round. (0 = no limit)")
+    public int maximumDefenseVials = 0;
+
+    @SerialEntry(comment = "Price of the Bartender's Defense Vial.")
+    public int defenseVialPrice = 100;
+
+    @SerialEntry(comment = "Price of the Trapper's Role Mine.")
+    public int roleMinePrice = 100;
 }

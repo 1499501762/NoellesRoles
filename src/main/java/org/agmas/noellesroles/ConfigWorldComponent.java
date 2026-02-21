@@ -24,6 +24,11 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
     public boolean naturalVoodoosAllowed = false;
     public int masterKeyVisibleCount = 0;
     public boolean masterKeyIsVisible = false;
+
+
+    public int defenseVialPrice = 100;
+    public int maximumDefenseVials = 0;
+    public int roleMinePrice = 100;
     private final World world;
 
     public void reset() {
@@ -42,10 +47,18 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
         insaneSeesMorphs = NoellesRolesConfig.HANDLER.instance().insanePlayersSeeMorphs;
         naturalVoodoosAllowed = NoellesRolesConfig.HANDLER.instance().voodooNonKillerDeaths;
         masterKeyVisibleCount = NoellesRolesConfig.HANDLER.instance().playerCountToMakeConducterKeyVisible;
+        defenseVialPrice = NoellesRolesConfig.HANDLER.instance().defenseVialPrice;
+        roleMinePrice = NoellesRolesConfig.HANDLER.instance().roleMinePrice;
+        maximumDefenseVials = NoellesRolesConfig.HANDLER.instance().maximumDefenseVials;
+
         tag.putBoolean("insaneSeesMorphs", this.insaneSeesMorphs);
         tag.putBoolean("naturalVoodoosAllowed", this.naturalVoodoosAllowed);
         tag.putBoolean("masterKeyIsVisible", this.masterKeyIsVisible);
         tag.putInt("masterKeyVisibleCount", this.masterKeyVisibleCount);
+
+        tag.putInt("defenseVialPrice", this.defenseVialPrice);
+        tag.putInt("roleMinePrice", this.roleMinePrice);
+        tag.putInt("maximumDefenseVials", this.maximumDefenseVials);
     }
 
 
@@ -55,6 +68,10 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
         if (tag.contains("naturalVoodoosAllowed"))   this.naturalVoodoosAllowed = tag.getBoolean("naturalVoodoosAllowed");
         if (tag.contains("masterKeyIsVisible"))   this.masterKeyIsVisible = tag.getBoolean("masterKeyIsVisible");
         if (tag.contains("masterKeyVisibleCount"))   this.masterKeyVisibleCount = tag.getInt("masterKeyVisibleCount");
+
+        if (tag.contains("defenseVialPrice"))   this.defenseVialPrice = tag.getInt("defenseVialPrice");
+        if (tag.contains("roleMinePrice"))   this.roleMinePrice = tag.getInt("roleMinePrice");
+        if (tag.contains("maximumDefenseVials"))   this.maximumDefenseVials = tag.getInt("maximumDefenseVials");
     }
 
     @Override

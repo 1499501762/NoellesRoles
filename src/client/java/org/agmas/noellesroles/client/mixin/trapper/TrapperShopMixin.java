@@ -8,6 +8,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.text.Text;
+import org.agmas.noellesroles.ConfigWorldComponent;
 import org.agmas.noellesroles.ModItems;
 import org.agmas.noellesroles.Noellesroles;
 import org.spongepowered.asm.mixin.Final;
@@ -35,7 +36,7 @@ public abstract class TrapperShopMixin extends LimitedHandledScreen<PlayerScreen
         GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(player.getWorld());
         if (gameWorldComponent.isRole(player,Noellesroles.TRAPPER)) {
             List<ShopEntry> entries = new ArrayList<>();
-            entries.add(new ShopEntry(ModItems.ROLE_MINE.getDefaultStack(), 100, ShopEntry.Type.POISON));
+            entries.add(new ShopEntry(ModItems.ROLE_MINE.getDefaultStack(), ConfigWorldComponent.KEY.get(player.getWorld()).roleMinePrice, ShopEntry.Type.POISON));
             int apart = 36;
             int x = width / 2 - (entries.size()) * apart / 2 + 9;
             int shouldBeY = (((LimitedInventoryScreen)(Object)this).height - 32) / 2;

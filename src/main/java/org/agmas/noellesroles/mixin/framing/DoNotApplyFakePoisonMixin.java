@@ -24,12 +24,21 @@ public abstract class DoNotApplyFakePoisonMixin {
 
     @Shadow public abstract void reset();
 
+    @Shadow public UUID poisoner;
+
     @Inject(method = "serverTick", at = @At("HEAD"), cancellable = true)
     private void defenseVialApply(CallbackInfo ci) {
         GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(player.getWorld());
-        if (!gameWorldComponent.canUseKillerFeatures(player)) {
-            if (gameWorldComponent.getRole(player) == null) return;
-            if (gameWorldComponent.getRole(player).identifier().getNamespace().equals(Noellesroles.MOD_ID)) { // Don't interfere with any custom non-killer poisoning roles from other mods
+        if (poisoner == null) return;
+        PlayerEntity poisonerPlayer = player.getWorld().getPlayerByUuid(poisoner);
+        if (poisonerPlayer == null) return;
+        if (!gameWorldComponent.canUseKillerFeatures(poisonerPlayer)) {
+            if (gameWorldComponent.getRole(poisonerPlayer) == null) {
+                reset();
+                ci.cancel();
+                return;
+            }
+            if (gameWorldComponent.getRole(poisonerPlayer).identifier().getNamespace().equals(Noellesroles.MOD_ID)) { // Don't interfere with any custom non-killer poisoning roles from other mods
                 if (poisonTicks <= 5) {
                     reset();
                     ci.cancel();
